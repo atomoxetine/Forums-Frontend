@@ -1,3 +1,4 @@
+import './styles.css'
 import Image from "next/image";
 import HashLink from "@/components/HashLink";
 import { FaCloud, FaDiscord, FaTelegram, FaTwitter } from "react-icons/fa6";

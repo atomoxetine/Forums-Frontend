@@ -1,3 +1,4 @@
+import './styles.css'
 import NavLinks, { UserNav } from "./NavLinks";
 import ThemeToggle from "@/components/ThemeToggle";
 import { MobileNavToggle } from "@/components/MobileNavbar/component";
