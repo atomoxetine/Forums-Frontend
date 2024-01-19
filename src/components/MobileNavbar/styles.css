@@ -2,18 +2,14 @@
   @apply backdrop-filter backdrop-brightness-[.75];
   background-color: transparent;
 }
-.drawer-side .navlink h6 {
-  font-size: inherit;
-  line-height: inherit;
-}
+@media (max-width: 865px) {
+  .drawer-side {
+    display: grid;
+  }
+} 
 .drawer-side .navlink svg {
   width: 20px;
   height: 20px;
-}
-.drawer-side .navlink.active::after {
-  bottom: -2px;
-  left: 0px;
-  transform: translateX(200%);
 }
 .sidebar-filter {
   opacity: 60%;

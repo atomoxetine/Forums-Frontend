@@ -1,23 +1,27 @@
-'use client';
-import NavLinks from "./NavLinks";
-import Logo from "@/components/Logo";
+import NavLinks, { UserNav } from "./NavLinks";
 import ThemeToggle from "@/components/ThemeToggle";
 import { MobileNavToggle } from "@/components/MobileNavbar/component";
+import ShrinkableSearch from "@/components/ShrinkableSearch/component";
+import UserDropdown from "./UserDropdown"
 
 const Header = () => {
-
   return (
-    <header className="flex items-center justify-center w-full px-4 lg:px-24 bg-base-200 border-b-2 border-base-300">
-      <div className={"flex items-center justify-between w-full max-w-[1337px]"}>
-        <div className="flex flex-row items-center">
-          <MobileNavToggle />
+    <header>
+      <div className="header-content uppercase text-accent-content flex items-center justify-between h-full w-full max-w-screen-xl mx-auto px-2 sm:px-8 gap-2 sm:gap-6">
+        <MobileNavToggle />
 
-          <Logo className="ml-4 md:ml-0" href={'/'} />
+        <div className="flex flex-row items-center gap-8">
+          <NavLinks />
         </div>
 
-        <NavLinks />
+        <div className="flex flex-row items-center sm:gap-2">
+          <ShrinkableSearch />
 
-        <ThemeToggle className="themeToggle" />
+          <UserDropdown className="bottom-[-75px]"/>
+          <UserNav />
+
+          <ThemeToggle className="theme-toggle ml-2" />
+        </div>
       </div>
     </header>
   );

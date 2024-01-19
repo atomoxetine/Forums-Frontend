@@ -1,0 +1,22 @@
+.navlink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.navlink h6 {
+  position: relative;
+}
+.navlink.active h6::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0%;
+  width: 15px;
+  height: 2px;
+  background-color: currentColor;
+}
+.navlink svg {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}

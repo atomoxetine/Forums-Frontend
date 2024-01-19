@@ -1,0 +1,16 @@
+.shrinkable-search {
+  min-width: 135px;
+}
+.shrinkable-search .form-control {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+
+  transition: flex 0.5s ease-in-out;
+  flex-basis: 0;
+
+  min-width: 0;
+}
+.shrinkable-search #searchToggle:checked ~ div.form-control {
+  flex-basis: 280px;
+}

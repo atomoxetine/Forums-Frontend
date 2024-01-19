@@ -7,11 +7,11 @@ const ThemeToggle = (props: { className?: string }) => {
   const isDark = theme !== 'light';
 
   return (
-    <div className={`flex flex-row max-w-fit max-h-fit gap-x-4 bg-base-100 border-2 px-3 py-2
-      ${isDark ? 'rounded-tr-2xl rounded-bl-2xl border-black' : 'rounded-tl-2xl rounded-br-2xl border-white'}
+    <div className={`flex flex-row max-w-fit max-h-fit gap-x-3 bg-base-100 border-2 px-2 py-1 rounded-2xl
+      ${isDark ? 'border-black' : 'border-white'}
       ${props.className || ''}`}>
-        <LightIcon className={isDark ? '' : "text-warning"} onClick={isDark ? () => setTheme('light') : undefined}/>
         <DarkIcon className={isDark ? "text-neutral" : ''} onClick={isDark ? undefined : () => setTheme('dark')}/>
+        <LightIcon className={isDark ? '' : "text-warning"} onClick={isDark ? () => setTheme('light') : undefined}/>
     </div>
   );
 }
@@ -20,7 +20,7 @@ const LightIcon = (props: { onClick?: MouseEventHandler<SVGSVGElement>; classNam
   <svg
     onClick={props.onClick}
     xmlns="http://www.w3.org/2000/svg"
-    className={`h-6 w-6 ` + (props.className || '')}
+    className={`h-5 w-5 ` + (props.className || '')}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -38,7 +38,7 @@ const DarkIcon = (props: { onClick?: MouseEventHandler<SVGSVGElement>; className
   <svg
     onClick={props.onClick}
     xmlns="http://www.w3.org/2000/svg"
-    className={`h-6 w-6 ` + (props.className || '')}
+    className={`h-5 w-5 ` + (props.className || '')}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"

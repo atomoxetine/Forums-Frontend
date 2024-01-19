@@ -74,22 +74,13 @@ small.smaller {
   font-size: 0.675rem;
   line-height: 0.844rem;
 }
-
-a {
-  @apply hover:text-neutral;
-  text-decoration: none;
-}
 .btn {
   font-size: inherit;
   line-height: inherit;
 }
-
-.logo-overrides {
-  font-size: 2.061rem;
-  line-height: 2.576rem;
-}
-.logo-overrides .cloud-filter {
-  filter: saturate(200%) hue-rotate(19deg) brightness(93%);
+a {
+  @apply hover:text-base-content;
+  text-decoration: none;
 }
 
 .bg-full {

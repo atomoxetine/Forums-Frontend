@@ -26,6 +26,7 @@ const config: Config = {
     themes: [
       {
         // https://color.adobe.com/create/color-wheel
+        // https://pinetools.com/invert-color
         dark: {
           "color-scheme": "dark",
           "primary": "#FF69B4", // Base color
@@ -36,6 +37,8 @@ const config: Config = {
           "success": "#69ff69", // Primary rotated (green 120deg)
           "warning": "#ffcd69", // Primary rotated (orange 40deg)
           "error": "#ff6969", // Primary rotated (red 0deg)
+          "accent-content": "#796b80", // Neutral 50% brightness 16% saturation
+          "neutral-content": "#544b59", // Neutral 35% brightness 16% saturation
           "base-100": "#120917", // Neutral 9% brightness
           "base-200": "#0c060f", // Neutral 6% brightness
           "base-300": "#060308", // Neutral 3% brightness
@@ -50,6 +53,8 @@ const config: Config = {
           "success": "#69ff69",
           "warning": "#ffba30",
           "error": "#ff6969",
+          "accent-content": "#8d7f94", // Inverse of dark accent-content hued back to neutral
+          "neutral-content": "#8d7f94", // Inverse of dark neutral-content hued back to neutral
           "base-100": "#fbf7fc", // Inverse of dark base-300 hued back to neutral
           "base-200": "#f6f0fa", // Inverse of dark base-200 hued back to neutral
           "base-300": "#f0e6f5", // Inverse of dark base-100 hued back to neutral

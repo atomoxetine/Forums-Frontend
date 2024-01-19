@@ -1,45 +1,39 @@
+import Image from "next/image";
 import HashLink from "@/components/HashLink";
-import Logo from "@/components/Logo";
-import { FaHeart } from "react-icons/fa6";
+import { FaCloud, FaDiscord, FaTelegram, FaTwitter } from "react-icons/fa6";
 
 const Footer = () => (
-  <footer className="w-full flex flex-col bg-base-200 border-t-2 border-base-300">
-    <div className="flex flex-row flex-wrap justify-center w-full gap-12 md:gap-x-16 lg:gap-x-28 xl:gap-x-40 2xl:gap-52 p-12">
-      <div className="flex flex-col justify-center items-center"><Logo href={'/'} /></div>
-
-      <nav className="flex flex-row flex-wrap justify-between gap-12 md:gap-16 lg:gap-28 xl:gap-40 2xl:gap-52">
-        <div className="links flex flex-col">
-          <h6><b>Company</b></h6>
-          <HashLink href="/about">About us</HashLink>
-          <HashLink href="/contact">Contact</HashLink>
-          <HashLink href="/talent">Careers</HashLink>
-          <HashLink href="/press">Press Kit</HashLink>
+  <footer className="w-full bg-base-200 border-t-2 border-base-300">
+    <div className="w-full mx-auto flex flex-wrap items-center justify-between max-w-screen-xl gap-6 py-4 md:px-12">
+      <div className="relative inline-flex flex-wrap justify-center items-center gap-4">
+        <Image className="w-20 mx-[-10px]" width={160} height={160} src="/img/logo_simple.png" alt="MCCade" />
+        <div className="flex flex-col flex-wrap w-fit items-start gap-1">
+          <span>
+            &copy; Copyright {`${new Date().getFullYear()}`}
+            , <span className="inline-flex items-center text-pink-500">
+              PinkCl<FaCloud className="mt-0.5"/>ud
+            </span> Studios.
+          </span>
+          <small className="text-neutral-content">Not affiliated with Mojang Studios.</small>
         </div>
+      </div>
 
-        <div className="links flex flex-col">
-          <h6><b>Legal</b></h6>
+      <div className="hidden divisor"></div>
+
+      <nav className="links uppercase whitespace-nowrap text-accent-content flex flex-row flex-wrap justify-start gap-6 md:gap-10">
+          <HashLink href="/status">Status</HashLink>
+          <HashLink href="/staff">Staff</HashLink>
+          <HashLink href="/rules">Rules</HashLink>
           <HashLink href="/terms">Terms of Service</HashLink>
           <HashLink href="/privacy">Privacy Policy</HashLink>
-          <HashLink href="/cookies">Cookie Policy</HashLink>
-          <HashLink href="/taxes">Tax Policy</HashLink>
-        </div>
-
-        <div className="links flex flex-col">
-          <h6><b>Services</b></h6>
-          <HashLink href="/services">All Services</HashLink>
-          <HashLink href="https://uptime.pinkcloud.studio">Service Status</HashLink>
-          <HashLink href="https://billing.pinkcloud.studio">Billing</HashLink>
-        </div>
+          <HashLink href="/faq">FAQ</HashLink>
       </nav>
-    </div>
 
-    <div className="flex flex-col w-full px-4 py-3 items-start bg-base-300 gap-2">
-      <small>
-        Made <span className="inline-flex items-end">
-        with <FaHeart className="text-neutral mx-1 mb-0.5"/> by
-        </span> Elaina.
-        &copy; Copyright {`${new Date().getFullYear()}`}, PinkCloud Studios.
-      </small>
+      <nav className="links uppercase whitespace-nowrap text-accent-content flex flex-row flex-wrap justify-start gap-6">
+          <HashLink href="/status"><FaTwitter className="w-6 h-6"/></HashLink>
+          <HashLink href="/staff"><FaTelegram className="w-6 h-6"/></HashLink>
+          <HashLink href="/rules"><FaDiscord className="w-6 h-6"/></HashLink>
+      </nav>
     </div>
   </footer>
 );

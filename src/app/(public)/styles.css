@@ -4,77 +4,73 @@ section {
   width: 100%
 }
 
-.text-rainbow {
-  background: linear-gradient(
-    90deg,
-    oklch(var(--p)) 0%,
-    oklch(var(--n)) 50%,
-    oklch(var(--s)) 100%
-  );
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-  text-shadow: none;
-}
-
-/*#region Navlinks*/
-.navlink {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-}
-.navlink.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0%;
-  transform: translateX(175%);
-  width: 15px;
-  height: 2px;
-  background-color: var(--fallback-bc,oklch(var(--bc)/1));
-}
-.navlink svg {
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-}
-/*#endregion*/
-
 /*#region Header*/
+header::before {
+	content: '';
+	position: absolute;
+	inset: 0 0 auto 0;
+	background: linear-gradient(to bottom, oklch(var(--nc)/.5) 0%, transparent 112%);
+	height: 100%;
+	z-index: -1;
+  backdrop-filter: blur(2px) brightness(75%);
+}
 header {
   height: 65px;
+  width: 100%;
   transition: top 0.2s ease-in-out;
   position: fixed;
   z-index: 2;
   inset: 0;
 }
-header.header-up {
-  top: -65px !important;
+.header-content .dropdown-custom {
+  @apply dropdown-end;
+  display: none;
 }
-@media (max-width: 410px) {
-  header .themeToggle {
+.header-content .mobile-nav-toggle {
+  display: none;
+}
+@media (max-width: 865px) {
+  .header-content .navlink {
     display: none;
   }
+  .header-content .mobile-nav-toggle {
+    display: inline-flex;
+  }
+  .header-content .dropdown-custom {
+    display: inline-flex;
+  }
+  .header-content .dropdown-custom .navlink {
+    display: inline-flex;
+  }
 }
-header .navlink {
-  @apply hidden md:flex;
-}
-header .navlink svg {
-  margin-right: 7px;
-  margin-bottom: 2px;
+@media (max-width: 410px) {
+  .header-content .theme-toggle {
+    display: none;
+  }
+  .header-content .dropdown-custom {
+    display: none;
+  }
 }
 /*#endregion*/
 
 /*#region Footer*/
-footer .links {
-  margin-right: auto;
-  margin-left: auto;
-}
-footer .links h6 {
-  margin-bottom: 10px
-}
-footer .links a {
-  white-space: nowrap;
+@media (max-width: 1179px) {
+  footer {
+    flex-direction: column;
+    align-items: start !important;
+    padding: 24px !important;
+  }
+
+  footer .links {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .divisor {
+    background-color: var(--fallback-nc,oklch(var(--nc)/.75));
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+  }
 }
 /*#endregion*/
