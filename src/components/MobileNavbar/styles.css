@@ -12,8 +12,8 @@
   height: 20px;
 }
 .sidebar-filter {
-  opacity: 60%;
+  opacity: 90%;
 }
 [data-theme="light"] .sidebar-filter {
-  opacity: 70%;
+  opacity: 80%;
 }

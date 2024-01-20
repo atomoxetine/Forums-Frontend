@@ -7,11 +7,10 @@ const ThemeToggle = (props: { className?: string }) => {
   const isDark = theme !== 'light';
 
   return (
-    <div className={`flex flex-row max-w-fit max-h-fit gap-x-3 bg-base-100 border-2 px-2 py-1 rounded-2xl
-      ${isDark ? 'border-black' : 'border-white'}
-      ${props.className || ''}`}>
-        <DarkIcon className={isDark ? "text-neutral" : ''} onClick={isDark ? undefined : () => setTheme('dark')}/>
-        <LightIcon className={isDark ? '' : "text-warning"} onClick={isDark ? () => setTheme('light') : undefined}/>
+    <div className={`relative flex flex-row max-w-fit max-h-fit gap-x-3 border-[1px] border-base-300 px-2 py-1 rounded-2xl overflow-hidden ${props.className || ''}`}>
+      <div className="absolute h-full w-full inset-0 bg-base-100 z-[-1] opacity-25"></div>
+      <DarkIcon className={isDark ? "text-violet-700" : ''} onClick={isDark ? undefined : () => setTheme('dark')}/>
+      <LightIcon className={isDark ? '' : "text-amber-500"} onClick={isDark ? () => setTheme('light') : undefined}/>
     </div>
   );
 }

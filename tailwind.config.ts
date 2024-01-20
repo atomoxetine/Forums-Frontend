@@ -29,35 +29,35 @@ const config: Config = {
         // https://pinetools.com/invert-color
         dark: {
           "color-scheme": "dark",
-          "primary": "#FF69B4", // Base color
-          "neutral": "#cd69ff", // Mid-way (50deg diff. from each) between primary and secondary, acts as tertiary
-          "secondary": "#6982ff", // 100deg diff. from primary
-          "accent": "#DDFF69", // Complementary of neutral
-          "info": "#69daff", // Primary rotated (cyan 195deg)
-          "success": "#69ff69", // Primary rotated (green 120deg)
-          "warning": "#ffcd69", // Primary rotated (orange 40deg)
-          "error": "#ff6969", // Primary rotated (red 0deg)
-          "accent-content": "#796b80", // Neutral 50% brightness 16% saturation
-          "neutral-content": "#544b59", // Neutral 35% brightness 16% saturation
-          "base-100": "#120917", // Neutral 9% brightness
-          "base-200": "#0c060f", // Neutral 6% brightness
-          "base-300": "#060308", // Neutral 3% brightness
+          "primary": "#e6af19", // Golden
+          "neutral": "#158000", // Grass green
+          "secondary": "#495bb3", // Water blue
+          "accent": "#80005E", // Complementary of neutral
+          "info": "#00a1d6", // Cyan 195deg
+          "success": "#00d600", // Green 120deg
+          "warning": "#d68f00", // Orange 40deg
+          "error": "#d60000", // Red 0deg
+          "accent-content": "#806b7a", // Accent 50% brightness 16% saturation
+          "neutral-content": "#6f806b", // Neutral 35% brightness 16% saturation
+          "base-100": "#23222F",
+          "base-200": "#1A1927",
+          "base-300": "#13121C",
         },
         light: {
           "color-scheme": "light", // primary to error are all the same as above
-          "primary": "#FF69B4",
-          "neutral": "#cd69ff",
-          "secondary": "#6982ff",
-          "accent": "#DDFF69",
-          "info": "#69daff",
-          "success": "#69ff69",
-          "warning": "#ffba30",
-          "error": "#ff6969",
-          "accent-content": "#8d7f94", // Inverse of dark accent-content hued back to neutral
-          "neutral-content": "#8d7f94", // Inverse of dark neutral-content hued back to neutral
-          "base-100": "#fbf7fc", // Inverse of dark base-300 hued back to neutral
-          "base-200": "#f6f0fa", // Inverse of dark base-200 hued back to neutral
-          "base-300": "#f0e6f5", // Inverse of dark base-100 hued back to neutral
+          "primary": "#e6af19", // Golden
+          "neutral": "#158000", // Grass green
+          "secondary": "#495bb3", // Water blue
+          "accent": "#80005E", // Complementary of neutral
+          "info": "#00a1d6", // Cyan 195deg
+          "success": "#00d600", // Green 120deg
+          "warning": "#d68f00", // Orange 40deg
+          "error": "#d60000", // Red 0deg
+          "accent-content": "#7f8a94", // Inverse of dark accent-content hued back to neutral
+          "neutral-content": "#83947f", // Inverse of dark neutral-content hued back to neutral
+          "base-100": "#e5e4ed", // Inverse of dark base-300 hued back to neutral
+          "base-200": "#d9d8e6", // Inverse of dark base-200 hued back to neutral
+          "base-300": "#d2d1de", // Inverse of dark base-100 hued back to neutral
         },
       },
     ],

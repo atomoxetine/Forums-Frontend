@@ -79,7 +79,7 @@ small.smaller {
   line-height: inherit;
 }
 a {
-  @apply hover:text-base-content;
+  @apply hover:text-primary;
   text-decoration: none;
 }
 
