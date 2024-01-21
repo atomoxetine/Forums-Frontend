@@ -1,26 +1,21 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import HTTPClient from "./libs/HTTPClient";
+import { getSession } from "./libs/session/iron";
 
-const privateRoutes: string[] = [''];
+const privateRoutes: string[] = [];
+export const config = {
+  matcher: ['/login'],
+}
 
 export async function middleware(req: NextRequest) {
-  const client = new HTTPClient(process.env.API_URL!);
+  const session = await getSession();
 
-  // Validate Token
-  const response = await client.GetAsync('/istheapiworking'); // This is here for debugging purposes!!
-  const isTokenValid = (await response.json())['message'] === 'yes!';
-
-  if (isTokenValid) {
+  if (session.isLoggedIn) {
     if (req.nextUrl.pathname === '/login') {
       return NextResponse.redirect(new URL('/', req.url));
     }
   } else if (privateRoutes.some(p => p.startsWith(req.nextUrl.pathname))) {
-    return NextResponse.redirect(new URL('/login', req.url));
+    return NextResponse.redirect(new URL('/login', req.url), 302);
   }
 
   return NextResponse.next();
-}
-
-export const config = {
-  matcher: ['/login', ...privateRoutes],
 }
