@@ -13,7 +13,8 @@ export default class HTTPClient {
   constructor(uri: string, headers?: IMap) {
     this.uri = uri;
     this.cachedHeaders = headers ?? {
-      // set default headers here if necessary
+      // Set default headers here if necessary
+      // Don't put anything sensitive, unless explicitly from process.env
     };
   }
 
@@ -22,6 +23,7 @@ export default class HTTPClient {
     if (headers === undefined || reset) {
       this.Headers = {
         // update headers if necessary (e.g., tokens n stuff)
+        // Don't put anything sensitive, unless explicitly from process.env
       };
     }
 
