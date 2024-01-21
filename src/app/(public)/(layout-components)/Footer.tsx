@@ -15,7 +15,7 @@ const Footer = () => (
               PinkCl<FaCloud className="mt-0.5"/>ud
             </span> Studios.
           </span>
-          <small className="text-neutral-content">Not affiliated with Mojang Studios.</small>
+          <small className="text-accent-content">Not affiliated with Mojang Studios.</small>
         </div>
       </div>
 

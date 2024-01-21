@@ -29,7 +29,7 @@ const config: Config = {
         // https://pinetools.com/invert-color
         dark: {
           "color-scheme": "dark",
-          "primary": "#e6af19", // Golden
+          "primary": "#E6A900", // Golden
           "neutral": "#158000", // Grass green
           "secondary": "#495bb3", // Water blue
           "accent": "#80005E", // Complementary of neutral
@@ -38,14 +38,14 @@ const config: Config = {
           "warning": "#d68f00", // Orange 40deg
           "error": "#d60000", // Red 0deg
           "accent-content": "#806b7a", // Accent 50% brightness 16% saturation
-          "neutral-content": "#6f806b", // Neutral 35% brightness 16% saturation
+          "neutral-content": "#5a8053", // Neutral 35% brightness 16% saturation
           "base-100": "#23222F",
           "base-200": "#1A1927",
           "base-300": "#13121C",
         },
         light: {
           "color-scheme": "light", // primary to error are all the same as above
-          "primary": "#e6af19", // Golden
+          "primary": "#E6A900", // Golden
           "neutral": "#158000", // Grass green
           "secondary": "#495bb3", // Water blue
           "accent": "#80005E", // Complementary of neutral
