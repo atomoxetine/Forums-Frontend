@@ -28,7 +28,7 @@ export default NavLinks;
 export const UserNav = () => {
   const currRoute = usePathname() + useHash();
   return <>
-    <NavLink currRoute={currRoute} href="/login"><h6>Login</h6></NavLink>
-    <NavLink currRoute={currRoute} href="/register"><h6>Register</h6></NavLink>
+    <NavLink currRoute={currRoute} href="/auth/login"><h6>Login</h6></NavLink>
+    <NavLink currRoute={currRoute} href="/auth/register"><h6>Register</h6></NavLink>
   </>;
 }

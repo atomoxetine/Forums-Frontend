@@ -10,7 +10,7 @@ export function Input({ isUsername: isUsername }: { isUsername?: boolean }) {
       type={isUsername ? "text" : "password"}
       disabled={pending}
       name={isUsername ? "username" : "password"}
-      placeholder={isUsername ? "Username" : "Password"}
+      placeholder={isUsername ? "Username or Email" : "Password"}
       required
     />
   );

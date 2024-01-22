@@ -7,21 +7,22 @@ export default class HTTPClient {
 
   private cachedHeaders: IMap;
   public get CachedHeaders(): HeadersInit { return this.cachedHeaders; }
-  public set Headers(value: IMap) { this.cachedHeaders = value; }
+  public set NewHeaders(value: IMap) { this.cachedHeaders = {...this.cachedHeaders, ...value}; }
   public set Header(value: [string, string]) { this.cachedHeaders[value[0]] = value[1]; };
 
   constructor(uri: string, headers?: IMap) {
     this.uri = uri;
     this.cachedHeaders = headers ?? {
       // Set default headers here if necessary
-      // Don't put anything sensitive, unless explicitly from process.env
+      "content-type": "application/json",
+      "Authorization": process.env.API_KEY!,
     };
   }
 
   private async getClientAsync(reset?: boolean): Promise<InternalClient> {
     const headers = this.cachedHeaders;
     if (headers === undefined || reset) {
-      this.Headers = {
+      this.NewHeaders = {
         // update headers if necessary (e.g., tokens n stuff)
         // Don't put anything sensitive, unless explicitly from process.env
       };
@@ -29,7 +30,12 @@ export default class HTTPClient {
 
     const client: InternalClient =
       async (method: string, route: string, body?: BodyInit | null) => 
-        await fetch(new Request(new URL(route, this.uri), { method: method, headers: headers, body: body }));
+        await fetch(
+          new Request(
+            new URL(route, this.uri),
+            { method: method, headers: headers, body: JSON.stringify(body) }
+          )
+        );
 
     return client;
   }
@@ -51,10 +57,10 @@ export default class HTTPClient {
   }
 
   public async PostAsync(route: string, body: any) {
-    return await this.actAsync(async (client: InternalClient) => await client("put", route, body));
+    return await this.actAsync(async (client: InternalClient) => await client("post", route, body));
   }
 
   public async PutAsync(route: string, body: any) {
-    return await this.actAsync(async (client: InternalClient) => await client("post", route, body));
+    return await this.actAsync(async (client: InternalClient) => await client("put", route, body));
   }
 }
