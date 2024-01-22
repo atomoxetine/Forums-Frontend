@@ -1,6 +1,6 @@
 import { getSession } from "@/libs/session/iron";
 import { Input, SubmitButton } from "./input";
-import { Login } from "@/services/AccountService";
+import { Login } from "@/services/forum/account/AccountService";
 import { redirect } from "next/navigation";
 
 export default async function LoginPage() {

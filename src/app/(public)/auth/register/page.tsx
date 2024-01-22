@@ -1,5 +1,5 @@
 'use client'
-import { Register } from "@/services/AccountService"; 
+import { Register } from "@/services/forum/account/AccountService"; 
 import { useSearchParams } from 'next/navigation'
 import React, { useState, FormEvent } from 'react'
  
