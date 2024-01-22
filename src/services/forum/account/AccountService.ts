@@ -112,6 +112,18 @@ export const Login = async (formData: FormData, client?: HTTPClient) => {
  * @return ResponseEntity containing the updated account information.
  */
 // In the API: @PutMapping(path = "/forum/account/setting/{uuid}")
+export const UpdateAccountSettings = async (formData: FormData, client?: HTTPClient) => {
+  const uuid = formData.get("uuid") as string;
+  const uri = `/forum/account/setting/${uuid}`;
+
+  client ??= new HTTPClient(process.env.API_URL!);
+  const response = await (await client.PutAsync(uri, formData)).json();
+
+  if (!response._id)
+    return "User not found";
+  
+  return "Success";
+}
 
 
 /**
@@ -121,7 +133,17 @@ export const Login = async (formData: FormData, client?: HTTPClient) => {
  * @return ResponseEntity containing the updated account information or an error message.
  */
 // In the API: @PostMapping(path = "/forum/account/forgotPassword/{email}")
+export const ForgotPassword = async (email: string, client?: HTTPClient) => {
+  const uri = `/forum/account/forgotPassword/${email}`;
 
+  client ??= new HTTPClient(process.env.API_URL!);
+  const response = await (await client.PostAsync(uri)).json();
+
+  if (!response._id)
+    return "User not found";
+  
+  return "Success";
+}
 
 /**
  * Endpoint for updating account password.
@@ -131,3 +153,15 @@ export const Login = async (formData: FormData, client?: HTTPClient) => {
  * @return ResponseEntity containing the updated account information or an error message.
  */
 // In the API: @PutMapping(path = "/forum/account/password/{uuid}")
+export const UpdateAccountPassword = async (formData: FormData, client?: HTTPClient) => {
+  const uuid = formData.get("uuid") as string;
+  const uri = `/forum/account/password/${uuid}`;
+
+  client ??= new HTTPClient(process.env.API_URL!);
+  const response = await (await client.PutAsync(uri, formData)).json();
+
+  if (!response._id)
+    return "User not found";
+  
+  return "Success";
+}

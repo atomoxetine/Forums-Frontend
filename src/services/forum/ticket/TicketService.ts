@@ -7,7 +7,14 @@
  * @return The ResponseEntity with JSON representation of the created ticket.
  */
 // In the API: @PostMapping(path = "/forum/ticket")
-
+export const CreateTicket = async (formData: FormData, client?: HTTPClient) => {
+    const uri = `/forum/ticket`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.PostAsync(uri, formData)).json();
+    
+    return response;
+    }
 
 /**
  * Edit an existing forum ticket.
@@ -17,7 +24,15 @@
  * @return The ResponseEntity with JSON representation of the edited ticket.
  */
 // In the API: @PutMapping(path = "/forum/ticket/{id}")
-
+export const EditTicket = async (formData: FormData, client?: HTTPClient) => {
+    const id = formData.get("id") as string;
+    const uri = `/forum/ticket/${id}`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.PutAsync(uri, formData)).json();
+    
+    return response;
+    }
 
 /**
  * Get details of a specific forum ticket by its ID.
@@ -26,7 +41,14 @@
  * @return The ResponseEntity with JSON representation of the ticket.
  */
 // In the API: @GetMapping(path = "/forum/ticket/{id}")
-
+export const GetTicket = async (id: string, client?: HTTPClient) => {
+    const uri = `/forum/ticket/${id}`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.GetAsync(uri)).json();
+    
+    return response;
+    }
 
 /**
  * Get tickets associated with a specific player (UUID).
@@ -36,7 +58,14 @@
  * @return The ResponseEntity with JSON representation of player's tickets.
  */
 // In the API: @GetMapping(path = "/forum/ticket/player/{uuid}")
-
+export const GetPlayerTickets = async (uuid: string, page: number = -1, client?: HTTPClient) => {
+    const uri = `/forum/ticket/player/${uuid}?page=${page}`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.GetAsync(uri)).json();
+    
+    return response;
+    }
 
 /**
  * Get all forum tickets (admin view).
@@ -46,7 +75,14 @@
  */
 // makes this /forum/tickets/all, clashing with /forum/ticket/{id} otherwise
 // In the API: @GetMapping(path = "/forum/ticket/admin")
-
+export const GetAllTickets = async (page: number = -1, client?: HTTPClient) => {
+    const uri = `/forum/ticket/admin?page=${page}`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.GetAsync(uri)).json();
+    
+    return response;
+    }
 
 /**
  * Create a reply for a specific ticket.
@@ -56,3 +92,12 @@
  * @return The ResponseEntity with JSON representation of the created reply.
  */
 // In the API: @PostMapping(path = "/forum/ticket/{parentId}/reply")
+export const CreateReply = async (formData: FormData, client?: HTTPClient) => {
+    const parentId = formData.get("parentId") as string;
+    const uri = `/forum/ticket/${parentId}/reply`;
+    
+    client ??= new HTTPClient(process.env.API_URL!);
+    const response = await (await client.PostAsync(uri, formData)).json();
+    
+    return response;
+    }
