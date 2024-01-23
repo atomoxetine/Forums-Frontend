@@ -30,15 +30,16 @@ const config: Config = {
         dark: {
           "color-scheme": "dark",
           "primary": "#E6A900", // Golden
-          "neutral": "#158000", // Grass green
+          "neutral": "#36B887", // Grass green
           "secondary": "#495bb3", // Water blue
-          "accent": "#80005E", // Complementary of neutral
+          "accent": "#D66851", // Complementary of neutral
           "info": "#00a1d6", // Cyan 195deg
           "success": "#00d600", // Green 120deg
           "warning": "#d68f00", // Orange 40deg
           "error": "#d60000", // Red 0deg
           "accent-content": "#806b7a", // Accent 50% brightness 16% saturation
-          "neutral-content": "#5a8053", // Neutral 35% brightness 16% saturation
+          "neutral-content": "#4c4966",
+          "base-content": "#87858c",
           "base-100": "#23222F",
           "base-200": "#1A1927",
           "base-300": "#13121C",
@@ -46,15 +47,16 @@ const config: Config = {
         light: {
           "color-scheme": "light", // primary to error are all the same as above
           "primary": "#E6A900", // Golden
-          "neutral": "#158000", // Grass green
+          "neutral": "#36B887", // Grass green
           "secondary": "#495bb3", // Water blue
-          "accent": "#80005E", // Complementary of neutral
+          "accent": "#D66851", // Complementary of neutral
           "info": "#00a1d6", // Cyan 195deg
           "success": "#00d600", // Green 120deg
           "warning": "#d68f00", // Orange 40deg
           "error": "#d60000", // Red 0deg
           "accent-content": "#7f8a94", // Inverse of dark accent-content hued back to neutral
-          "neutral-content": "#83947f", // Inverse of dark neutral-content hued back to neutral
+          "neutral-content": "#9b98b5", // Inverse of dark neutral-content hued back to neutral
+          "base-content": "#75737a", // Inverse of dark base-content hued back to neutral
           "base-100": "#e5e4ed", // Inverse of dark base-300 hued back to neutral
           "base-200": "#d9d8e6", // Inverse of dark base-200 hued back to neutral
           "base-300": "#d2d1de", // Inverse of dark base-100 hued back to neutral

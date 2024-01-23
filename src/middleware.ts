@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
   if (session.isLoggedIn) {
     if (req.nextUrl.pathname.startsWith('/auth')) {
-      return NextResponse.redirect(new URL('/', req.url));
+      return NextResponse.redirect(new URL('/', req.url), 302);
     }
   } else if (privateRoutes.some(p => p.startsWith(req.nextUrl.pathname))) {
     return NextResponse.redirect(new URL('/auth/login', req.url), 302);

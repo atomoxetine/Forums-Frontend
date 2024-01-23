@@ -2,8 +2,7 @@
 import useHash from "@/hooks/useHash";
 import NavLink from "@/components/NavLink/component";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { SessionData, defaultSession } from "@/libs/session/iron";
+import { useCallback, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import useSession from "@/hooks/useSession";
@@ -40,13 +39,13 @@ export const UserNav = () => {
     logout().then(() => {
       setIsLoading(false);
     });
-  }, []);
+  }, [logout]);
 
   return isLoading ? (
     <ClipLoader color={'#fff'} size={25} />
   ) : <>
     {
-      !session.isLoggedIn ? 
+      !session?.isLoggedIn ? 
         <>
           <NavLink currRoute={currRoute} href="/auth/login"><h6>Login</h6></NavLink>
           <NavLink currRoute={currRoute} href="/auth/register"><h6>Register</h6></NavLink>

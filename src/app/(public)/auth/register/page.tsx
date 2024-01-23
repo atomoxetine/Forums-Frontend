@@ -30,7 +30,7 @@ export default function RegisterPage() {
  
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {register} = useSession();
+  const { register } = useSession();
   const { push } = useRouter();
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,25 +59,23 @@ export default function RegisterPage() {
     }
   }
  
-  return (
-    <div>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      <form onSubmit={onSubmit}>
-        <label className="block text-lg">
-          <span>Email</span>
-          <input disabled={isLoading} type="email" name="email" placeholder={email} value={email} readOnly/>
-        </label>
-        <label className="block text-lg">
-          <span>Password</span>
-          <input disabled={isLoading} type="password" name="password" required/>
-        </label>
-        <label className="block text-lg">
-          <span>Confirm Password</span>
-          <input disabled={isLoading} type="password" name="confirm" required/>
-        </label>
-        <input disabled={isLoading} type="hidden" name="token" value={token} readOnly/>
-        <button disabled={isLoading} type="submit">{isLoading ? "On it…" : "Register!"}</button>
-      </form>
-    </div>
-  )
+  return <div>
+    {error && <div style={{ color: 'red' }}>{error}</div>}
+    <form onSubmit={onSubmit}>
+      <label className="block text-lg">
+        <span>Email</span>
+        <input disabled={isLoading} type="email" name="email" placeholder={email} value={email} readOnly/>
+      </label>
+      <label className="block text-lg">
+        <span>Password</span>
+        <input disabled={isLoading} type="password" name="password" required/>
+      </label>
+      <label className="block text-lg">
+        <span>Confirm Password</span>
+        <input disabled={isLoading} type="password" name="confirm" required/>
+      </label>
+      <input disabled={isLoading} type="hidden" name="token" value={token} readOnly/>
+      <button disabled={isLoading} type="submit">{isLoading ? "On it…" : "Register"}</button>
+    </form>
+  </div>;
 }

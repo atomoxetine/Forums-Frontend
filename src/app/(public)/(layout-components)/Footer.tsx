@@ -15,13 +15,13 @@ const Footer = () => (
               PinkCl<FaCloud className="mt-0.5"/>ud
             </span> Studios.
           </span>
-          <small className="text-accent-content">Not affiliated with Mojang Studios.</small>
+          <small className="text-neutral-content">Not affiliated with Mojang Studios.</small>
         </div>
       </div>
 
       <div className="hidden divisor"></div>
 
-      <nav className="links uppercase whitespace-nowrap text-accent-content flex flex-row flex-wrap justify-start gap-6 md:gap-10">
+      <nav className="links uppercase whitespace-nowrap text-base-content flex flex-row flex-wrap justify-start gap-6 md:gap-10">
           <HashLink href="/status">Status</HashLink>
           <HashLink href="/staff">Staff</HashLink>
           <HashLink href="/rules">Rules</HashLink>
@@ -30,7 +30,7 @@ const Footer = () => (
           <HashLink href="/faq">FAQ</HashLink>
       </nav>
 
-      <nav className="links uppercase whitespace-nowrap text-accent-content flex flex-row flex-wrap justify-start gap-6">
+      <nav className="links uppercase whitespace-nowrap text-base-content flex flex-row flex-wrap justify-start gap-6">
           <HashLink href="/status"><FaTwitter className="w-6 h-6"/></HashLink>
           <HashLink href="/staff"><FaTelegram className="w-6 h-6"/></HashLink>
           <HashLink href="/rules"><FaDiscord className="w-6 h-6"/></HashLink>

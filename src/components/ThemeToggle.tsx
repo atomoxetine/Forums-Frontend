@@ -1,6 +1,6 @@
 'use client';
 import { MouseEventHandler } from "react";
-import useTheme from '../hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 
 const ThemeToggle = (props: { className?: string }) => {
   const [theme, setTheme] = useTheme('dark');

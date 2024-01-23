@@ -1,6 +1,6 @@
 'use client';
 import useSession from "@/hooks/useSession";
-import { Input, SubmitButton } from "./input";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -31,19 +31,18 @@ export default function LoginPage() {
     }
   }
 
-  return (
-    <form onSubmit={onSubmit}>
-      <label className="block text-lg">
-        <span>User</span>
-        <Input isUsername={true}/>
-      </label>
-      <label className="block text-lg">
-        <span>Password</span>
-        <Input />
-      </label>
-      <div>
-        <SubmitButton value="Login" />
-      </div>
-    </form>
-  );
+  return <div className="py-5 px-16 overflow-hidden bg-base-200 rounded-lg mb-12">
+    <div className="flex flex-col items-center text-center w-[fit] max-w-[346px] h-fit">
+      <h5 className="mb-2">Login to your MCCade Account.</h5>
+      {error && <small className="text-error mb-1">{error}</small>}
+      <form onSubmit={onSubmit}>
+        <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2" disabled={isLoading} type="text" name="username" placeholder="Username or Email" required/>
+        <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2" disabled={isLoading} type="password" name="password" placeholder="Password" required/>
+        <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Sign in"}</button>
+      </form>
+      <div className="inline-block w-[98%] h-[1px] bg-neutral-content my-1"></div>
+      <small className="my-1"><b>Don't have an account? <Link className="text-primary hover:text-secondary-content" href="/auth/register">Register here!</Link></b></small>
+      <small><b>Forgot your password? <Link className="text-secondary hover:text-secondary-content" href="/auth/register">Click here to reset.</Link></b></small>
+    </div>
+  </div>;
 }
