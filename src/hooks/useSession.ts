@@ -12,11 +12,11 @@ interface SessionManager {
   logout: () => Promise<void>;
 }
 function useSession(): SessionManager {
-  const runOnce = ($: BehaviorSubject<SessionData>) =>
+  const runOnceGlobally = ($: BehaviorSubject<SessionData>) =>
     fetch("/api/auth")
       .then((res) => res.json())
       .then((session) => $.next(session));
-  const [session, setSession] = useGlobal('theme', () => defaultSession, runOnce);
+  const [session, setSession] = useGlobal('session', () => defaultSession, runOnceGlobally);
 
   const register = useCallback(async (formData: FormData) => {
     const result = await Register(formData);

@@ -2,27 +2,33 @@
 import { useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 
+declare global {
+  interface Window {
+    elyHooks: {[key: string]: BehaviorSubject<any>};
+  }
+}
+
 function useGlobal<T>(
-  variableName: string,
+  variableId: string,
   defaultValueGetter: () => T,
   runOnceGlobally?: ($: BehaviorSubject<T>) => void
 ):
   [T | undefined, (variable: T) => void]
 {
-  const windowVarName = `${variableName}Updated$`
-  let windowExports: {[key: string]: any} | undefined = undefined;
+  const subjectName = `${variableId}Updated$`
+  let elyHooks: {[key: string]: BehaviorSubject<T>} | undefined = undefined;
   if (typeof window !== "undefined")
-    windowExports = ((window['exports'] ??= {})['elyHooks'] ??= {});
+    elyHooks = window.elyHooks ??= {};
 
   const [onVariableUpdated$, setOnVariableUpdated$] = useState<BehaviorSubject<T>>();
   useEffect(() => {
-    if (windowExports![windowVarName] === undefined) {
+    if (elyHooks![subjectName] === undefined) {
       const $ = new BehaviorSubject<T>(defaultValueGetter());
-      windowExports![windowVarName] = $;
+      elyHooks![subjectName] = $;
       runOnceGlobally?.($);
     }
 
-    setOnVariableUpdated$(windowExports![windowVarName]);
+    setOnVariableUpdated$(elyHooks![subjectName]);
   }, []);
 
   const [variable, setVariableState] = useState<T>();
@@ -34,7 +40,7 @@ function useGlobal<T>(
       subscription.unsubscribe();
       if (!onVariableUpdated$.observed) {
         onVariableUpdated$.complete();
-        windowExports![windowVarName] = undefined;
+        delete elyHooks![subjectName];
       }
     }
   }, [onVariableUpdated$]);
