@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 
 declare global {
-  interface Window {
-    elyHooks: {[key: string]: BehaviorSubject<any>};
-  }
+  var elyGlobals: {[key: string]: BehaviorSubject<any>};
 }
+globalThis.elyGlobals ??= {};
 
 function useGlobal<T>(
   variableId: string,
@@ -15,37 +14,29 @@ function useGlobal<T>(
 ):
   [T | undefined, (variable: T) => void]
 {
-  const subjectName = `${variableId}Updated$`
-  let elyHooks: {[key: string]: BehaviorSubject<T>} | undefined = undefined;
-  if (typeof window !== "undefined")
-    elyHooks = window.elyHooks ??= {};
+  const elyGlobals = globalThis.elyGlobals;
 
-  const [onVariableUpdated$, setOnVariableUpdated$] = useState<BehaviorSubject<T>>();
+  const subjectName = `${variableId}Updated$`
+  const [variable, setVariableState] = useState<T>();
+  const setVariable = (variable: T) => elyGlobals[subjectName].next(variable);
+
   useEffect(() => {
-    if (elyHooks![subjectName] === undefined) {
+    if (elyGlobals[subjectName] === undefined) {
       const $ = new BehaviorSubject<T>(defaultValueGetter());
-      elyHooks![subjectName] = $;
+      elyGlobals[subjectName] = $;
       runOnceGlobally?.($);
     }
 
-    setOnVariableUpdated$(elyHooks![subjectName]);
-  }, []);
-
-  const [variable, setVariableState] = useState<T>();
-  useEffect(() => {
-    if (!onVariableUpdated$) return;
-
-    const subscription = onVariableUpdated$.subscribe((variable) => setVariableState(variable));
+    const subscription = elyGlobals[subjectName].subscribe((variable) => setVariableState(variable));
     return () => {
       subscription.unsubscribe();
-      if (!onVariableUpdated$.observed) {
-        onVariableUpdated$.complete();
-        delete elyHooks![subjectName];
+      if (!elyGlobals[subjectName].observed) {
+        elyGlobals[subjectName].complete();
+        delete elyGlobals[subjectName];
       }
     }
-  }, [onVariableUpdated$]);
+  }, []);
 
-  const setVariable = (variable: T) => onVariableUpdated$?.next(variable);
   return [variable, setVariable];
 }
 
