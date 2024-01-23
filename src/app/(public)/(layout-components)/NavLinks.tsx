@@ -2,6 +2,11 @@
 import useHash from "@/hooks/useHash";
 import NavLink from "@/components/NavLink/component";
 import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { SessionData, defaultSession } from "@/libs/session/iron";
+import { ClipLoader } from "react-spinners";
+import Link from "next/link";
+import useSession from "@/hooks/useSession";
 
 const NavLinks = () => {
   const currRoute = usePathname() + useHash();
@@ -27,8 +32,26 @@ export default NavLinks;
   
 export const UserNav = () => {
   const currRoute = usePathname() + useHash();
-  return <>
-    <NavLink currRoute={currRoute} href="/auth/login"><h6>Login</h6></NavLink>
-    <NavLink currRoute={currRoute} href="/auth/register"><h6>Register</h6></NavLink>
+  const [isLoading, setIsLoading] = useState(false);
+  const {session, logout} = useSession();
+
+  const logoutCall = useCallback(() => {
+    setIsLoading(true);
+    logout().then(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
+  return isLoading ? (
+    <ClipLoader color={'#fff'} size={25} />
+  ) : <>
+    {
+      !session.isLoggedIn ? 
+        <>
+          <NavLink currRoute={currRoute} href="/auth/login"><h6>Login</h6></NavLink>
+          <NavLink currRoute={currRoute} href="/auth/register"><h6>Register</h6></NavLink>
+        </> :
+        <Link href="" className="navlink" onClick={logoutCall}><h6>Logout</h6></Link>
+    }
   </>;
 }

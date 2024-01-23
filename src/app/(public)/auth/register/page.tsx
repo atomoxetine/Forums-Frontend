@@ -1,6 +1,6 @@
 'use client'
-import { Register } from "@/services/forum/account/AccountService"; 
-import { useSearchParams } from 'next/navigation'
+import useSession from "@/hooks/useSession";
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState, FormEvent } from 'react'
  
 export default function RegisterPage() {
@@ -30,7 +30,8 @@ export default function RegisterPage() {
  
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  const {register} = useSession();
+  const { push } = useRouter();
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -45,10 +46,12 @@ export default function RegisterPage() {
         return;
       }
 
-      const result = await Register(formData);
-      if (!result[0]) {
-        throw new Error(result[1]);
+      const result = await register(formData);
+      if (!(result[1] >= 200 && result[1] <= 299)) {
+        throw new Error(result[2] ?? undefined);
       }
+      
+      push(`/`);
     } catch (error: any) {
       setError(error.message);
     } finally {

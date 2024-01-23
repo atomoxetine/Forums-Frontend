@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { getSession } from "./libs/session/iron";
+import getSession from "./libs/session/getSession";
 
 const privateRoutes: string[] = [];
 export const config = {

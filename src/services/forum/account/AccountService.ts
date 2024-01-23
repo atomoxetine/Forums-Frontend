@@ -1,11 +1,10 @@
 'use server';
 
 import HTTPClient from "@/libs/HTTPClient";
-import { getSession } from "@/libs/session/iron";
-import Account from "@/libs/types/Account";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import getSession from "@/libs/session/getSession";
+import Account from "@/libs/types/entities/Account";
 import { GetProfileFromUuid } from "../../controller/ProfileService"
+import { SessionData } from "@/libs/session/iron";
 
 /**
  * Endpoint for retrieving forum threads associated with a player.
@@ -14,7 +13,7 @@ import { GetProfileFromUuid } from "../../controller/ProfileService"
  * @return ResponseEntity containing a JSON array of forum threads.
  */
 // In the API: @GetMapping(path = "/forum/account/threads/{uuid}")
-
+// TODO
 
 /**
  * Endpoint for retrieving Account data from Email.
@@ -23,15 +22,50 @@ import { GetProfileFromUuid } from "../../controller/ProfileService"
  * @return ResponseEntity containing the user's Account data.
  */
 // In the API: @GetMapping(path = "/forum/account/threads/{uuid}")
-export const GetAccountFromEmail = async (email: string, client?: HTTPClient): Promise<[Account | null, string]> => {
-  const uri = `/forum/account/email/${email}`;
+export const GetAccountFromEmail = async (email: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Account>(`/forum/account/email/${email}`);
 
-  client ??= new HTTPClient(process.env.API_URL!);
-  const response = await (await client.GetAsync(uri)).json();
-  if (!response._id)
-    return [null, 'User not found'];
-  
-  return [response as unknown as Account, 'Success'];
+/**
+ * Endpoint for updating account settings.
+ *
+ * @param body (type: any) The JSON object containing updated settings.
+ * @param uuid The UUID of the player.
+ * @return ResponseEntity containing the updated account information.
+ */
+// In the API: @PutMapping(path = "/forum/account/setting/{uuid}")
+export const UpdateAccountSettings = async (formData: FormData, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => {
+  const uuid = formData.get("uuid") as string;
+  const jso = formData.toJSO(); delete jso['uuid'];
+  const uri = `/forum/account/setting/${uuid}`;
+
+  return await client.PutAsync<Account>(uri, jso);
+}
+
+
+/**
+ * Endpoint for forgot password.
+ *
+ * @param email The email of the player.
+ * @return ResponseEntity containing the updated account information or an error message.
+ */
+// In the API: @PostMapping(path = "/forum/account/forgotPassword/{email}")
+export const ForgotPassword = async (email: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => 
+  await client.PostAsync(`/forum/account/forgotPassword/${email}`);
+
+/**
+ * Endpoint for updating account password.
+ *
+ * @param body (type: { password: string, currentPassword: string }) The JSON object containing the current and new password.
+ * @param uuid The UUID of the player.
+ * @return ResponseEntity containing the updated account information or an error message.
+ */
+// In the API: @PutMapping(path = "/forum/account/password/{uuid}")
+export const UpdateAccountPassword = async (formData: FormData, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => {
+  const uuid = formData.get("uuid") as string;
+  const jso = formData.toJSO(); delete jso['uuid'];
+  const uri = `/forum/account/password/${uuid}`;
+
+  return await client.PutAsync<Account>(uri, jso);
 }
 
 /**
@@ -40,21 +74,15 @@ export const GetAccountFromEmail = async (email: string, client?: HTTPClient): P
  * @param body The JSON object containing the password and token.
  * @return ResponseEntity indicating the result of the registration completion.
  */
-export const Register = async (formData: FormData): Promise<[boolean, string]> => {
+export const Register = async (formData: FormData, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<[SessionData | null, number, string | null]> => {
   const token = formData.get("token") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const uri = `/forum/account/register`;
 
-  const client = new HTTPClient(process.env.API_URL!);
   const response = await client.PostAsync(uri, { token, password });
-  if (response.status === 404)
-    return [false, (await response.json()).message];
-  else if (response.status !== 201) {
-    const message = (await response.json()).message;
-    console.warn(`Error when registering user: HTTP ${response.status} - ${message}`);
-    return [false, 'An unexpected error has occurred while contacting the server'];
-  }
+  if (!response[0])
+    return response;
   
   const [user] = await GetAccountFromEmail(email, client);
   if (user) {
@@ -67,12 +95,16 @@ export const Register = async (formData: FormData): Promise<[boolean, string]> =
       session.isLoggedIn = true;
       await session.save();
       
-      revalidatePath("/login");
-      redirect(`/`);
+      return [{
+        username: session.username,
+        uuid: session.uuid,
+        email: session.email,
+        isLoggedIn: session.isLoggedIn
+      }, response[1], response[2]];
     }
   }
 
-  return [true, 'Success (but failed to log user in)'];
+  return [null, response[1], 'Success (but failed to log user in)'];
 }
 
 /**
@@ -82,86 +114,34 @@ export const Register = async (formData: FormData): Promise<[boolean, string]> =
  * @return ResponseEntity containing the account information for successful logins.
  */
 // In the API: @GetMapping(path = "/forum/account/login/{username}")
-export const Login = async (formData: FormData, client?: HTTPClient) => {
+export const Login = async (formData: FormData, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<[SessionData, number, string | null]> => {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
   const uri = `/forum/account/login/${username}?` + new URLSearchParams({ password: password });
 
-  client ??= new HTTPClient(process.env.API_URL!);
-  const response = await (await client.GetAsync(uri)).json();
-
-  if (!response.passwordCorrect)
-    return "Wrong password";
+  const response = await client.GetAsync(uri);
+  if (!response[0])
+    return response;
   
-  const session = await getSession();
-  session.username = username;
-  session.uuid = response.uuid;
-  session.email = response.email;
-  session.isLoggedIn = true;
-  await session.save();
+  const data = response[0];
+  if (data.passwordCorrect) {
+    const session = await getSession();
+    const uuid = data.uuid;
 
-  revalidatePath("/login");
-  redirect(`/`);
-}
+    const [profile] = await GetProfileFromUuid(uuid, client);
+    session.username = profile ? profile.name : username;
+    session.uuid = uuid;
+    session.email = data.email;
+    session.isLoggedIn = true;
+    await session.save();
 
-/**
- * Endpoint for updating account settings.
- *
- * @param body (type: any) The JSON object containing updated settings.
- * @param uuid The UUID of the player.
- * @return ResponseEntity containing the updated account information.
- */
-// In the API: @PutMapping(path = "/forum/account/setting/{uuid}")
-export const UpdateAccountSettings = async (formData: FormData, client?: HTTPClient) => {
-  const uuid = formData.get("uuid") as string;
-  const uri = `/forum/account/setting/${uuid}`;
+    return [{
+      username: session.username,
+      uuid: session.uuid,
+      email: session.email,
+      isLoggedIn: session.isLoggedIn
+    }, response[1], response[2]];
+  }
 
-  client ??= new HTTPClient(process.env.API_URL!);
-  const response = await (await client.PutAsync(uri, formData)).json();
-
-  if (!response._id)
-    return "User not found";
-  
-  return "Success";
-}
-
-
-/**
- * Endpoint for forgot password.
- *
- * @param email The email of the player.
- * @return ResponseEntity containing the updated account information or an error message.
- */
-// In the API: @PostMapping(path = "/forum/account/forgotPassword/{email}")
-export const ForgotPassword = async (email: string, client?: HTTPClient) => {
-  const uri = `/forum/account/forgotPassword/${email}`;
-
-  client ??= new HTTPClient(process.env.API_URL!);
-  const response = await (await client.PostAsync(uri)).json();
-
-  if (!response._id)
-    return "User not found";
-  
-  return "Success";
-}
-
-/**
- * Endpoint for updating account password.
- *
- * @param body (type: { password: string, currentPassword: string }) The JSON object containing the current and new password.
- * @param uuid The UUID of the player.
- * @return ResponseEntity containing the updated account information or an error message.
- */
-// In the API: @PutMapping(path = "/forum/account/password/{uuid}")
-export const UpdateAccountPassword = async (formData: FormData, client?: HTTPClient) => {
-  const uuid = formData.get("uuid") as string;
-  const uri = `/forum/account/password/${uuid}`;
-
-  client ??= new HTTPClient(process.env.API_URL!);
-  const response = await (await client.PutAsync(uri, formData)).json();
-
-  if (!response._id)
-    return "User not found";
-  
-  return "Success";
+  return [data, response[1], "Passwords don't match"];
 }

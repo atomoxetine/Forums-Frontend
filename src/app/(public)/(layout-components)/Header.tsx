@@ -21,7 +21,7 @@ const Header = () => {
           <div className="flex flex-row items-center sm:gap-2">
             <ShrinkableSearch />
 
-            <UserDropdown className="bottom-[-75px]"/>
+            <UserDropdown className="top-[50px]"/>
             <UserNav />
 
             <ThemeToggle className="theme-toggle ml-2" />

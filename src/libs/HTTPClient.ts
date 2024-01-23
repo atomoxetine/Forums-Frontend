@@ -1,7 +1,7 @@
 interface IMap {
   [key: string]: string;
 }
-type InternalClient = (method: string, route: string, body?: BodyInit | null) => Promise<Response>;
+type InternalClient = (method: string, route: string, body?: BodyInit) => Promise<Response>;
 export default class HTTPClient {
   private readonly uri: string;
 
@@ -29,18 +29,20 @@ export default class HTTPClient {
     }
 
     const client: InternalClient =
-      async (method: string, route: string, body?: BodyInit | null) => 
+      async (method: string, route: string, body?: BodyInit) => 
         await fetch(
           new Request(
             new URL(route, this.uri),
-            { method: method, headers: headers, body: JSON.stringify(body) }
+            { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined }
           )
         );
 
     return client;
   }
 
-  private async actAsync(action: (client: InternalClient) => Promise<Response>) {
+  private async actAsyncInternal(mode: string, route: string, body?: any): Promise<Response> {
+    const action = async (client: InternalClient) => await client(mode, route, body);
+
     let client = await this.getClientAsync();
     const httpResponse = await action(client);
 
@@ -52,15 +54,28 @@ export default class HTTPClient {
     }
   }
 
-  public async GetAsync(route: string) {
-    return await this.actAsync(async (client: InternalClient) => await client("get", route));
+  private async actAsync<T = any>(mode: string, route: string, body?: any): Promise<[T | null, number, string | null]> {
+    const httpResponse = await this.actAsyncInternal(mode, route, body);
+    const json = await httpResponse.json();
+    if (!httpResponse.ok)
+      return [null, httpResponse.status, json.message];
+    
+    return [json as T, httpResponse.status, null];
   }
 
-  public async PostAsync(route: string, body: any) {
-    return await this.actAsync(async (client: InternalClient) => await client("post", route, body));
+  public async GetAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
+    return await this.actAsync<T>("get", route, body);
   }
 
-  public async PutAsync(route: string, body: any) {
-    return await this.actAsync(async (client: InternalClient) => await client("put", route, body));
+  public async PostAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
+    return await this.actAsync<T>("post", route, body);
+  }
+
+  public async PutAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
+    return await this.actAsync<T>("put", route, body);
+  }
+
+  public async DeleteAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
+    return await this.actAsync<T>("delete", route, body);
   }
 }

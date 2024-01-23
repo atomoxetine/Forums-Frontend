@@ -10,7 +10,7 @@ const MobileNavbarContent = () => <>
     <NavLinks />
     
     <div className="flex items-center justify-center w-fit h-fit mt-auto mx-auto gap-2">
-      <UserDropdown className="top-[-75px]"/>
+      <UserDropdown className="bottom-[50px]"/>
       <ThemeToggle />
     </div>
   </div>  

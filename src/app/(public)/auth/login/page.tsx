@@ -1,14 +1,38 @@
-import { getSession } from "@/libs/session/iron";
+'use client';
+import useSession from "@/hooks/useSession";
 import { Input, SubmitButton } from "./input";
-import { Login } from "@/services/forum/account/AccountService";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-export default async function LoginPage() {
-  const session = await getSession();
-  if (session.isLoggedIn) redirect('/');
+export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const { login } = useSession();
+  const { push } = useRouter();
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+ 
+    try {
+      const formData = new FormData(event.currentTarget);
+
+      const result = await login(formData);
+      if (!result[0]) {
+        throw new Error(result[2] ?? undefined);
+      }
+      
+      push(`/`);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
-    <form action={Login}>
+    <form onSubmit={onSubmit}>
       <label className="block text-lg">
         <span>User</span>
         <Input isUsername={true}/>

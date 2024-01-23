@@ -1,5 +1,4 @@
-import { SessionOptions, getIronSession } from "iron-session";
-import { cookies } from "next/headers";
+import { SessionOptions } from "iron-session";
 
 export interface SessionData {
   username: string;
@@ -23,16 +22,3 @@ export const sessionOptions: SessionOptions = {
     secure: true,
   },
 };
-
-export async function getSession() {
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
-
-  if (!session.isLoggedIn) {
-    session.username = defaultSession.username;
-    session.uuid = defaultSession.uuid;
-    session.email = defaultSession.email;
-    session.isLoggedIn = false;
-  }
-
-  return session;
-}
