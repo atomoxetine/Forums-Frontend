@@ -76,6 +76,90 @@ export default function Terms() {
             Any claim relating to MCCade's web site shall be governed by the laws of Australia without regard to its conflict of law provisions.
             </p>
           </li>
+          <li>
+            <h5 className="font-bold text-secondary">Prohibited Actions and Content</h5>
+            <p>
+              When using any MCCade service, you agree to not:
+            </p>
+            <ul className="list-disc">
+              <li>
+              Attempt to gather information from other users unless they are notified.
+              </li>
+              <li>
+              Post any pornographic content, this includes links and or sites.
+              </li>
+              <li>
+              Upload any malicious content, this includes viruses, trojans, and other malware.
+              </li>
+              <li>
+              Bully, harass, or threaten other users.
+              </li>
+              <li>
+              Engage in illegal activities; Users will have to abide by the laws of the United States of America.
+              </li>
+              <li>
+              Engage in discriminant content.  
+              </li>
+              <li>
+              Attempt to circumvent any banishment without the consent of MCCade.
+              </li>
+              <li>
+              Disrupt communications, see "Disruption of Communications" below.
+              </li> 
+              </ul>
+          </li>
+          <li>
+            <h5 className="font-bold text-secondary">Disruption of Communications</h5>
+            <p>
+            Disruptive communication is anything that inhibits the clean flow of communication between users on MCCade. 
+            </p>
+            <p>
+            This includes but is not limited to:
+            </p>
+            <ul className="list-disc">
+              <li>
+              Flooding: Posting an excessive number of threads or posts is disruptive to communication. Don't do it.
+              </li>
+              <li>
+              Non-English Communication: MCCade is an English language service. Communication, particularly content viewable by many users, will be conducted in the English 
+              language. This also means that users will use the English language properly. "Leet speak" and alternating upper/lowercase letters (i.e. "tYpInG lIKe ThIS") 
+              are difficult to read and will not be tolerated.
+              </li>
+              <li>
+              - Excessive use of caps
+              </li>
+              <li>
+              - Excessive use of symbols
+              </li>
+              <li>
+              - Excessive use of punctuation
+              </li>
+              <li>
+              - Excessive use of emojis
+              </li>
+              <li>
+              - Excessive use of colors
+              </li>
+              <li>
+              - Excessive use of formatting
+              </li>
+              <li>
+              - Excessive use of mentions
+              </li>
+              <li>
+              - Excessive use of images
+              </li>
+              <li>
+              - Excessive use of links
+              </li>
+              <li>
+              - Excessive use of spoilers
+              </li>
+              <li>
+              - Excessive use of code blocks
+              </li>
+            </ul>
+          </li>
         </ol>
 
  
