@@ -1,11 +1,11 @@
 'use client';
 import { ForgotPassword } from "@/services/forum/account/AccountService";
 import useSession from "@/hooks/useSession";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { FormEvent, useRef, useState } from "react";
 import { AuthContext } from "../template"
+import HashLink from "@/components/HashLink";
 
 export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -61,8 +61,8 @@ export default function ForgotPasswordPage() {
         <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
       </form>
       <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
-      <small className="my-1"><b>Don't have an account? <Link className="text-primary hover:text-primary-content" href="/auth/register">Register here!</Link></b></small>
-      <small className="mb-1"><b>Already remembered it? <Link className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</Link></b></small>
+      <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
+      <small className="mb-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
     </>;
   }
 
@@ -112,6 +112,6 @@ export default function ForgotPasswordPage() {
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
     </form>
     <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
-    <small className="my-1"><b>Already remembered it? <Link className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</Link></b></small>
+    <small className="my-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
   </>;
 };

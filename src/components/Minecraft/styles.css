@@ -1,0 +1,9 @@
+.mc-bust {
+  top: calc(50% - 60px);
+  left: calc(50% - 49px);
+}
+
+.mc-shadow {
+  --shadow-color: red;
+  filter: drop-shadow(0px 0px 3px var(--shadow-color));
+}

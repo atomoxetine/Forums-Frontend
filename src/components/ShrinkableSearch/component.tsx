@@ -1,6 +1,5 @@
 'use client';
 import './styles.css'
-import React from "react";
 import { BsSearchHeart } from "react-icons/bs";
 
 const ShrinkableSearch = () => (

@@ -1,9 +1,9 @@
 'use client';
 import useSession from "@/hooks/useSession";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../template"
+import HashLink from "@/components/HashLink";
 
 export default function LoginPage() {
   let setUsername = useContext(AuthContext)?.setUsername;
@@ -47,7 +47,7 @@ export default function LoginPage() {
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Sign in"}</button>
     </form>
     <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
-    <small className="my-1"><b>Don't have an account? <Link className="text-primary hover:text-primary-content" href="/auth/register">Register here!</Link></b></small>
-    <small><b>Forgot your password? <Link className="text-secondary hover:text-secondary-content" href="/auth/reset">Click here to reset.</Link></b></small>
+    <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
+    <small><b>Forgot your password? <HashLink className="text-secondary hover:text-secondary-content" href="/auth/reset">Click here to reset.</HashLink></b></small>
   </>;
 };

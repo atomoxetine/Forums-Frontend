@@ -1,7 +1,7 @@
 'use client';
-import React, { useState } from "react";
-import MCBust from "./MCBust"
-import { createContext } from "react";
+import './styles.css'
+import { createContext, useState } from "react";
+import MCBust from "@/components/Minecraft/MCBust"
 
 type ContextT = { setUsername: React.Dispatch<React.SetStateAction<string | undefined>>; } | undefined;
 export const AuthContext = createContext<ContextT>(undefined);
@@ -14,7 +14,7 @@ export default function AuthTemplate({
   return (
     <div className="template rounded-t-lg overflow-hidden mb-0 xl:mb-16">
       <div className="relative bg-full bg-banner w-full h-36">
-        <MCBust username={username} className="absolute"></MCBust>
+      <MCBust username={username} className="absolute"></MCBust>
       </div>
       <div className="px-5 pt-3 pb-6 sm:px-24 overflow-hidden bg-base-200 rounded-b-lg">
         <div className="flex flex-col items-center text-center w-fit max-w-[346px] h-fit">

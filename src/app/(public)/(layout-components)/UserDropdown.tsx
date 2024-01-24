@@ -1,6 +1,5 @@
 import Dropdown from "@/components/Dropdown";
 import { IoPerson } from "react-icons/io5";
-import React from "react";
 import { UserNav } from "./NavLinks";
 
 const UserDropdown = (props: { className?: string }) =>
