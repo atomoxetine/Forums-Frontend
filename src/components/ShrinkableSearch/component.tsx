@@ -3,7 +3,7 @@ import './styles.css'
 import { BsSearchHeart } from "react-icons/bs";
 
 const ShrinkableSearch = () => (
-  <div className="shrinkable-search flex justify-end max-w-full">
+  <div className="shrinkable-search flex justify-end items-center max-w-full">
     <input id="searchToggle" type="checkbox" className="drawer-toggle border-0"/>
     <div tabIndex={0} className="form-control border-0">
       <input type="text" placeholder="Search" className="input rounded-3xl w-full border-2 border-white border-opacity-25 focus:border-opacity-80"/>

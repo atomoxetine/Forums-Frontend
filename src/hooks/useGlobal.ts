@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 
-declare global {
-  var elyGlobals: {[key: string]: BehaviorSubject<any>};
+declare namespace globalThis {
+  let elyGlobals: {[key: string]: BehaviorSubject<any>};
 }
 globalThis.elyGlobals ??= {};
 
@@ -35,7 +35,7 @@ function useGlobal<T>(
         delete elyGlobals[subjectName];
       }
     }
-  }, []);
+  }, [elyGlobals, subjectName]);
 
   return [variable, setVariable];
 }

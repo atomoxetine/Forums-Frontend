@@ -12,7 +12,7 @@ export default function RegisterPage() {
   let setUsername = useContext(AuthContext)?.setUsername;
   useEffect(() => {
     setUsername?.(username);
-  }, []);
+  }, [setUsername, username]);
 
   const token = searchParams.get('token');
   if (!token)

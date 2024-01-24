@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
   let setUsername = useContext(AuthContext)?.setUsername;
   useEffect(() => {
     setUsername?.(username);
-  }, []);
+  }, [setUsername, username]);
 
   const isError = useRef<boolean>(false);
 

@@ -40,6 +40,7 @@ const interceptSession =
  * Endpoint for retrieving Account data from Email.
  *
  * @param email The Email of the player.
+ * @param client
  * @return ResponseEntity containing the user's Account data.
  */
 // In the API: @GetMapping(path = "/forum/account/threads/{uuid}")
@@ -49,9 +50,9 @@ export const GetAccountFromEmail = async (email: string, client: HTTPClient = ne
 /**
  * Endpoint for updating account settings.
  *
- * @param body (type: any) The JSON object containing updated settings.
- * @param uuid The UUID of the player.
  * @return ResponseEntity containing the updated account information.
+ * @param data
+ * @param client
  */
 // In the API: @PutMapping(path = "/forum/account/setting/{uuid}")
 export const UpdateAccountSettings = async (
@@ -63,6 +64,7 @@ export const UpdateAccountSettings = async (
  * Endpoint for forgot password.
  *
  * @param email The email of the player.
+ * @param client
  * @return ResponseEntity containing the updated account information or an error message.
  */
 // In the API: @PostMapping(path = "/forum/account/forgotPassword/{email}")
@@ -72,9 +74,9 @@ export const ForgotPassword = async (email: string, client: HTTPClient = new HTT
 /**
  * Endpoint for updating account password.
  *
- * @param body (type: { password: string, currentPassword: string }) The JSON object containing the current and new password.
- * @param uuid The UUID of the player.
  * @return ResponseEntity containing the updated account information or an error message.
+ * @param data
+ * @param client
  */
 // In the API: @PutMapping(path = "/forum/account/password/{uuid}")
 export const UpdateAccountPassword = async (

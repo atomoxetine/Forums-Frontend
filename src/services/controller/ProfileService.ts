@@ -16,6 +16,7 @@ export const GetAllProfiles = async (client: HTTPClient = new HTTPClient(process
  * Endpoint to retrieve a user profile based on their UUID.
  *
  * @param uuid The UUID of the user.
+ * @param client
  * @return ResponseEntity containing the Profile or not found status if the profile is not available.
  */
 // In the API: @GetMapping("/profile/{uuid}")
@@ -26,6 +27,7 @@ export const GetProfileFromUuid = async (uuid: string, client: HTTPClient = new 
  * Endpoint to retrieve the server data for a user based on their UUID.
  *
  * @param uuid The UUID of the user.
+ * @param client
  * @return ResponseEntity containing the ServerData or not found status if the server data is not available.
  */
 // In the API: @GetMapping("/profile/server/{uuid}")
@@ -36,6 +38,7 @@ export const GetServerData = async (uuid: string, client: HTTPClient = new HTTPC
  * Endpoint to retrieve the proxy information for a user based on their UUID.
  *
  * @param uuid The UUID of the user.
+ * @param client
  * @return ResponseEntity containing the proxy information or not found status if the information is not available.
  */
 // In the API: @GetMapping("/profile/proxy/{uuid}")

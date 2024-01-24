@@ -1,6 +1,7 @@
 import './globals.css';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata, /* ResolvingMetadata */ } from 'next';
 import { Dosis } from 'next/font/google'
+import React from "react";
 
 const dosis = Dosis({subsets: ["latin"], variable: "--font-dosis"});
 
