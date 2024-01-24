@@ -42,7 +42,7 @@ export default function Terms() {
             <p>
             The materials on MCCade's web site are provided "as is". MCCade Games makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, 
             including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other 
-            violation of rights. Furthermore, Mineplex does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials 
+            violation of rights. Furthermore, MCCade does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials 
             on its Internet web site or otherwise relating to such materials or on any sites linked to this site.  
             </p>
           </li>
@@ -126,43 +126,79 @@ export default function Terms() {
               are difficult to read and will not be tolerated.
               </li>
               <li>
-              - Excessive use of caps
+              Off-Topic Posting: Posting content in a section it doesn't belong in (Example: Posting a thread about a unicorns on the reports forum.) Replying to content with unrelated information.
               </li>
               <li>
-              - Excessive use of symbols
-              </li>
-              <li>
-              - Excessive use of punctuation
-              </li>
-              <li>
-              - Excessive use of emojis
-              </li>
-              <li>
-              - Excessive use of colors
-              </li>
-              <li>
-              - Excessive use of formatting
-              </li>
-              <li>
-              - Excessive use of mentions
-              </li>
-              <li>
-              - Excessive use of images
-              </li>
-              <li>
-              - Excessive use of links
-              </li>
-              <li>
-              - Excessive use of spoilers
-              </li>
-              <li>
-              - Excessive use of code blocks
+              Miscellaneous: Communication that disrupts the easy browsing of the site will not be tolerated. This includes exceedingly large pictures, large ASCII art, or links 
+              that go to a destination other than the one stated. (Example: Rick rolling.)
               </li>
             </ul>
           </li>
         </ol>
-
- 
+        <h4 className="font-bold text-secondary">Privacy Policy</h4>
+        <p>
+        Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.
+        </p>
+        <ul className="list-disc">
+          <li>
+          Before or at the time of collecting personal information, we will identify the purposes for which information is being collected. 
+          </li>
+          <li>
+          We will collect and use of personal information solely with the objective of fulfilling those 
+          purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.
+          </li>
+          <li>
+          We will only retain personal information as long as necessary for the fulfillment of those purposes.
+          </li>
+          <li>
+          We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.  
+          </li>
+          <li>
+          Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.  
+          </li>
+          <li>
+          We will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.  
+          </li>
+          <li>
+          We will make readily available to customers information about our policies and practices relating to the management of personal information.
+          </li>
+          <li>
+          We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained.
+          </li> 
+        </ul>
+        <h4 className="font-bold text-secondary">User Agreement</h4>
+        <p>
+        We reserve the right to change, with or without notice, any rank price that has been set forth. We also reserve the right to change the contents of a specific rank – the benefits 
+        of a certain rank can change, and you will not be entitled to the old rank benefits if we change it. Rest assured that no rank benefit, or any other item in the store, will 
+        be changed without a valid, server-balancing reason. You agree to indemnify the staff, owners, hosts, advertisers, officers, directors, employees, partners, and all other parties 
+        related to this server's staff. By agreeing to these terms, you agree not to present any lawsuit or other legal challenge against the server staff for any reason, whether related 
+        to your purchase or not. You understand and agree that your use of this website and any services or content provided is made available and provided to you at your own risk. It 
+        is provided to you as-is and we expressly disclaim all warranties of any kind, expressed or implied, including but not limited to the warranties of merchantability, fitness for 
+        a particular purpose, and non-infringement. You understand and agree that neither us nor any participant in the service provides professional advice of any kind and thus use of 
+        such advice or any other information is solely at your own risk and without our liability of any kind. Some jurisdictions may not allow disclaimers of implied warranties and 
+        the above disclaimer may not apply to you only as it relates to implied warranties. You expressly understand and agree that we shall not be liable for any direct, indirect, 
+        special, incidental, consequential or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other intangible loss (even if we 
+        have been advised of the possibility of such damages), resulting from or arising out of (I) The use of or the inability to use the service, (II) The cost to obtain substitute 
+        goods and/or services resulting from any transaction entered into or through the service, (III) Unauthorized access to or alteration of your data transmissions, (IV) Statements 
+        or conduct of any third party on the service, or (V) any other matter relating to the service. Note that by accepting the terms in the document, you are also waiving your right, 
+        to take any action, legal or otherwise, against anyone or anything related to the staff, management, administrators, members, owners or any hosts of this server. You furthermore 
+        acknowledge that if any part of this document is found to be invalid or unenforceable in any way, any parts not found to be invalid or unenforceable will be considered fully valid 
+        and binding. Any staff, owners, hosts, advertisers, officers, directors, employees, partners, and all other parties related to this servers staff reserve the right, with the 
+        appropriate permissions, to forcibly make you leave the server, permanently or temporarily, with no chance of refund. If you obey the rules, you will never be banned, plain and simple.
+        </p>
+        <p>
+        By accessing MCCade services, you agree that you will not create content that contains hacking, slander, or malicious game disruption. Youtubers, Streamers, and 
+        Content Creators are encouraged to release videos for monetary purposes so long as it is within the conjunction of Mineplex's rules. Any egregious hacking, leaks, 
+        slander, or abusive behavior will not be permitted to use in content recorded on servers and games owned by MCCade Games LLC. For content that violates said rules, you 
+        irrevocably grant MCCade Games, LLC all rights related to any work created and waive all of your own rights, including moral rights, to content that contains cheating or 
+        other malicious and disruptive activity and understand that all previous rights you have had in said content are forfeited.  
+        </p>
+        <h4 className="font-bold text-secondary">Refund Policy</h4>
+        <p>
+        All sales are final, you may not buyback, stop, credit the server by any means necessary in order to receive your funds back that of which have been paid. And in doing so we 
+        reserve the right to disallow your continued play on the server/forums and not allow further funds to be added or taken away. We reserve the right to pursue any legal or 
+        collection action necessary to recover damages in the event of a forced charge-back.  
+        </p>
       </div>
     </div>
   );

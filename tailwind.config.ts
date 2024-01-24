@@ -30,36 +30,44 @@ const config: Config = {
         dark: {
           "color-scheme": "dark",
           "primary": "#E6A900", // Golden
-          "neutral": "#36B887", // Grass green
+          "primary-content": "#FDEDC0",
+          "neutral": "#36B887", // Lime-ish?
+          "neutral-content": "#C7FAE6",
           "secondary": "#495bb3", // Water blue
-          "accent": "#D66851", // Complementary of neutral
-          "info": "#00a1d6", // Cyan 195deg
-          "success": "#00d600", // Green 120deg
-          "warning": "#d68f00", // Orange 40deg
-          "error": "#d60000", // Red 0deg
-          "accent-content": "#806b7a", // Accent 50% brightness 16% saturation
-          "neutral-content": "#4c4966",
+          "secondary-content": "#DADEF2",
+          "accent": "#bd2455", // Ruby
+          "accent-content": "#D9CBD1",
+          
           "base-content": "#87858c",
           "base-100": "#23222F",
           "base-200": "#1A1927",
           "base-300": "#13121C",
-        },
-        light: {
-          "color-scheme": "light", // primary to error are all the same as above
-          "primary": "#E6A900", // Golden
-          "neutral": "#36B887", // Grass green
-          "secondary": "#495bb3", // Water blue
-          "accent": "#D66851", // Complementary of neutral
+
           "info": "#00a1d6", // Cyan 195deg
           "success": "#00d600", // Green 120deg
           "warning": "#d68f00", // Orange 40deg
           "error": "#d60000", // Red 0deg
-          "accent-content": "#7f8a94", // Inverse of dark accent-content hued back to neutral
-          "neutral-content": "#9b98b5", // Inverse of dark neutral-content hued back to neutral
+        },
+        light: {
+          "color-scheme": "light", // primary to error are all the same as above
+          "primary": "#d99f00", // Golden
+          "primary-content": "#4F3A00",
+          "neutral": "#36B887", // Lime-ish?
+          "neutral-content": "#18523C",
+          "secondary": "#5468cc", // Water blue
+          "secondary-content": "#222A52",
+          "accent": "#bd2455", // Ruby
+          "accent-content": "#520F24",
+
           "base-content": "#75737a", // Inverse of dark base-content hued back to neutral
           "base-100": "#e5e4ed", // Inverse of dark base-300 hued back to neutral
           "base-200": "#d9d8e6", // Inverse of dark base-200 hued back to neutral
           "base-300": "#d2d1de", // Inverse of dark base-100 hued back to neutral
+
+          "info": "#00a1d6", // Cyan 195deg
+          "success": "#00d600", // Green 120deg
+          "warning": "#d68f00", // Orange 40deg
+          "error": "#d60000", // Red 0deg
         },
       },
     ],

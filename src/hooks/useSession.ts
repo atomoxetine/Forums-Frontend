@@ -1,14 +1,15 @@
 'use client';
 import { SessionData, defaultSession } from "@/libs/session/iron";
-import { Login, Register } from "@/services/forum/account/AccountService";
+import { Login, Register, Reset } from "@/services/forum/account/AccountService";
 import { BehaviorSubject } from 'rxjs';
 import useGlobal from "./useGlobal";
 import { useCallback } from "react";
 
 interface SessionManager {
   session?: SessionData;
-  register: (formData: FormData) => Promise<[SessionData | null, number, string | null]>;
-  login: (formData: FormData) => Promise<[SessionData | null, number, string | null]>;
+  register: (body: any) => Promise<[SessionData | null, number, string | null]>;
+  reset: (body: any) => Promise<[SessionData | null, number, string | null]>;
+  login: (body: any) => Promise<[SessionData | null, number, string | null]>;
   logout: () => Promise<void>;
 }
 function useSession(): SessionManager {
@@ -18,19 +19,18 @@ function useSession(): SessionManager {
       .then((session) => $.next(session));
   const [session, setSession] = useGlobal('session', () => defaultSession, runOnceGlobally);
 
-  const register = useCallback(async (formData: FormData) => {
-    const result = await Register(formData);
-    if (result[0])
-      setSession(result[0]);
-    return result;
-  }, [setSession]);
+  const interceptSession = 
+    (method: any): (body: any) => Promise<[SessionData | null, number, string | null]> =>
+      useCallback(async (body: any) => {
+        const result = await method(body);
+        if (result[0])
+          setSession(result[0]);
+        return result;
+      }, [setSession]);
 
-  const login = useCallback(async (formData: FormData) => {
-    const result = await Login(formData);
-    if (result[0])
-      setSession(result[0]);
-    return result;
-  }, [setSession]);
+  const register = interceptSession(Register);
+  const reset = interceptSession(Reset);
+  const login = interceptSession(Login);
 
   const logout = useCallback(async () => {
     await fetch("/api/auth", { method: "delete" })
@@ -43,6 +43,7 @@ function useSession(): SessionManager {
   return {
     session,
     register,
+    reset,
     login,
     logout
   };

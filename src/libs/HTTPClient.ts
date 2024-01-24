@@ -63,19 +63,15 @@ export default class HTTPClient {
     return [json as T, httpResponse.status, null];
   }
 
-  public async GetAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
-    return await this.actAsync<T>("get", route, body);
-  }
+  public GetAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("get", route, body);
 
-  public async PostAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
-    return await this.actAsync<T>("post", route, body);
-  }
+  public PostAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("post", route, body);
 
-  public async PutAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
-    return await this.actAsync<T>("put", route, body);
-  }
+  public PutAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("put", route, body);
 
-  public async DeleteAsync<T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> {
-    return await this.actAsync<T>("delete", route, body);
-  }
+  public DeleteAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("delete", route, body);
 }
