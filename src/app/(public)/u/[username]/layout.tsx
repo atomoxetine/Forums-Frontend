@@ -21,8 +21,9 @@ export default function User({ children: children }: UserParams) {
   timePlayed = "5d 8h";
 
   const rankColor: string = {
-    developer: "#ff0000"
-  }[rank] ?? "#BF7076";
+    owner: "#9F000C",
+    developer: "#ff4141"
+  }[rank] ?? "#ffffff"
   const statusColor: string = {
     online: "#00ee00"
   }[status] ?? "gray";

@@ -3,6 +3,7 @@ import './styles.css';
 import Image from "next/image";
 import useMcUuid from "@/hooks/useMcUuid";
 import React from 'react';
+import HashLink from "@/components/HashLink";
 
 interface MCBustProps {
   username?: string;
@@ -12,10 +13,10 @@ interface MCBustProps {
 const MCBust = ({ username: username, className: className, shadowColor: shadowColor = "#ee0000" }: MCBustProps) => {
   const defaultUrl = '/img/fem-alex-head.png';
   const uuid = useMcUuid(username);
-
+  const title = username ?? "Fem Alex's Head";
   return (
-    <div className={`w-fit h-fit text-center flex items-center justify-center mc-head ${className}`}
-      style={{filter: `drop-shadow(0px 0px 3px ${shadowColor})`}}
+    <HashLink href={`/u/${username}`} className={`w-fit h-fit text-center flex items-center justify-center mc-head ${className}`}
+      style={{filter: `drop-shadow(0px 0px 5px ${shadowColor})`}}
     >
       <svg className="my-px mx-[3px]" height="70" width="61" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -24,10 +25,10 @@ const MCBust = ({ username: username, className: className, shadowColor: shadowC
           </clipPath>
         </defs>
         <foreignObject className="text-left" width="130%" height="100%" clipPath="url(#hex-small)">
-          <Image className="mt-[-1px] ml-[-10px]" width={180} height={191} alt={username ?? "Fem Alex's Head"} src={uuid ? `https://skins.mcstats.com/skull/${uuid}` : defaultUrl}/>
+          <Image className="mt-[-3px] ml-[-10px]" width={180} height={191} title={title} alt={title} src={uuid ? `https://skins.mcstats.com/skull/${uuid}` : defaultUrl}/>
         </foreignObject>
       </svg>
-    </div>
+    </HashLink>
   );
 }
 export default MCBust;

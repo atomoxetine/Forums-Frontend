@@ -1,9 +1,10 @@
 'use client';
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
+import {CSSProperties} from "react";
 
-const HashLink = (props: { href: Url; children: any; className?: string; }) => (
-  <Link tabIndex={0} href={props.href} className={props.className}
+const HashLink = (props: { href: Url; children: any; className?: string; style?: CSSProperties }) => (
+  <Link tabIndex={0} href={props.href} className={props.className} style={props.style}
     onClick={() => {
       // Checks if href isn't empty;
       const href = props.href.toString();
