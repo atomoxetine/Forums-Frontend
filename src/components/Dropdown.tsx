@@ -27,7 +27,7 @@ const Dropdown = ({
           : icon
         }
       </label>
-      <div tabIndex={0} className={`absolute z-[1] dropdown-content menu flex flex-col gap-y-2 ${dropdownClassName || ''}`}>
+      <div tabIndex={0} className={`absolute z-[1] dropdown-content text-base-content menu flex flex-col gap-y-2 ${dropdownClassName || ''}`}>
         { children }
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 import './styles.css'
-import { createContext, useState } from "react";
+import { Suspense, createContext, useState } from "react";
 import MCBust from "@/components/Minecraft/MCBust"
 
 type ContextT = { setUsername: React.Dispatch<React.SetStateAction<string | undefined>>; } | undefined;
@@ -19,7 +19,7 @@ export default function AuthTemplate({
       <div className="px-5 pt-3 pb-6 sm:px-24 overflow-hidden bg-base-200 rounded-b-lg">
         <div className="flex flex-col items-center text-center w-fit max-w-[346px] h-fit">
           <AuthContext.Provider value={{ setUsername }}>
-            {children}
+            <Suspense>{children}</Suspense>
           </AuthContext.Provider>
         </div>
       </div>

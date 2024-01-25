@@ -8,11 +8,11 @@ export default function Staff() {
     {username: "OhEmilyy", rank: "owner"},
     {username: "OhEmilyy", rank: "owner"}
   ].sort((a, b) => {
-    const getVal = a => ({
+    const getVal = (a: string) => ({
       "owner": 0,
       "developer": 1,
-    }[a.rank]);
-    return getVal(a) - getVal(b);
+    }[a]);
+    return getVal(a.rank)! - getVal(b.rank)!;
   });
   const rankColor = (rank: string) => ({
     owner: "#9F000C",

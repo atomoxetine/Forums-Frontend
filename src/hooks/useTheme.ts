@@ -1,10 +1,10 @@
 'use client';
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import useGlobal from './useGlobal';
 
 function useTheme(defaultTheme: string = "dark"): [string | undefined, (theme: string) => void] {
-  const defaultValueGetter = () => (window.localStorage.getItem("theme") ?? defaultTheme);
-  const [theme, setTheme] = useGlobal('theme', defaultValueGetter);
+  const getDefaultSession = useCallback(() => window.localStorage.getItem("theme") ?? defaultTheme, [defaultTheme]);
+  const [theme, setTheme] = useGlobal('theme', getDefaultSession);
   
   useEffect(() => {
     if (!theme) return;

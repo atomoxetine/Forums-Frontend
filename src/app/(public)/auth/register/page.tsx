@@ -1,7 +1,8 @@
-'use client'
+'use client';
 import useSession from "@/hooks/useSession";
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, FormEvent, useContext, useEffect } from 'react'
+import { useRouter, useSearchParams } from "next/navigation";
+import { useContext, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
@@ -15,26 +16,32 @@ export default function RegisterPage() {
   }, [setUsername, username]);
 
   const token = searchParams.get('token');
-  if (!token)
-    return <>
-      <h3 className="text-center text-primary">Before you continue, please register in our server</h3>
-      <div className="inline-block w-[98%] h-[1px] bg-base-content mt-5 mb-4"></div>
-      <ul className="ml-5 list-disc list-outside flex flex-col gap-2 text-left">
-        <li className="text-secondary">
-          <h5><strong>Step 1:</strong></h5>
-          <span className="font-semibold text-base-content">Connect to mccade.net.</span>
-        </li>
-        <li className="text-secondary">
-          <h5><strong>Step 2:</strong></h5>
-          <span className="font-semibold text-base-content">Type /register {"<email>"} in the chat.</span>
-        </li>
-        <li className="text-secondary">
-          <h5><strong>Step 3:</strong></h5>
-          <span className="font-semibold text-base-content">Check your email and follow the setup instructions!</span>
-        </li>
-      </ul>
-    </>;
+  return token ? <DoRegisterPage username={username} token={token}/> : <RequestRegisterPage/>;
+};
+
+const RequestRegisterPage = ({ username: username }: { username?: string }) => {
+  return <>
+    <h3 className="text-center text-primary">Before you continue, please register in our server</h3>
+    <div className="inline-block w-[98%] h-[1px] bg-base-content mt-5 mb-4"></div>
+    <ul className="ml-5 list-disc list-outside flex flex-col gap-2 text-left">
+      <li className="text-secondary">
+        <h5><strong>Step 1:</strong></h5>
+        <span className="font-semibold text-base-content">Connect to mccade.net.</span>
+      </li>
+      <li className="text-secondary">
+        <h5><strong>Step 2:</strong></h5>
+        <span className="font-semibold text-base-content">Type /register {"<email>"} in the chat.</span>
+      </li>
+      <li className="text-secondary">
+        <h5><strong>Step 3:</strong></h5>
+        <span className="font-semibold text-base-content">Check your email and follow the setup instructions!</span>
+      </li>
+    </ul>
+  </>;
  
+};
+
+const DoRegisterPage = ({ token: token, username: username }: { token: string, username?: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { register } = useSession();
@@ -85,4 +92,4 @@ export default function RegisterPage() {
     <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
     <small className="my-1"><b>Already have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/login">Sign in here!</HashLink></b></small>
   </>;
-}
+};

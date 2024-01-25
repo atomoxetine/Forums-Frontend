@@ -8,11 +8,16 @@ import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
 export default function ForgotPasswordPage() {
+  const searchParams = useSearchParams();
+  const username = searchParams.get('username') ?? undefined;
+  const token = searchParams.get('token');
+  
+  return token ? <ResetPasswordPage username={username} token={token}/> : <RequestResetPage username={username}/>;
+};
+
+const RequestResetPage = ({ username: username }: { username?: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [state, setState] = useState<string | null>(null);
-
-  const searchParams = useSearchParams();
-  let username = searchParams.get('username') ?? undefined;
   
   let setUsername = useContext(AuthContext)?.setUsername;
   useEffect(() => {
@@ -45,26 +50,28 @@ export default function ForgotPasswordPage() {
     }
   }
 
-  const token = searchParams.get('token');
-  if (!token) {
-    return <>
-      <h3 className="text-primary">
-        It's okay, player.<br/>
-      </h3>
-      <h5 className="mb-4 mx-8 text-primary">
-        Everyone forgets their password here and then. Let's fix that.
-      </h5>
-      {state && <p className={`${(isError.current ? 'text-error' : 'text-success')} mb-1`}>{state}</p>}
-      <form onSubmit={onSubmitRequest}>
-        <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
-          disabled={isLoading} type="text" name="email" placeholder="Email" required/>
-        <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
-      </form>
-      <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
-      <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
-      <small className="mb-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
-    </>;
-  }
+  return <>
+    <h3 className="text-primary">
+      It's okay, player.<br/>
+    </h3>
+    <h5 className="mb-4 mx-8 text-primary">
+      Everyone forgets their password here and then. Let's fix that.
+    </h5>
+    {state && <p className={`${(isError.current ? 'text-error' : 'text-success')} mb-1`}>{state}</p>}
+    <form onSubmit={onSubmitRequest}>
+      <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
+        disabled={isLoading} type="text" name="email" placeholder="Email" required/>
+      <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
+    </form>
+    <div className="inline-block w-[98%] h-[1px] bg-base-content my-1"></div>
+    <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
+    <small className="mb-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
+  </>;
+};
+
+const ResetPasswordPage = ({ token: token, username: username }: { token: string, username?: string }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [state, setState] = useState<string | null>(null);
 
   const { reset } = useSession();
   const { push } = useRouter();

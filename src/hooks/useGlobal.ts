@@ -35,7 +35,7 @@ function useGlobal<T>(
         delete elyGlobals[subjectName];
       }
     }
-  }, [elyGlobals, subjectName]);
+  }, [elyGlobals, subjectName, defaultValueGetter, runOnceGlobally]);
 
   return [variable, setVariable];
 }

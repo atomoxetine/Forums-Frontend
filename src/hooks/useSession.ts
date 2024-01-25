@@ -13,24 +13,28 @@ interface SessionManager {
   logout: () => Promise<void>;
 }
 function useSession(): SessionManager {
-  const runOnceGlobally = ($: BehaviorSubject<SessionData>) =>
-    fetch("/api/auth")
-      .then((res) => res.json())
-      .then((session) => $.next(session));
-  const [session, setSession] = useGlobal('session', () => defaultSession, runOnceGlobally);
+  const runOnceGlobally = useCallback(
+    ($: BehaviorSubject<SessionData>) =>
+      fetch("/api/auth")
+        .then((res) => res.json())
+        .then((session) => $.next(session)), []
+  );
 
-  const interceptSession = 
+  const getDefaultSession = useCallback(() => defaultSession, []);
+  const [session, setSession] = useGlobal('session', getDefaultSession, runOnceGlobally);
+
+  const InterceptSession = 
     (method: any): (body: any) => Promise<[SessionData | null, number, string | null]> =>
       useCallback(async (body: any) => {
         const result = await method(body);
         if (result[0])
           setSession(result[0]);
         return result;
-      }, [setSession]);
+      }, [method]);
 
-  const register = interceptSession(Register);
-  const reset = interceptSession(Reset);
-  const login = interceptSession(Login);
+  const register = InterceptSession(Register);
+  const reset = InterceptSession(Reset);
+  const login = InterceptSession(Login);
 
   const logout = useCallback(async () => {
     await fetch("/api/auth", { method: "delete" })
