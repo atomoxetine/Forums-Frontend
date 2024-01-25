@@ -7,13 +7,16 @@ import React from 'react';
 interface MCBustProps {
   username?: string;
   className?: string;
+  shadowColor?: string;
 }
-const MCBust = ({ username: username, className: className }: MCBustProps) => {
-  const defaultUrl = '/img/fem-alex.png';
+const MCBust = ({ username: username, className: className, shadowColor: shadowColor = "#ee0000" }: MCBustProps) => {
+  const defaultUrl = '/img/fem-alex-head.png';
   const uuid = useMcUuid(username);
 
   return (
-    <div className={`w-fit h-fit text-center flex items-center justify-center mc-shadow mc-head ${className}`}>
+    <div className={`w-fit h-fit text-center flex items-center justify-center mc-head ${className}`}
+      style={{filter: `drop-shadow(0px 0px 3px ${shadowColor})`}}
+    >
       <svg className="my-px mx-[3px]" height="70" width="61" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="hex-small">

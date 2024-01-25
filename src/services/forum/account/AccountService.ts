@@ -11,7 +11,6 @@ const interceptSession =
   (method: any): (body: any) => Promise<[SessionData | null, number, string | null]> =>
     async (body: any) => {
       const result = await method(body);
-
       if (!result[0]) return result;
 
       const session = await getSession();

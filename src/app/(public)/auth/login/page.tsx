@@ -24,7 +24,6 @@ export default function LoginPage() {
 
       const result = await login({ username: formData.get("username"), password: formData.get("password") });
       if (!(result[1] >= 200 && result[1] <= 299)) {
-        console.log(result);
         throw new Error(result[2] ?? "Unknown error");
       }
       

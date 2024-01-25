@@ -1,0 +1,9 @@
+{
+    "plugins": [
+        {
+            "type": "add",
+            "pluginName": "fleet.javascript"
+        }
+    ],
+    "backend.maxHeapSizeMb": 2602
+}

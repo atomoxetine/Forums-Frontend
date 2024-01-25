@@ -8,7 +8,6 @@ import Link from "next/link";
 import useSession from "@/hooks/useSession";
 
 const NavLinks = () => {
-  const currRoute = usePathname() + useHash();
   const navLinks = [
     { href: "/", text: "Home", icon: <></> },
     { href: "/forums", text: "Forums", icon: <></>},
@@ -20,7 +19,7 @@ const NavLinks = () => {
 
   return <>
     {navLinks.map((navLink, i) => 
-      <NavLink key={i} currRoute={currRoute} href={navLink.href}>
+      <NavLink key={i} href={navLink.href}>
         {navLink.icon} <h6>{navLink.text}</h6>
       </NavLink> 
     )}
@@ -30,7 +29,6 @@ const NavLinks = () => {
 export default NavLinks;
   
 export const UserNav = () => {
-  const currRoute = usePathname() + useHash();
   const [isLoading, setIsLoading] = useState(false);
   const {session, logout} = useSession();
 
@@ -47,8 +45,8 @@ export const UserNav = () => {
     {
       !session?.isLoggedIn ? 
         <>
-          <NavLink currRoute={currRoute} href="/auth/login"><h6>Login</h6></NavLink>
-          <NavLink currRoute={currRoute} href="/auth/register"><h6>Register</h6></NavLink>
+          <NavLink href="/auth/login"><h6>Login</h6></NavLink>
+          <NavLink href="/auth/register"><h6>Register</h6></NavLink>
         </> :
         <Link href="" className="navlink" onClick={logoutCall}><h6>Logout</h6></Link>
     }

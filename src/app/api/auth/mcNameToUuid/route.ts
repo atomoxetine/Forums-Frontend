@@ -11,7 +11,6 @@ export async function GET(req: { url: string | URL; }) {
   } catch { /* Do nothing */ }
 
   if (!uuid) { // Fallback in case Mojang's API is down
-    console.log(1)
     try {
       uuid = await fetch(`https://playerdb.co/api/player/minecraft/${username}`)
         .then(res => res?.json())

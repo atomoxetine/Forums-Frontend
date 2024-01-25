@@ -6,6 +6,7 @@ const mcStats = {
   port: '',
 };
 const images = {
+  minimumCacheTTL: 60,
   remotePatterns: [
     {...mcStats, pathname: '/bust/**'},
     {...mcStats, pathname: '/skull/**'},

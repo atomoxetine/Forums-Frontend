@@ -31,14 +31,12 @@ export default function InfoLayout({
   
   return <>
     <section className="flex flex-col justify-center items-center">
-      <div className="flex justify-center">
-        <div className="flex h-min w-fit p-5 gap-4 inner">
-          <div className="flex flex-col flex-wrap gap-4 categories">
-            {categories.map((c, i) => <Category key={i} title={c.title} buttons={c.buttons}></Category>)}
-          </div>
-          <div className="h-[570px] w-screen max-w-100% overflow-y-scroll overflow-x-hidden p-6 bg-base-300 rounded-lg content">
-            {children}
-          </div>
+      <div className="flex h-min w-fit p-5 gap-4 inner">
+        <div className="flex flex-col flex-wrap gap-4 categories">
+          {categories.map((c, i) => <Category key={i} title={c.title} buttons={c.buttons}></Category>)}
+        </div>
+        <div className="h-[570px] w-screen max-w-100% overflow-y-scroll overflow-x-hidden p-6 bg-base-300 rounded-lg content">
+          {children}
         </div>
       </div>
     </section>

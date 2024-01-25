@@ -3,7 +3,7 @@ import getSession from "./libs/session/getSession";
 
 const privateRoutes: string[] = [];
 export const config = {
-  matcher: ['/auth/:path*'],
+  matcher: ['/auth/:path*', '/u/:path*'],
 }
 
 export async function middleware(req: NextRequest) {
@@ -17,5 +17,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', req.url), 302);
   }
 
+  if (req.nextUrl.pathname.startsWith('/u')) {
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set('x-url', req.url);
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
   return NextResponse.next();
 }
