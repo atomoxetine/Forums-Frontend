@@ -9,7 +9,7 @@ globalThis.elyGlobals ??= {};
 
 function useGlobal<T>(
   variableId: string,
-  defaultValueGetter: () => T,
+  defaultValueGetter?: () => T,
   runOnceGlobally?: ($: BehaviorSubject<T>) => void
 ):
   [T | undefined, (variable: T) => void]
@@ -22,7 +22,7 @@ function useGlobal<T>(
 
   useEffect(() => {
     if (elyGlobals[subjectName] === undefined) {
-      const $ = new BehaviorSubject<T>(defaultValueGetter());
+      const $ = new BehaviorSubject<T>(defaultValueGetter?.() ?? undefined as T);
       elyGlobals[subjectName] = $;
       runOnceGlobally?.($);
     }

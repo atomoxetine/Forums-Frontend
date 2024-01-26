@@ -31,10 +31,10 @@ const config: Config = {
           "color-scheme": "dark",
           "primary": "#E6A900", // Golden
           "primary-content": "#FDEDC0",
-          "neutral": "#36B887", // Lime-ish?
-          "neutral-content": "#C7FAE6",
-          "secondary": "#495bb3", // Water blue
-          "secondary-content": "#DADEF2",
+          "neutral": "#495bb3", // Lime-ish?
+          "neutral-content": "#DADEF2",
+          "secondary": "#00a164", // Water blue
+          "secondary-content": "#C7FAE6",
           "accent": "#bd2455", // Ruby
           "accent-content": "#D9CBD1",
           
@@ -54,7 +54,7 @@ const config: Config = {
           "primary-content": "#4F3A00",
           "neutral": "#36B887", // Lime-ish?
           "neutral-content": "#18523C",
-          "secondary": "#5468cc", // Water blue
+          "secondary": "#36B887", // Water blue
           "secondary-content": "#222A52",
           "accent": "#bd2455", // Ruby
           "accent-content": "#520F24",

@@ -6,24 +6,20 @@ import { MobileNavToggle } from "@/components/MobileNavbar/component";
 import ShrinkableSearch from "@/components/ShrinkableSearch/component";
 import UserDropdown from "./UserDropdown"
 import useTheme from '@/hooks/useTheme';
-import {usePathname} from "next/navigation";
+import useGlobal from '@/hooks/useGlobal';
 
 const Header = () => {
   const [theme] = useTheme('dark');
   const isDark = theme !== 'light';
   const textColor = isDark ? "text-neutral-950" : "text-neutral-300"
-  const path = usePathname().split('/');
-  const titleContent = {
-    'staff': ["Staff", "Running the show"],
-    'u': ["User", `Checkout ${path[2]}'s amazing profile!`],
-  }[path[1]];
-  
+  const [headerContent] = useGlobal<string[]>('headerContent', () => ['', '']);
+
   return (
     <header className="w-full h-fit">
       <div className="bg-img bg-full h-48 w-full flex justify-center items-center">
         <span className={`mt-12 gap-1 flex flex-col text-center uppercase tracking-widest font-bold ${textColor}`}>
-          <h3>{titleContent?.[0]}</h3>
-          <small>{titleContent?.[1]}</small>
+          <h3>{headerContent?.[0]}</h3>
+          <small>{headerContent?.[1]}</small>
         </span>
       </div>
 

@@ -2,13 +2,17 @@
 import './styles.css';
 import Image from "next/image";
 import useMcUuid from "@/hooks/useMcUuid";
+import useTheme from '@/hooks/useTheme';
 
 interface MCBustProps {
   username?: string;
   className?: string;
   shadowColor?: string;
 }
-const MCBust = ({ username: username, className: className, shadowColor: shadowColor = "#ee0000"  }: MCBustProps) => {
+const MCBust = ({ username: username, className: className, shadowColor: shadowColor  }: MCBustProps) => {
+  const [theme] = useTheme();
+  shadowColor ??= theme === 'dark' ? '#8e8e8e' : '#000000'
+  
   const defaultUrl = '/img/fem-alex.png';
   const uuid = useMcUuid(username);
 

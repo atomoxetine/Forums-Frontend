@@ -25,7 +25,7 @@ export default function Privacy() {
         <p>
         If you have any questions about our privacy practices, please contact us as set forth in the section entitled “Contact Us” below.
         </p>
-        <h4 className="font-bold text-secondary">1. Information Collection</h4>
+        <h4 className="font-bold text-neutral">1. Information Collection</h4>
         <p>
         We collect information you provide directly via the Service, such as when you register an account, update your profile, access our content, engage in gameplay, 
         make a purchase, participate in a giveaway, sweepstakes, contest, survey, or other promotion ("<b>Promotion</b>""), contact customer support, or apply for a job. 
@@ -88,7 +88,7 @@ export default function Privacy() {
         <p>
         You may choose to voluntarily submit other information to us through the Service that we do not request, and, in such instances, you are solely responsible for such information.
         </p>
-        <h4 className="font-bold text-secondary">2. Information Collected Automatically</h4>
+        <h4 className="font-bold text-neutral">2. Information Collected Automatically</h4>
         <p>
         We automatically collect information about your device and how your device interacts with our Service as well as your gameplay. We may use Service Providers to collect this 
         information. Some examples of information we collect include the following:
@@ -170,7 +170,7 @@ export default function Privacy() {
         For further information on Tracking Technologies and your rights and choices regarding them, see the sections entitled “Third Parties” and “Your Rights and Choices” below.
         </p>
         <p></p>
-        <h4 className="font-bold text-secondary">3. Information from Third Parties</h4>
+        <h4 className="font-bold text-neutral">3. Information from Third Parties</h4>
         <p>
         We also obtain information about you from other third party sources. We protect data obtained from these third parties according to the practices described in this Privacy 
         Policy, plus any additional restrictions imposed by the source of the data. These third party sources vary over time, but may include:

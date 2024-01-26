@@ -1,9 +1,12 @@
 export default function FAQ() {
   return (
     <div className="flex flex-col items-center w-full h-full">
-      <h3 className="mb-10 mt-4 text-primary font-bold">Frequently Asked Questions</h3>
+      <h3 className="mb-10 mt-4 text-primary font-bold text-center">Frequently Asked Questions</h3>
 
-      <div className="h-full w-full flex flex-col items-center gap-4">
+      <div className="h-full w-full flex flex-col items-center justify-between gap-4">
+        <Question
+          question="Question that is soooo frequently asked..."
+          answer="Answer that is soooo frequently said...."></Question>
         <Question
           question="Question that is soooo frequently asked..."
           answer="Answer that is soooo frequently said...."></Question>

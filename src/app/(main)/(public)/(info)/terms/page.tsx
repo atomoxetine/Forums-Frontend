@@ -13,24 +13,24 @@ export default function Terms() {
          and/or website and the services provided through it (collectively, the "server"), you agree to comply with and be bound by the following terms and conditions of use ("Terms of Service").
            If you do not or have failed to comply with any of our terms and conditions you are prohibited from using or accessing this site and/or the entirety of our services.
         </p>
-        <h4 className="font-bold text-secondary">Trademarks and Copyright</h4>
+        <h4 className="font-bold text-neutral">Trademarks and Copyright</h4>
         <p>
         Minecraft content and materials are trademarks and copyrights of Mojang AB or its licensors. All rights reserved. This site is made by PinkCloud Studios and is licensed
          to MCCade Games and is not affiliated with Mojang AB. Emoji icons provided free by EmojiOne
         </p>
-        <h4 className="font-bold text-secondary">Registering</h4>
+        <h4 className="font-bold text-neutral">Registering</h4>
         <p>By registering to any MCCade services you agree to these terms and conditions:</p>
         <p>MCCade reserves the right to deny or reject any username.</p>
-        <h4 className="font-bold text-secondary">Modification of the Terms and Conditions</h4>
+        <h4 className="font-bold text-neutral">Modification of the Terms and Conditions</h4>
         <p>
         We reserve the right to change this terms and conditions from time to time without notice. You acknowledge and agree that it is your responsibility to review this User Agreement 
         periodically to familiarize yourself with any modifications. Your continued use of this site after such modifications will constitute acknowledgment and agreement of the modified
         terms and conditions.
         </p>
-        <h4 className="font-bold text-secondary">Web Site/Server Terms and Conditions of Use</h4>
+        <h4 className="font-bold text-neutral">Web Site/Server Terms and Conditions of Use</h4>
         <ol>
           <li>
-            <h5 className="font-bold text-secondary">Terms</h5>
+            <h5 className="font-bold text-neutral">Terms</h5>
             <p>
             By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible
             for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in
@@ -38,7 +38,7 @@ export default function Terms() {
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Disclaimer</h5>
+            <h5 className="font-bold text-neutral">Disclaimer</h5>
             <p>
             The materials on MCCade's web site are provided "as is". MCCade Games makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, 
             including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other 
@@ -47,7 +47,7 @@ export default function Terms() {
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Limitations</h5>
+            <h5 className="font-bold text-neutral">Limitations</h5>
             <p>
             In no event shall MCCade or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) 
             arising out of the use or inability to use the materials on MCCade's Internet site, even if MCCade or a MCCade authorized representative has been notified orally 
@@ -56,7 +56,7 @@ export default function Terms() {
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Revisions and Errata</h5>
+            <h5 className="font-bold text-neutral">Revisions and Errata</h5>
             <p>
             The materials appearing on MCCade's web site could include technical, typographical, or photographic errors. MCCade does not warrant that any of the materials on its web 
             site are accurate, complete, or current. MCCade may make changes to the materials contained on its web site at any time without notice. MCCade does not, however, make any 
@@ -64,20 +64,20 @@ export default function Terms() {
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Links</h5>
+            <h5 className="font-bold text-neutral">Links</h5>
             <p>
             MCCade has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does 
             not imply endorsement by MCCade of the site. Use of any such linked web site is at the user's own risk.  
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Governing Law</h5>
+            <h5 className="font-bold text-neutral">Governing Law</h5>
             <p>
             Any claim relating to MCCade's web site shall be governed by the laws of Australia without regard to its conflict of law provisions.
             </p>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Prohibited Actions and Content</h5>
+            <h5 className="font-bold text-neutral">Prohibited Actions and Content</h5>
             <p>
               When using any MCCade service, you agree to not:
             </p>
@@ -109,7 +109,7 @@ export default function Terms() {
               </ul>
           </li>
           <li>
-            <h5 className="font-bold text-secondary">Disruption of Communications</h5>
+            <h5 className="font-bold text-neutral">Disruption of Communications</h5>
             <p>
             Disruptive communication is anything that inhibits the clean flow of communication between users on MCCade. 
             </p>
@@ -135,7 +135,7 @@ export default function Terms() {
             </ul>
           </li>
         </ol>
-        <h4 className="font-bold text-secondary">Privacy Policy</h4>
+        <h4 className="font-bold text-neutral">Privacy Policy</h4>
         <p>
         Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.
         </p>
@@ -166,7 +166,7 @@ export default function Terms() {
           We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained.
           </li> 
         </ul>
-        <h4 className="font-bold text-secondary">User Agreement</h4>
+        <h4 className="font-bold text-neutral">User Agreement</h4>
         <p>
         We reserve the right to change, with or without notice, any rank price that has been set forth. We also reserve the right to change the contents of a specific rank – the benefits 
         of a certain rank can change, and you will not be entitled to the old rank benefits if we change it. Rest assured that no rank benefit, or any other item in the store, will 
@@ -193,7 +193,7 @@ export default function Terms() {
         irrevocably grant MCCade Games, LLC all rights related to any work created and waive all of your own rights, including moral rights, to content that contains cheating or 
         other malicious and disruptive activity and understand that all previous rights you have had in said content are forfeited.  
         </p>
-        <h4 className="font-bold text-secondary">Refund Policy</h4>
+        <h4 className="font-bold text-neutral">Refund Policy</h4>
         <p>
         All sales are final, you may not buyback, stop, credit the server by any means necessary in order to receive your funds back that of which have been paid. And in doing so we 
         reserve the right to disallow your continued play on the server/forums and not allow further funds to be added or taken away. We reserve the right to pursue any legal or 

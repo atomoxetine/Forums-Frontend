@@ -1,12 +1,15 @@
 'use client';
 import useSession from "@/hooks/useSession";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
 export default function LoginPage() {
-  let setUsername = useContext(AuthContext)?.setUsername;
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirect') ?? '/';
+  
+  const setUsername = useContext(AuthContext)?.setUsername;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +30,7 @@ export default function LoginPage() {
         throw new Error(result[2] ?? "Unknown error");
       }
       
-      push(`/`);
+      push(redirectUrl);
     } catch (error: any) {
       setError(error.message);
     } finally {

@@ -1,0 +1,29 @@
+@media (max-width: 640px) {
+    section .inner .content .inner-content {
+        height: auto;
+    }
+}
+
+section .inner .grid-container {
+  display: grid;
+  flex: 0 0 min-content;
+
+  justify-content: center;
+
+  --col-sizes: 193px;
+  grid-template-columns: repeat(auto-fit, var(--col-sizes));
+  grid-auto-flow: row dense;
+
+  align-items: start;
+
+  row-gap: 1rem;
+}
+@media (max-width: 433px) {
+  section .inner .grid-container {
+    --col-sizes: minmax(193px, 1fr);
+  }
+}
+
+section .inner .grid-container .text-shadow {
+    filter: drop-shadow(-.75px 1px .5px #848484);
+}

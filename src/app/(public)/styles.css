@@ -1,6 +1,0 @@
-section {
-  --h-diff: 0px;
-  min-height: calc(min(1920px, 100vh) - var(--h-diff));
-  height: fit-content;
-  width: 100%
-}

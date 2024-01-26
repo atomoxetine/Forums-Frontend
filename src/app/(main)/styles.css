@@ -1,5 +1,8 @@
 section {
   --h-diff: 12rem;
+  min-height: calc(min(1920px, 100vh) - var(--h-diff));
+  height: fit-content;
+  width: 100%
 }
 
 section .inner {
@@ -7,30 +10,25 @@ section .inner {
 }
 @media (max-width: 1280px) {
   section .inner {
-    max-width: 1024px;
+      max-width: 1024px;
   }
 }
 @media (max-width: 1024px) {
   section .inner {
-    max-width: 768px;
+      max-width: 768px;
   }
 }
 @media (max-width: 768px) {
   section .inner {
-    max-width: 640px;
+      max-width: 640px;
   }
 }
 @media (max-width: 640px) {
   section .inner {
-    flex-direction: column;
-    max-width: 640px;
-  }
-  section .inner .categories {
-    flex-direction: row;
-    justify-content: center;
+      flex-direction: column;
+      max-width: 640px;
   }
   section .inner .content {
-    margin: 0;
-    width: auto;
+      width: auto;
   }
 }

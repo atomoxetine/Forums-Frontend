@@ -1,0 +1,9 @@
+@media (max-width: 640px) {
+  section .inner .content {
+    margin: 0;
+  }
+  section .inner .categories {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
