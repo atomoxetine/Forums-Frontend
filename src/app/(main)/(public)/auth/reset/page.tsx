@@ -7,15 +7,15 @@ import { FormEvent, useRef, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
-export default function ForgotPasswordPage() {
+export default function Page() {
   const searchParams = useSearchParams();
   const username = searchParams.get('username') ?? undefined;
   const token = searchParams.get('token');
   
-  return token ? <ResetPasswordPage username={username} token={token}/> : <RequestResetPage username={username}/>;
+  return token ? <ResetPassword username={username} token={token}/> : <RequestReset username={username}/>;
 };
 
-const RequestResetPage = ({ username: username }: { username?: string }) => {
+const RequestReset = ({ username: username }: { username?: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [state, setState] = useState<string | null>(null);
   
@@ -69,7 +69,7 @@ const RequestResetPage = ({ username: username }: { username?: string }) => {
   </>;
 };
 
-const ResetPasswordPage = ({ token: token, username: username }: { token: string, username?: string }) => {
+const ResetPassword = ({ token: token, username: username }: { token: string, username?: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [state, setState] = useState<string | null>(null);
 

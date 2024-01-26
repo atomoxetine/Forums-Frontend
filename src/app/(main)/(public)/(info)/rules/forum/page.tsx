@@ -1,3 +1,3 @@
-export default function Forum() {
+export default function Page() {
   return <></>;
 }

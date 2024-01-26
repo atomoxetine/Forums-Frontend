@@ -1,7 +1,7 @@
 import HeaderContext from '@/components/HeaderContext';
 import Category from './Category';
 
-export default function InfoLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode

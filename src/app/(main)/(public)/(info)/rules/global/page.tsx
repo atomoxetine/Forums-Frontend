@@ -1,3 +1,3 @@
-export default function Global() {
+export default function Page() {
   return <></>;
 }

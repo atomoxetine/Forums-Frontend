@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
-export default function RegisterPage() {
+export default function Page() {
   const searchParams = useSearchParams();
   let username = searchParams.get('username') ?? undefined;
   
@@ -16,10 +16,10 @@ export default function RegisterPage() {
   }, [setUsername, username]);
 
   const token = searchParams.get('token');
-  return token ? <DoRegisterPage username={username} token={token}/> : <RequestRegisterPage/>;
+  return token ? <DoRegister username={username} token={token}/> : <RequestRegister/>;
 };
 
-const RequestRegisterPage = ({ username: username }: { username?: string }) => {
+const RequestRegister = ({ username: username }: { username?: string }) => {
   return <>
     <h3 className="text-center text-primary">Before you continue, please register in our server</h3>
     <div className="inline-block w-[98%] h-[1px] bg-base-content mt-5 mb-4"></div>
@@ -41,7 +41,7 @@ const RequestRegisterPage = ({ username: username }: { username?: string }) => {
  
 };
 
-const DoRegisterPage = ({ token: token, username: username }: { token: string, username?: string }) => {
+const DoRegister = ({ token: token, username: username }: { token: string, username?: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { register } = useSession();

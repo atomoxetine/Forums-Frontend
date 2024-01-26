@@ -1,4 +1,4 @@
-export default function FAQ() {
+export default function Page() {
   return (
     <div className="flex flex-col items-center w-full h-full">
       <h3 className="mb-10 mt-4 text-primary font-bold text-center">Frequently Asked Questions</h3>

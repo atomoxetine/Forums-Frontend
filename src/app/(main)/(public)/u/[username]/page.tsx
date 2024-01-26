@@ -1,10 +1,10 @@
 import { permanentRedirect } from 'next/navigation';
 
-interface UserParams {
+interface Params {
   params: {
     username: string
   }
 }
-export default function User({ params: { username } }: UserParams) {
+export default function Redirect({ params: { username } }: Params) {
   permanentRedirect(`/u/${username}/general`);
 }

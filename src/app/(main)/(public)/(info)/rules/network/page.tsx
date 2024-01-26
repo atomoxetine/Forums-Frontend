@@ -1,3 +1,3 @@
-export default function Network() {
+export default function Page() {
   return <></>;
 }

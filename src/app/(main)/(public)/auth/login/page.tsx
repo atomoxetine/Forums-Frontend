@@ -5,7 +5,7 @@ import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 
-export default function LoginPage() {
+export default function Page() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') ?? '/';
   

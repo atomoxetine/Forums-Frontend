@@ -1,7 +1,7 @@
 import './styles.css'
 import NavLink from '@/components/NavLink/component';
 
-export default function Forums() {
+export default function Page() {
   return <>
     <section className="flex flex-col justify-center items-center">
       <div className="flex flex-row-reverse h-min w-fit p-4 gap-4 inner">

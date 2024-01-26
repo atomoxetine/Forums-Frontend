@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
  
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function Sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: 'https://mccade.net',

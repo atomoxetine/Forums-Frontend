@@ -1,4 +1,4 @@
-export default function Terms() {
+export default function Page() {
   return (
     <div className="flex flex-col gap-y-2">
       <h1 className="text-rainbow text-4xl md:text-5xl lg:text-6xl font-medium font-header lg:max-w-[72rem] mx-auto">

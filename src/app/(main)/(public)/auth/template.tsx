@@ -5,7 +5,7 @@ import MCBust from "@/components/Minecraft/MCBust"
 
 type ContextT = { setUsername: React.Dispatch<React.SetStateAction<string | undefined>>; } | undefined;
 export const AuthContext = createContext<ContextT>(undefined);
-export default function AuthTemplate({
+export default function Template({
   children,
 }: {
   children: React.ReactNode

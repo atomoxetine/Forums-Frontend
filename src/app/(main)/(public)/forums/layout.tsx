@@ -1,6 +1,6 @@
 import HeaderContext from '@/components/HeaderContext';
 
-export default function InfoLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode

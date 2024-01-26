@@ -1,9 +1,9 @@
 
-interface UserForumsParams {
+interface Params {
   params: {
     username: string
   }
 }
-export default function UserForums({ params: { username } }: UserForumsParams) {
+export default function Page({ params: { username } }: Params) {
   return <>Forums</>
 }

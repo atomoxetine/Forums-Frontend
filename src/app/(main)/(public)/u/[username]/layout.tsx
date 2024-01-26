@@ -11,7 +11,7 @@ import HeaderContext from '@/components/HeaderContext';
 interface UserParams {
   children: React.ReactNode;
 }
-export default function User({ children: children }: UserParams) {
+export default function Layout({ children: children }: UserParams) {
   const currPath = new URL(headers().get('x-url')!).pathname;
   const username = currPath?.split('/')[2];
   

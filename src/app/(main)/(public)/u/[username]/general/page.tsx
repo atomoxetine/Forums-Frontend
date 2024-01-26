@@ -1,8 +1,8 @@
-interface UserGeneralParams {
+interface Params {
   params: {
     username: string
   }
 }
-export default function UserGeneral({ params: { username } }: UserGeneralParams) {
+export default function Page({ params: { username } }: Params) {
   return <>General</>;
 }

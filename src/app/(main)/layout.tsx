@@ -4,7 +4,7 @@ import MobileNavbar from '@/components/MobileNavbar/component';
 import MobileNavbarContent from './(layout-components)/MobileNavbarContent';
 import Footer from './(layout-components)/Footer';
 
-export default function AuthLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode

@@ -1,5 +1,5 @@
 import { permanentRedirect } from 'next/navigation';
 
-export default function Rules() {
+export default function Redirect() {
   permanentRedirect('/rules/global');
 }

@@ -1,8 +1,8 @@
-interface UserStatisticsParams {
+interface Params {
   params: {
     username: string
   }
 }
-export default function UserStatistics({ params: { username } }: UserStatisticsParams) {
+export default function Page({ params: { username } }: Params) {
   return <>Statistics</>
 }
