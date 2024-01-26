@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 
 declare namespace globalThis {
@@ -15,10 +15,10 @@ function useGlobal<T>(
   [T | undefined, (variable: T) => void]
 {
   const elyGlobals = globalThis.elyGlobals;
-
   const subjectName = `${variableId}Updated$`
   const [variable, setVariableState] = useState<T>();
-  const setVariable = (variable: T) => elyGlobals[subjectName].next(variable);
+  const this$ = elyGlobals[subjectName];
+  const setVariable = useCallback((variable: T) => this$?.next(variable), [this$]);
 
   useEffect(() => {
     if (elyGlobals[subjectName] === undefined) {

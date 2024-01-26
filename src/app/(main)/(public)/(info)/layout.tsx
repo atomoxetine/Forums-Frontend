@@ -1,3 +1,4 @@
+import HeaderContext from '@/components/HeaderContext';
 import Category from './Category';
 
 export default function InfoLayout({
@@ -29,7 +30,9 @@ export default function InfoLayout({
     }
   ];
   
+  const headerContent: [string, string] = ["Information", `Here you can gather some info on us and our policies.`];
   return <>
+    <HeaderContext setTo={headerContent}/>
     <section className="flex flex-col justify-center items-center">
       <div className="flex h-min w-fit p-5 gap-4 inner">
         <div className="flex flex-col flex-wrap gap-4 categories">

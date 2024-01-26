@@ -1,11 +1,13 @@
-import './styles.css';
-import Hero from './Hero';
 import HeaderContext from '@/components/HeaderContext';
 
-export default function Home() {
+export default function InfoLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const headerContent: [string, string] = ["", ``];
   return <>
     <HeaderContext setTo={headerContent}/>
-    <Hero />
-  </>;
+    {children}
+  </>;  
 }

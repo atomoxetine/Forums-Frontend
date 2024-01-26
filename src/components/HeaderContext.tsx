@@ -1,11 +1,15 @@
 'use client';
 import useGlobal from '@/hooks/useGlobal';
+import { useEffect } from 'react';
 
 interface HeaderContextProps {
-  current: [string, string];
+  setTo: [string, string];
 }
-const HeaderContext = ({ current: current }: HeaderContextProps) => {
-  const [_, setHeaderContent] = useGlobal('headerContent');
-  setHeaderContent(["Information", `Here you can gather some info on us and our policies.`]);
+const HeaderContext = ({ setTo: setTo }: HeaderContextProps) => {
+  const [_, setHeaderContent] = useGlobal<[string, string]>('headerContent');
+  useEffect(() => 
+    setHeaderContent(setTo)
+  , [setHeaderContent, setTo]);
   return <></>;
 }
+export default HeaderContext;

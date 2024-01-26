@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from "react";
 import NavLink from "@/components/NavLink/component";
 import { headers } from 'next/headers';
+import HeaderContext from '@/components/HeaderContext';
 
 interface UserParams {
   children: React.ReactNode;
@@ -13,8 +14,6 @@ interface UserParams {
 export default function User({ children: children }: UserParams) {
   const currPath = new URL(headers().get('x-url')!).pathname;
   const username = currPath?.split('/')[2];
-  // const [_, setHeaderContent] = useGlobal('headerContent');
-  // setHeaderContent(["User", `Checkout ${username}'s amazing profile!`]);
   
   const status = "online",
     rank = "developer",
@@ -40,7 +39,9 @@ export default function User({ children: children }: UserParams) {
     youtube: ""
   }
   
+  const headerContent: [string, string] = ["User", `Checkout ${username}'s amazing profile!`];
   return <>
+    <HeaderContext setTo={headerContent}/>
     <section className="flex flex-col justify-center items-center">
       <div className="flex h-min w-full p-4 gap-4 inner">
         <div className="grid-container mb-auto h-min w-full gap-4">

@@ -7,12 +7,14 @@ import ShrinkableSearch from "@/components/ShrinkableSearch/component";
 import UserDropdown from "./UserDropdown"
 import useTheme from '@/hooks/useTheme';
 import useGlobal from '@/hooks/useGlobal';
+import { useCallback } from 'react';
 
 const Header = () => {
   const [theme] = useTheme('dark');
   const isDark = theme !== 'light';
   const textColor = isDark ? "text-neutral-950" : "text-neutral-300"
-  const [headerContent] = useGlobal<string[]>('headerContent', () => ['', '']);
+  const defaultVal = useCallback(() => (['', ''] as [string, string]), []);
+  const [headerContent] = useGlobal<[string, string]>('headerContent', defaultVal);
 
   return (
     <header className="w-full h-fit">
