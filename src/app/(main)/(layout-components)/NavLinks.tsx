@@ -45,10 +45,14 @@ export const UserNav = () => {
     {
       !session?.isLoggedIn ? 
         <>
-          <NavLink href="/auth/login"><h6>Login</h6></NavLink>
-          <NavLink href="/auth/register"><h6>Register</h6></NavLink>
+          <NavLink href="/auth/login"><small className="font-semibold">Login</small></NavLink>
+          <NavLink href="/auth/register"><small className="font-semibold">Register</small></NavLink>
         </> :
-        <Link href="" className="navlink" onClick={logoutCall}><h6>Logout</h6></Link>
+        <>
+          <NavLink className="navlink" href="/u"><small className="font-semibold">Profile</small></NavLink>
+          <NavLink className="navlink" href="/account/settings"><small className="font-semibold">Settings</small></NavLink>
+          <Link href="" className="navlink" onClick={logoutCall}><small className="font-semibold">Logout</small></Link>
+        </>
     }
   </>;
 }
