@@ -21,8 +21,8 @@ section .inner {
       flex-direction: column;
       max-width: 640px;
   }
-  section .inner .content {
-      width: auto;
+  section .inner .categories {
+      height: min-content;
   }
 }
 @media (max-width: 640px) {

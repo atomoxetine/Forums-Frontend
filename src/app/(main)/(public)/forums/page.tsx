@@ -95,8 +95,8 @@ export default function Page({ }: UserParams) {
   ]
   return <>
     <section className="flex flex-col justify-center items-center">
-      <div className="flex flex-row h-min w-full px-4 gap-4 inner">
-        <div className="flex flex-col overflow-y-scroll overflow-x-hidden w-full gap-6 rounded-lg h-[630px]">
+      <div className="flex flex-row h-min w-full p-4 gap-4 inner">
+        <div className="flex flex-col overflow-y-scroll overflow-x-hidden w-full gap-4 rounded-lg h-[624px] categories">
           {categories.map((c, i) => <Category key={i} title={c.title} subforums={c.subforums}/>)}
         </div>
         <div className="grid-container h-min">
