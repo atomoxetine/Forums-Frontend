@@ -29,19 +29,20 @@ const config: Config = {
         // https://pinetools.com/invert-color
         dark: {
           "color-scheme": "dark",
+
           "primary": "#E6A900", // Golden
-          "primary-content": "#FDEDC0",
+          "primary-content": "#ebe6d8",
           "neutral": "#495bb3", // Lime-ish?
-          "neutral-content": "#DADEF2",
+          "neutral-content": "#d3d5e6",
           "secondary": "#00a164", // Water blue
-          "secondary-content": "#C7FAE6",
+          "secondary-content": "#ddf0e8",
           "accent": "#bd2455", // Ruby
-          "accent-content": "#D9CBD1",
+          "accent-content": "#f2dfe7",
           
           "base-content": "#87858c",
-          "base-100": "#23222F",
-          "base-200": "#1A1927",
-          "base-300": "#13121C",
+          "base-100": "#22212e",
+          "base-200": "#191824",
+          "base-300": "#11101a",
 
           "info": "#00a1d6", // Cyan 195deg
           "success": "#00d600", // Green 120deg
@@ -49,19 +50,20 @@ const config: Config = {
           "error": "#d60000", // Red 0deg
         },
         light: {
-          "color-scheme": "light", // primary to error are all the same as above
+          "color-scheme": "light",
+          
           "primary": "#d99f00", // Golden
-          "primary-content": "#4F3A00",
-          "neutral": "#36B887", // Lime-ish?
-          "neutral-content": "#18523C",
-          "secondary": "#36B887", // Water blue
-          "secondary-content": "#222A52",
-          "accent": "#bd2455", // Ruby
-          "accent-content": "#520F24",
+          "primary-content": "#302400",
+          "neutral": "#3f4e99", // Lime-ish?
+          "neutral-content": "#002416",
+          "secondary": "#00945b", // Water blue
+          "secondary-content": "#000938",
+          "accent": "#b0214e", // Ruby
+          "accent-content": "#29000d",
 
           "base-content": "#75737a", // Inverse of dark base-content hued back to neutral
-          "base-100": "#e5e4ed", // Inverse of dark base-300 hued back to neutral
-          "base-200": "#d9d8e6", // Inverse of dark base-200 hued back to neutral
+          "base-100": "#e7e6f0", // Inverse of dark base-300 hued back to neutral
+          "base-200": "#dedce8", // Inverse of dark base-200 hued back to neutral
           "base-300": "#d2d1de", // Inverse of dark base-100 hued back to neutral
 
           "info": "#00a1d6", // Cyan 195deg

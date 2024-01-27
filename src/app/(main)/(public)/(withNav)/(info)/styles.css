@@ -1,0 +1,8 @@
+.grid-categories {
+  display: grid;
+  flex: 0 0 min-content;
+  justify-content: center;
+  --col-sizes: 193px;
+  grid-template-columns: repeat(auto-fit, minmax(var(--col-sizes), 1fr));
+  grid-auto-flow: row dense;
+}

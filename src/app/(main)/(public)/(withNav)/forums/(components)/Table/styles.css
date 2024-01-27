@@ -1,0 +1,6 @@
+.table-grid {
+  display: grid;
+  align-items: stretch;
+  justify-content: stretch;
+  align-content: space-between;
+}

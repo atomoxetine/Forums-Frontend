@@ -1,10 +1,10 @@
 @media (max-width: 640px) {
-    section .inner .content .inner-content {
+    .content .inner-content {
         height: auto;
     }
 }
 
-section .inner .grid-container {
+.grid-container {
   display: grid;
   flex: 0 0 min-content;
 
@@ -18,12 +18,12 @@ section .inner .grid-container {
 
   row-gap: 1rem;
 }
-@media (max-width: 433px) {
-  section .inner .grid-container {
+@media (max-width: 449px) {
+  .grid-container {
     --col-sizes: minmax(193px, 1fr);
   }
 }
 
-section .inner .grid-container .text-shadow {
+.grid-container .text-shadow {
     filter: drop-shadow(-.75px 1px .5px #848484);
 }

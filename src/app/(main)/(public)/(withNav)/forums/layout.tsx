@@ -1,4 +1,5 @@
 import HeaderContext from '@/components/HeaderContext';
+import './styles.css'
 
 export default function Layout({
   children,
@@ -9,5 +10,5 @@ export default function Layout({
   return <>
     <HeaderContext setTo={headerContent}/>
     {children}
-  </>;  
+  </>;
 }

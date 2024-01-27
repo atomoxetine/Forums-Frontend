@@ -1,6 +1,5 @@
-import './globals.css';
+import './styles.css';
 import type { Metadata } from 'next';
-
 
 const title = 'MCCade - M.O.T.H.E.R.';
 const description = 'Metrics Overview Tracking & Health Evaluation Reporting.';
@@ -13,8 +12,8 @@ export default function Layout({
 }: {
   children: React.ReactNode
 }) {
-  return (
+  return <>
     {children}
-  )
+  </>;
 }
 //#region Metadata

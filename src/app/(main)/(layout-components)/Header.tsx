@@ -1,6 +1,6 @@
 'use client';
 import './styles.css'
-import NavLinks, { UserNav } from "./NavLinks";
+import NavLinks from "./NavLinks";
 import ThemeToggle from "@/components/ThemeToggle";
 import { MobileNavToggle } from "@/components/MobileNavbar/component";
 import ShrinkableSearch from "@/components/ShrinkableSearch/component";
@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <header className="w-full h-fit">
-      <div className="bg-img bg-full h-48 w-full flex justify-center items-center">
+      <div className="bg-img bg-full h-44 w-full flex justify-center items-center">
         <span className="mt-12 gap-1 flex flex-col text-center uppercase tracking-widest font-bold text-neutral-300 text-stroke">
           <h3>{headerContent?.[0]}</h3>
           <small>{headerContent?.[1]}</small>

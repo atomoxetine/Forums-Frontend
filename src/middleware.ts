@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
 
     // Admin Pages
     case "op":
-      const userIsAdmin = false; // Check if user is admin - TODO
+      const userIsAdmin = true; // Check if user is admin - TODO
       if (!userIsAdmin)
         return NextResponse.json({
           message: 'You do not have permission to see this page. If you think this is a mistake, please contact the Support.'

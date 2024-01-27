@@ -2,16 +2,17 @@ import './styles.css';
 import NavLink from "@/components/NavLink/component";
 
 interface CategoryProps {
+  className?: string;
   title: string;
   buttons: {
     text: string;
     route: string;
   }[];
 }
-const Category = ({ title: title, buttons: buttons }: CategoryProps) => {
+const Category = ({ className: className, title: title, buttons: buttons }: CategoryProps) => {
   return (
-    <div className="flex-auto rounded-md overflow-hidden bg-base-300">
-      <h6 className="flex items-center justify-center text-center h-fit bg-base-300 p-2 border-b-2 border-base-100">
+    <div className={`flex-auto rounded-md overflow-hidden bg-base-200 ${className ?? ''}`}>
+      <h6 className="flex items-center justify-center text-center h-fit bg-base-100 p-2 border-b-2 border-base-100">
         {title}
       </h6>
       <div className="flex flex-col justify-between whitespace-nowrap gap-2 p-4">

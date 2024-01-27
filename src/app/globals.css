@@ -26,6 +26,13 @@ html {
   background-color: oklch(var(--p));
 }
 
+[data-theme="dark"] .bg-base-400 {
+
+}
+[data-theme="light"] .bg-base-400 {
+
+}
+
 /* Typography (18px base size, 1.333 ratio) */
 /* Header fonts */
 h1, h2, h3, h4, h5, h6 {

@@ -1,0 +1,21 @@
+
+.aside-container {
+
+  display: grid;
+  flex: 1 1 fit-content;
+  justify-content: center;
+  --col-sizes: 193px;
+  grid-template-columns: repeat(auto-fit, minmax(var(--col-sizes), 1fr));
+  grid-auto-flow: row dense;
+}
+@media (max-width: 434px) {
+  .aside-container {
+    --col-sizes: 100%;
+    place-content: stretch;
+  }
+}
+
+.categories {
+  max-width: 828px;
+  flex: 1 0 fit-content;
+}

@@ -15,7 +15,7 @@ const MCBust = ({ username: username, className: className, shadowColor: shadowC
   const uuid = useMcUuid(username);
   const title = username ?? "Fem Alex's Head";
   return (
-    <HashLink href={`/u/${username}`} className={`w-fit h-fit text-center flex items-center justify-center mc-head ${className}`}
+    <div className={`w-fit h-fit text-center flex items-center justify-center mc-head ${className}`}
       style={{filter: `drop-shadow(0px 0px 5px ${shadowColor})`}}
     >
       <svg className="my-px mx-[3px]" height="70" width="61" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ const MCBust = ({ username: username, className: className, shadowColor: shadowC
           <Image className="mt-[-3px] ml-[-10px]" width={180} height={191} title={title} alt={title} src={uuid ? `https://skins.mcstats.com/skull/${uuid}` : defaultUrl}/>
         </foreignObject>
       </svg>
-    </HashLink>
+    </div>
   );
 }
 export default MCBust;
