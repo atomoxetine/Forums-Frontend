@@ -1,4 +1,3 @@
-'use client';
 import './styles.css'
 import { BsSearchHeart } from "react-icons/bs";
 

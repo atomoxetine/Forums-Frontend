@@ -1,7 +1,6 @@
 import './styles.css'
 import {FaDiscord, FaInstagram, FaTwitter, FaYoutube} from 'react-icons/fa6';
-import MCBust from '@/components/Minecraft/MCBust';
-import MCHead from '@/components/Minecraft/MCHead';
+import { ServerMCBust, ServerMCHead } from '@/components/Minecraft/Server';
 import Link from 'next/link';
 import React from "react";
 import NavLink from "@/components/NavLink/component";
@@ -22,11 +21,11 @@ export default function Layout({ children: children }: UserParams) {
     dateJoined = "01/18/24",
   timePlayed = "5d 8h";
 
-  const rankColor: string = {
+  const getRankColor: string = { // TODO: Properly get rank color
     owner: "#9F000C",
     developer: "#ff4141"
   }[rank] ?? "#ffffff"
-  const statusColor: string = {
+  const getStatusColor: string = { // TODO: Properly get status color
     online: "#00ee00"
   }[status] ?? "gray";
   
@@ -45,15 +44,15 @@ export default function Layout({ children: children }: UserParams) {
     <HeaderContext setTo={headerContent}/>
     <div className="grid-container mb-auto h-min w-full gap-4">
       <div className="row-span-3 flex flex-col justify-between items-center gap-4 rounded-lg overflow-hidden bg-base-200">
-        <div style={{backgroundColor: statusColor}} className="flex w-full py-2 rounded-t-lg border-[1px] border-gray-400">
+        <div style={{backgroundColor: getStatusColor}} className="flex w-full py-2 rounded-t-lg border-[1px] border-gray-400">
           <small className="uppercase text-center w-full text-gray-400 tracking-wider font-bold text-shadow">{status}</small>
         </div>
-        <MCBust className="mx-12" username={username}/>
+        <ServerMCBust className="mx-12" username={username}/>
         <span className="text-center inline-flex flex-col">
           <h5 className="font-bold">{username ?? "Unknown"}</h5>
-          <small style={{color: rankColor}} className="smaller font-bold uppercase tracking-wider">{rank}</small>
+          <small style={{color: getRankColor}} className="smaller font-bold uppercase tracking-wider">{rank}</small>
         </span>
-        <div style={{backgroundColor: statusColor}} className="flex w-full py-2 rounded-b-lg border-[1px] border-gray-400">
+        <div style={{backgroundColor: getStatusColor}} className="flex w-full py-2 rounded-b-lg border-[1px] border-gray-400">
           <small className="uppercase text-center w-full text-gray-400 tracking-wider font-bold text-shadow">{server}</small>
         </div>
       </div>
@@ -75,7 +74,7 @@ export default function Layout({ children: children }: UserParams) {
         <div className="flex flex-row flex-wrap gap-y-1 gap-x-2 justify-center">
           {friends.slice(0, 6).map((f, i) =>
             <HashLink key={i} href={`/u/${f}`} className="w-[45px] h-[49px] relative">
-              <MCHead shadowColor="green" className="scale-[.675] absolute left-[-11px] top-[-12px]" username={f}/>
+              <ServerMCHead shadowColor="green" className="scale-[.675] absolute left-[-11px] top-[-12px]" username={f}/>
             </HashLink>
           )}
         </div>

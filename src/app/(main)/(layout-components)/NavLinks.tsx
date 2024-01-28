@@ -1,7 +1,5 @@
 'use client';
-import useHash from "@/hooks/useHash";
 import NavLink from "@/components/NavLink/component";
-import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";

@@ -1,5 +1,7 @@
-//'use server';
-//
+'use server';
+
+import HTTPClient from "@/libs/HTTPClient";
+import Rank from "@/libs/types/entities/Rank";
 ///**
 // * Asynchronous endpoint to retrieve a single grant by its UUID.
 // *
@@ -97,23 +99,17 @@
 //    return response;
 //    }
 //
-///**
-// * Endpoint to retrieve all active ranks for a player based on their UUID.
-// *
-// * @param uuid The UUID of the player for whom active ranks are requested.
-// * @return ResponseEntity containing a list of active Ranks.
-// */
-//// In the API: @GetMapping("/grants/active/ranks/{uuid}")
-//export const GetActiveRanks = async (uuid: string, client?: HTTPClient) => {
-//    const uri = `/grants/active/ranks/${uuid}`;
-//
-//    client ??= new HTTPClient(process.env.API_URL!);
-//    const response = await (await client.GetAsync(uri)).json();
-//
-//    return response;
-//    }
-//
-//
+
+/**
+* Endpoint to retrieve all active ranks for a player based on their UUID.
+*
+* @param uuid The UUID of the player for whom active ranks are requested.
+* @return ResponseEntity containing a list of active Ranks.
+*/
+// In the API: @GetMapping("/grants/active/ranks/{uuid}")
+export const GetActiveRanks = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+await client.GetAsync<Rank[]>(`/grants/active/ranks/${uuid}`);
+
 ///**
 // * Asynchronous endpoint to retrieve all grants issued by a player based on their UUID.
 // *

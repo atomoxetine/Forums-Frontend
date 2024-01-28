@@ -1,6 +1,7 @@
 import HeaderContext from '@/components/HeaderContext';
 import './styles.css'
 
+export const revalidate = 5;
 export default function Layout({
   children,
 }: {

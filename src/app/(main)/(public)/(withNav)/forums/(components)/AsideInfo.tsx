@@ -1,10 +1,13 @@
+import Thread from '@/libs/types/entities/Thread';
 import Table from './Table/Table';
 import TableEntry from './Table/TableEntry';
-import './styles.css'
 
 export interface AsideInfoProps {
   title: string;
-  content: JSX.Element[];
+  content: {
+    thread: Thread;
+    item: JSX.Element;
+  }[];
 }
 const AsideInfo = (props: AsideInfoProps) => {
   const {title, content} = props;
@@ -16,9 +19,9 @@ const AsideInfo = (props: AsideInfoProps) => {
   ]
   return (
     <Table headerContent={headerContent}>
-      {content.map((c, i) => 
-        <TableEntry>
-          <small key={i} className="col-span-3 flex flex-col items-end text-end rounded-lg font-semibold">{c}</small>
+      {content.map(c => 
+        <TableEntry key={c.thread._id}>
+          {c.item}
         </TableEntry>
       )}
     </Table>

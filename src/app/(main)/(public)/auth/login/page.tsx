@@ -1,15 +1,15 @@
 'use client';
 import useSession from "@/hooks/useSession";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "../template"
+import { FormEvent, useState } from "react";
 import HashLink from "@/components/HashLink";
+import { isResultError } from "@/libs/Utils";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') ?? '/';
   
-  const setUsername = useContext(AuthContext)?.setUsername;
+  // const setUsername = useContext(AuthContext)?.setUsername;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,9 +25,9 @@ export default function Page() {
     try {
       const formData = new FormData(event.currentTarget);
 
-      const result = await login({ username: formData.get("username"), password: formData.get("password") });
-      if (!(result[1] >= 200 && result[1] <= 299)) {
-        throw new Error(result[2] ?? "Unknown error");
+      const res = await login({ username: formData.get("username"), password: formData.get("password") });
+      if (isResultError(res, true)) {
+        throw new Error(res[2] ?? "Unknown error");
       }
       
       push(redirectUrl);
@@ -42,9 +42,9 @@ export default function Page() {
     <h3 className="mb-4 text-primary">Login to MCCade</h3>
     {error && <p className="text-error mb-1">{error}</p>}
     <form onSubmit={onSubmit}>
-      <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
+      <input className="py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
         disabled={isLoading} type="text" name="username" placeholder="Username or Email" required/>
-      <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
+      <input className="py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
         disabled={isLoading} type="password" name="password" placeholder="Password" required/>
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Sign in"}</button>
     </form>

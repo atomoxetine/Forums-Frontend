@@ -1,5 +1,5 @@
 import HeaderContext from "@/components/HeaderContext";
-import MCHead from "@/components/Minecraft/MCHead";
+import { ServerMCHead } from "@/components/Minecraft/Server";
 
 export default function Staff() {
   const staff = [
@@ -15,7 +15,7 @@ export default function Staff() {
     }[a]);
     return getVal(a.rank)! - getVal(b.rank)!;
   });
-  const rankColor = (rank: string) => ({
+  const getRankColor = (rank: string) => ({
     owner: "#9F000C",
     developer: "#ff4141"
   }[rank] ?? "#ffffff");
@@ -27,11 +27,11 @@ export default function Staff() {
       {staff.map((d, i) => (
         <div key={i} className="flex-[1_0_32%] flex flex-col justify-center items-center rounded-lg overflow-hidden bg-base-100 flex-1 py-4">
           <div className="w-[45px] h-[49px] relative">
-            <MCHead shadowColor={rankColor(d.rank)} className="scale-[.675] absolute left-[-11px] top-[-12px]" username={d.username} />
+            <ServerMCHead shadowColor={getRankColor(d.rank)} className="scale-[.675] absolute left-[-11px] top-[-12px]" username={d.username} />
           </div>
           <span className="text-center inline-flex flex-col">
             <h5 className="font-bold">{d.username}</h5>
-            <small style={{color: rankColor(d.rank)}} className="smaller font-bold uppercase tracking-wider">{d.rank}</small>
+            <small style={{color: getRankColor(d.rank)}} className="smaller font-bold uppercase tracking-wider">{d.rank}</small>
           </span>
         </div>
       ))}

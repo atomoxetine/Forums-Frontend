@@ -1,6 +1,4 @@
-
 .aside-container {
-
   display: grid;
   flex: 1 1 fit-content;
   justify-content: center;
@@ -16,6 +14,6 @@
 }
 
 .categories {
-  max-width: 828px;
+  max-width: 996px;
   flex: 1 0 fit-content;
 }

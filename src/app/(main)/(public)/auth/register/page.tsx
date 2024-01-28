@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { FormEvent, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
+import { isResultError } from "@/libs/Utils";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ export default function Page() {
   return token ? <DoRegister username={username} token={token}/> : <RequestRegister/>;
 };
 
-const RequestRegister = ({ username: username }: { username?: string }) => {
+const RequestRegister = () => {
   return <>
     <h3 className="text-center text-primary">Before you continue, please register in our server</h3>
     <div className="inline-block w-[98%] h-[1px] bg-base-content mt-5 mb-4"></div>
@@ -61,9 +62,9 @@ const DoRegister = ({ token: token, username: username }: { token: string, usern
         return;
       }
 
-      const result = await register({ token: formData.get("token"), password });
-      if (!(result[1] >= 200 && result[1] <= 299))
-        throw new Error(result[2] ?? undefined);
+      const res = await register({ token: formData.get("token"), password });
+      if (isResultError(res, true))
+        throw new Error(res[2] ?? undefined);
       
       push(`/`);
     } catch (error: any) {
@@ -82,9 +83,9 @@ const DoRegister = ({ token: token, username: username }: { token: string, usern
     </h5>
     {error && <p className="text-error mb-1">{error}</p>}
     <form onSubmit={onSubmit}>
-      <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
+      <input className="py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
         disabled={isLoading} type="password" name="password" placeholder="Password" required/>
-      <input className="placeholder-base-content py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
+      <input className="py-2 px-4 min-h-fit h-fit w-full overflow-hidden rounded-lg mb-2"
         disabled={isLoading} type="password" name="confirm" placeholder="Confirm Password" required/>
       <input disabled={isLoading} type="hidden" name="token" value={token} readOnly/>
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Set password"}</button>

@@ -10,18 +10,12 @@
 
   justify-content: center;
 
-  --col-sizes: 193px;
-  grid-template-columns: repeat(auto-fit, var(--col-sizes));
+  grid-template-columns: repeat(auto-fit, minmax(193px, 1fr));
   grid-auto-flow: row dense;
 
   align-items: start;
 
   row-gap: 1rem;
-}
-@media (max-width: 449px) {
-  .grid-container {
-    --col-sizes: minmax(193px, 1fr);
-  }
 }
 
 .grid-container .text-shadow {

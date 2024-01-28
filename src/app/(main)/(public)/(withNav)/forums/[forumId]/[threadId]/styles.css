@@ -1,0 +1,6 @@
+[data-theme="dark"] .content-color {
+  @apply text-gray-400;
+}
+[data-theme="light"] .content-color {
+  @apply text-gray-950;
+}
