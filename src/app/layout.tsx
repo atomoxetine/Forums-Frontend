@@ -21,19 +21,19 @@ export default function RootLayout({
 
 //#region Metadata
 const url = new URL(process.env.NEXT_PUBLIC_CURR_DOMAIN || '');
-const title = 'PinkCloud - Voyager';
-const description = 'PinkCloud elevates your online presence with our professional website freelancers';
+const title = 'MCCade Games';
+const description = 'A minigame server with a great variety of gamemodes. Made with ❣ and dedication, from us to you. Enjoy!';
 const images: string[] = [
-  url.toString() + 'img/website_preview.png'
+  url.toString() + 'img/banner.png'
 ];
 export const metadata: Metadata = {
   metadataBase: url,
   title: title,
   description: description,
   openGraph: {
-    siteName: 'PinkCloud Studios',
+    siteName: title,
     type: "website",
-    emails: ['emily@pinkcloud.studio', 'elaina@pinkcloud.studio', 'nathan@pinkcloud.studio'],
+    emails: ['emily@pinkcloud.studio', 'elaina@pinkcloud.studio'],
     locale: 'en_GB',
     url: url,
     title: title,
