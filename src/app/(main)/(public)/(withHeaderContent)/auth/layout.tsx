@@ -1,3 +1,4 @@
+import './styles.css'
 import HeaderContext from '@/components/HeaderContext';
 
 export default function Layout({
@@ -8,6 +9,8 @@ export default function Layout({
   const headerContent: [string, string] = ["", ``];
   return <>
     <HeaderContext setTo={headerContent}/>
-    {children}
+    <div className="template rounded-t-lg overflow-hidden my-auto">
+      {children}
+    </div>
   </>;  
 }

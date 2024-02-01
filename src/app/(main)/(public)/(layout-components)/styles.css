@@ -1,14 +1,4 @@
 /*#region Header*/
-header .bg-img {
-  background-image: url('/img/header-bg.png');
-}
-
-header .text-stroke {
-  --thickness: .4px;
-  --filter: drop-shadow(0px 0px var(--thickness) rgba(0,0,0,1));
-  filter: var(--filter) var(--filter) var(--filter) var(--filter);
-}
-
 header .inner::before {
 	content: '';
 	position: absolute;

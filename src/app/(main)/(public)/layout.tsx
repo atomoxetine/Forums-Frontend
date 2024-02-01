@@ -1,8 +1,8 @@
 import './styles.css';
-import Header from './(layout-components)/Header';
 import MobileNavbar from '@/components/MobileNavbar/component';
 import MobileNavbarContent from './(layout-components)/MobileNavbarContent';
 import Footer from './(layout-components)/Footer';
+import Header from './(layout-components)/Header';
 
 export default function Layout({
   children,
