@@ -1,6 +1,6 @@
 import './styles.css'
 import ThreadInfo from './ThreadInfo';
-import { awaitAll, isResultError } from '@/libs/Utils';
+import { awaitAll, isResultError, stringToDate, toLocaleString } from '@/libs/Utils';
 import { getAuthorInfo, getThreadShortId, threadSorter } from './Utils';
 import ForumCategory from '@/libs/types/entities/ForumCategory';
 import { GetForumCategories } from '@/services/forum/category/CategoryService';
@@ -62,7 +62,7 @@ export default async function Page({ }: UserParams) {
                   <HashLink href={threadUrl} className="flex flex-col text-neutral">"{res.parent.title}"</HashLink>
                 </span>
                 <HashLink href={threadUrl} className="flex flex-col">
-                  <small className="smaller">2 minutes ago</small>
+                  <small className="smaller">{toLocaleString(stringToDate(res.reply.createdAt))}</small>
                 </HashLink>
               </small>
             ),

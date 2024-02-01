@@ -27,7 +27,7 @@ const getUuid = async (username?: string) => {
   return uuid;
 }
 
-const getFromFunc = async (Func: (props: MCProps) => Promise<React.JSX.Element>, props: MCProps) => {
+const getFromFunc = async (Func: (props: MCProps) => React.JSX.Element, props: MCProps) => {
   const { username, className, shadowColor } = props;
   const uuid = await getUuid(username);
   return <Func uuid={uuid} username={username} className={className} shadowColor={shadowColor}/>;

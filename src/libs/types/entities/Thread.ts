@@ -5,7 +5,7 @@ export default interface Thread {
   forum: string,
   author: string,
   createdAt: string,
-  lastEditedBy: string,
+  lastEditedBy?: string | null,
   lastEditedAt: string,
   lastReplyAt: string,
   pinned: boolean,

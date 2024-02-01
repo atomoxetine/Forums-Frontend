@@ -24,7 +24,7 @@ export const MCHead = (props: MCProps) => {
           </clipPath>
         </defs>
         <foreignObject className="text-left" width="130%" height="100%" clipPath="url(#hex-small)">
-          <Image className="mt-[-3px] ml-[-10px]" width={180} height={191} title={title} alt={title} src={uuid ? `https://skins.mcstats.com/skull/${uuid}` : defaultUrl}/>
+          <Image className="mt-[-3px] ml-[-10px]" width={110} height={105} title={title} alt={title} src={uuid ? `https://skins.mcstats.com/skull/${uuid}` : defaultUrl}/>
         </foreignObject>
       </svg>
     </div>

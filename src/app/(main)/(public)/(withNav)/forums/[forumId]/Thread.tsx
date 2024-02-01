@@ -23,11 +23,12 @@ const ThreadComponent = async (props: ThreadData) => {
     forumId,
   } = props;
   const thisThreadId = id + '.' + forumId;
-
-  const author = await getAuthorInfo(authorId);
+  const authorPromise = getAuthorInfo(authorId);
 
   const lastReply = replies.sort(threadSorter)[0];
   const lastReplyAuthor = await getAuthorInfo(lastReply?.author);
+  
+  const author = await authorPromise
 
   const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
     Owner: "#9F000C",

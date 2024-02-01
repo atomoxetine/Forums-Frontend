@@ -7,21 +7,26 @@ import Thread from '@/libs/types/entities/Thread';
 export const getAuthorInfo = async (authorId?: string) => {
   if (!authorId) return;
 
-  let res0 = await GetProfileFromUuid(authorId);
-  if (isResultError(res0)) {
-    console.error("Error fetching author: HTTP " + res0[1]);
-    return;
-  }
+  const author: {username: string, rank?: Rank} = {username: '', rank: undefined};
+  const profilePromise = GetProfileFromUuid(authorId)
+    .then(res => {
+      if (!isResultError(res)) return res;
+      console.error("Error fetching author: HTTP " + res[1]);
+    });
+  const ranksPromise = GetActiveRanks(authorId)
+    .then(res => {
+      if (!isResultError(res)) return res;
+      console.error("Error fetching author rank: HTTP " + res[1]);
+    });
   
-  const author: {username: string, rank?: Rank} = {username: res0[0]!.name, rank: undefined};
+  const profile = await profilePromise;
+  if (!profile) return;
+  author.username = profile[0]!.name;
 
-  const res1 = await GetActiveRanks(authorId);
-  if (isResultError(res1)) {
-    console.error("Error fetching author rank: HTTP " + res1[1]);
-    return author;
-  }
+  const ranks = await ranksPromise;
+  if (ranks)
+    author.rank = ranks[0]!.sort((a, b) => a.priority - b.priority)[ranks[0]!.length - 1];
 
-  author.rank = res1[0]!.sort((a, b) => a.priority - b.priority)[res1[0]!.length - 1];
   return author;
 };
 

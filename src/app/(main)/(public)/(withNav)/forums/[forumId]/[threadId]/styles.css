@@ -2,5 +2,9 @@
   @apply text-gray-400;
 }
 [data-theme="light"] .content-color {
-  @apply text-gray-950;
+  @apply text-gray-600;
+}
+
+.input:focus-within {
+  z-index: 2;
 }

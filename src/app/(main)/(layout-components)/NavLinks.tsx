@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import useSession from "@/hooks/useSession";
+import { usePathname } from "next/navigation";
 
 const NavLinks = () => {
   const navLinks = [
@@ -29,6 +30,7 @@ export default NavLinks;
 export const UserNav = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {session, logout} = useSession();
+  const path = usePathname();
 
   const logoutCall = useCallback(() => {
     setIsLoading(true);
@@ -37,13 +39,14 @@ export const UserNav = () => {
     });
   }, [logout]);
 
+  const params = new URLSearchParams({ redirect: path })
   return isLoading ? (
     <ClipLoader color={'#fff'} size={25} />
   ) : <>
     {
       !session?.isLoggedIn ? 
         <>
-          <NavLink href="/auth/login"><small className="font-semibold">Login</small></NavLink>
+          <NavLink href={`/auth/login` + (path ? `?${params}` : '')}><small className="font-semibold">Login</small></NavLink>
           <NavLink href="/auth/register"><small className="font-semibold">Register</small></NavLink>
         </> :
         <>

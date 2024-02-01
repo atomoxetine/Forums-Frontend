@@ -1,5 +1,7 @@
 'use server';
 import HTTPClient from "@/libs/HTTPClient";
+import { isResultError } from "@/libs/Utils";
+import getSession from "@/libs/session/getSession";
 import Thread from "@/libs/types/entities/Thread";
 
 /**
@@ -73,5 +75,15 @@ export const CreateReply = async (id: string, title: string, body: string, forum
 * @return ResponseEntity with the deleted reply details in JSON format.
 */
 // In the API: @DeleteMapping(path = "/forum/thread/{parentId}/{id}")
-export const DeleteReply = async (parentId: string, replyId: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.DeleteAsync<Thread>(`/forum/thread/${parentId}/${replyId}`);
+export const DeleteReply = async (parentId: string, replyId: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => {
+  const currUser = await getSession();
+
+  const thread = await GetThread(replyId);
+  const isError = isResultError(thread);
+  if (isError) {
+    console.error("Error fetching thread: HTTP " + thread[1]);
+    return;
+  }
+  if (thread[0]!.author == currUser.uuid)
+    await client.DeleteAsync<Thread>(`/forum/thread/${parentId}/${replyId}`)
+};
