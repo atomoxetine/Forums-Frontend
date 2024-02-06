@@ -3,6 +3,7 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
 import useTheme from '@/hooks/useTheme';
+import Image from 'next/image';
 
 interface DiscordWidgetProps {
   guildId: string,
@@ -16,12 +17,12 @@ const DiscordWidget = (props: DiscordWidgetProps) => {
   useEffect(() => {
     fetch(`https://discord.com/api/guilds/${guildId}/widget.json`)
       .then(r => r?.json()).then((r: any) => setUserN(r["members"].length));
-  }, []);
+  }, [guildId]);
 
   return (
     <div className={`widget discord-widget flex flex-col min-w-80 h-[400px] rounded-lg overflow-hidden ` + (className || '')}>
       <div className="widget-override h-fit w-full border-0 border-b-[1px] relative flex items-center justify-between text-end text-gray-200 py-3 px-6 tracking-wider uppercase font-semibold">
-        <img className="inline-block h-5" src="/img/discord-logo.png" alt="Discord" />
+        <Image width={640} height={125} className="w-28 h-5" src="/img/discord-logo.png" alt="Discord" />
         <h6>{userN} Online</h6>
       </div>
       <div className="overflow-hidden w-full h-full flex flex-col">
