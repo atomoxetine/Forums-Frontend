@@ -12,7 +12,6 @@ const NavLinks = () => {
     { href: "/forums", text: "Forums", icon: <></>},
     { href: "/staff", text: "Staff", icon: <></>},
     { href: "/support", text: "Support", icon: <></>},
-    { href: "/radio", text: "Radio", icon: <></>},
     { href: "https://shop.mccade.net", text: "Store", icon: <></>},
   ];
 

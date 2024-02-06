@@ -1,0 +1,7 @@
+.table-grid {
+  display: grid;
+  align-items: stretch;
+  justify-content: stretch;
+  align-content: space-between;
+  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+}
