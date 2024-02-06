@@ -10,12 +10,12 @@ globalThis.elyGlobals ??= {};
 function useGlobal<T>(
   variableId: string,
   defaultValueGetter?: () => T,
-  runOnceGlobally?: ($: BehaviorSubject<T>) => void
+  setupCall?: ($: BehaviorSubject<T>) => void
 ):
   [T | undefined, (variable: T) => void]
 {
   const elyGlobals = globalThis.elyGlobals;
-  const subjectName = `${variableId}Updated$`
+  const subjectName = `${variableId}$`
   const [variable, setVariableState] = useState<T>();
   const this$ = elyGlobals[subjectName];
   const setVariable = useCallback((variable: T) => this$?.next(variable), [this$]);
@@ -24,7 +24,7 @@ function useGlobal<T>(
     if (elyGlobals[subjectName] === undefined) {
       const $ = new BehaviorSubject<T>(defaultValueGetter?.() ?? undefined as T);
       elyGlobals[subjectName] = $;
-      runOnceGlobally?.($);
+      setupCall?.($);
     }
 
     const subscription = elyGlobals[subjectName].subscribe((variable) => setVariableState(variable));
@@ -35,7 +35,7 @@ function useGlobal<T>(
         delete elyGlobals[subjectName];
       }
     }
-  }, [elyGlobals, subjectName, defaultValueGetter, runOnceGlobally]);
+  }, [elyGlobals, subjectName, defaultValueGetter, setupCall]);
 
   return [variable, setVariable];
 }

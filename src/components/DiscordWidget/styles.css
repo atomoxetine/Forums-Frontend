@@ -1,0 +1,19 @@
+.widget {
+  --border-color: rgba(50, 50, 50, 1);
+  border:solid 1.5px var(--border-color)
+}
+[data-theme="light"] .widget {
+  --border-color: rgba(185, 185, 185, 1);
+}
+
+.discord-widget iframe {
+	margin-top: -74px;
+	margin-bottom: -43px;
+}
+.discord-widget .widget-override {
+  border-color: var(--border-color);
+	background: #5865F2;
+}
+[data-theme="dark"] .discord-widget .widget-override {
+  background:oklch(var(--b3))
+}

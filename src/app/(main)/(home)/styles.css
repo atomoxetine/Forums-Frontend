@@ -1,0 +1,108 @@
+/* #region HomeHeader */
+.bg-banner {
+  background-image: url('/img/mccade-banner.png');
+}
+
+.filter-home {
+  backdrop-filter: brightness(85%) contrast(120%);
+}
+
+.text-stroke {
+  --thickness: .4px;
+  --filter: drop-shadow(0px 0px var(--thickness) rgba(0,0,0,1));
+  filter: var(--filter) var(--filter) var(--filter) var(--filter);
+}
+
+.header-logo img {
+	margin-top: -25px;
+	width: 100%;
+	max-width: 225px;
+	height: auto;
+	transition: margin 0.25s ease, width 0.25s ease, max-width 0.25s ease;
+	animation: header-logo 2s ease-in-out infinite both alternate;
+  filter: drop-shadow(0px 4px 0px #00000045) drop-shadow(0px 0px 20px #00000073);
+}
+
+@keyframes header-logo {
+	100% {
+		transform: scale3d(0.94, 0.94, 0.94);
+	}
+}
+
+.home-inner {
+  height: 65px;
+  width: 100%;
+  transition: top 0.2s ease-in-out;
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+}
+
+.home-inner .content .dropdown-custom {
+  @apply dropdown-end;
+}
+.home-inner .content .mobile-nav-toggle {
+  display: none;
+}
+
+@media (max-width: 865px) {
+  .home-inner .content .navlink {
+    display: none;
+  }
+  .home-inner .content .mobile-nav-toggle {
+    display: inline-flex;
+  }
+}
+@media (max-width: 410px) {
+  .home-inner .content .theme-toggle {
+    display: none;
+  }
+  .home-inner .content .dropdown-custom {
+    display: none;
+  }
+}
+/* #endregion */
+
+.home-h {
+  --h-diff: 0px;
+  min-height: calc(min(1920px, 100vh) - var(--h-diff));
+  width: 100%;
+}
+
+.home-border { 
+  --border-color: rgba(50, 50, 50, 1);
+  border:solid 1.5px var(--border-color)
+}
+
+.news-widget.main > div {
+  @apply md:flex-nowrap;
+
+}
+
+@media (max-width: 1278px) {
+  .news-container > div{
+    flex-wrap: wrap;
+  }
+}
+
+.bullet {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: none;
+}
+.bullet::before, .bullet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: oklch(var(--su));
+  border-radius: 50%;
+}
+.bullet::before {
+  opacity: 0.25;
+}
+.bullet::after{
+  transform: scale3d(.59, .59, .59);
+}

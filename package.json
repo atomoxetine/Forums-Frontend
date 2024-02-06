@@ -6,8 +6,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "update-db-types": "npx supabase gen types typescript --project-id \"qyyxkkbneewcycarhrey\" > src/libs/supabase/database.types.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "daisyui": "^4.4.24",
@@ -17,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "react-spinners": "^0.13.8",
+    "reactjs-popup": "^2.0.6",
     "rxjs": "^7.8.1",
     "sharp": "^0.33.2"
   },

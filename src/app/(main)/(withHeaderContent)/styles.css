@@ -1,0 +1,45 @@
+/* #region HeaderContent */
+.header-content-bg {
+  background-image: url('/img/header-bg.png');
+}
+
+.text-stroke {
+  --thickness: .4px;
+  --filter: drop-shadow(0px 0px var(--thickness) rgba(0,0,0,1));
+  filter: var(--filter) var(--filter) var(--filter) var(--filter);
+}
+/* #endregion */
+
+.sect {
+  --h-diff: 13rem;
+  min-height: calc(min(1920px, 100vh) - var(--h-diff));
+  width: 100%
+}
+
+.window {
+  max-width: 1280px;
+}
+@media (max-width: 1280px) {
+  .window {
+    max-width: 1024px;
+  }
+}
+@media (max-width: 1024px) {
+  .window {
+    max-width: 768px;
+  }
+}
+@media (max-width: 768px) {
+  .window {
+    max-width: 640px;
+  }
+}
+@media (max-width: 640px) {
+  .window {
+    flex-direction: column;
+    width: 100%;
+  }
+  .window .content {
+    width: auto;
+  }
+}

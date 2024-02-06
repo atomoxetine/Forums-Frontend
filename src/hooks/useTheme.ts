@@ -3,8 +3,8 @@ import { useCallback, useEffect } from "react";
 import useGlobal from './useGlobal';
 
 function useTheme(defaultTheme: string = "dark"): [string | undefined, (theme: string) => void] {
-  const getDefaultSession = useCallback(() => window.localStorage.getItem("theme") ?? defaultTheme, [defaultTheme]);
-  const [theme, setTheme] = useGlobal('theme', getDefaultSession);
+  const getDefaultTheme = useCallback(() => window.localStorage.getItem("theme") ?? defaultTheme, [defaultTheme]);
+  const [theme, setTheme] = useGlobal('theme', getDefaultTheme);
   
   useEffect(() => {
     if (!theme) return;

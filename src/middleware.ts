@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import getSession from "./libs/session/getSession";
 
-export const ŕconfig = {
-  matcher: ['/auth/:path*', '/u/:path*', '/op/:path*', '/a/:path*', '/support/:path*'],
+export const config = {
+  matcher: ['/auth/:path*', '/u/:path*', '/forums/:path*', '/support/:path*', '/op/:path*', '/a/:path*', '/support/:path*'],
 }
 export async function middleware(req: NextRequest) {
   const session = await getSession();
@@ -15,8 +15,10 @@ export async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL('/', req.url), 302);
       break;
 
-    // User Page needs URL for loading images
+    // Pages that need URL for loading at server time
     case "u":
+    case "forums":
+    case "support":
       req.headers.set('x-url', req.url);
       return NextResponse.next({ request: { headers: req.headers } });
 

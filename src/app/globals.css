@@ -64,14 +64,16 @@ h5 {
   font-size: 1.319rem;
   line-height: 1.648rem;
 }
-h6 {
+.text-base {
   font-size: 1.055rem;
   line-height: 1.319rem;
 }
+h6 {
+  @apply text-base;
+}
 /* Body fonts */
 body {
-  font-size: 1.055rem;
-  line-height: 1.319rem;
+  @apply text-base;
 }
 small {
   font-size: 0.844rem;
@@ -105,4 +107,13 @@ input::placeholder {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
+}
+
+hr {
+  @apply bg-base-content;
+  display: inline-block;
+  width: 98%;
+  height: 1px;
+  margin: 1px 0;
+  border: 0;
 }
