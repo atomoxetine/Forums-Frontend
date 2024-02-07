@@ -3,5 +3,5 @@
   align-items: stretch;
   justify-content: stretch;
   align-content: space-between;
-  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
 }

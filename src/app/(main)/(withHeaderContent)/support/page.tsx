@@ -24,7 +24,7 @@ export default async function Page({ params: { forumId } }: Params) {
 
   const header = [
     <small key={0} className="pl-4 flex justify-start text-start smaller tracking-wider uppercase">Status</small>,
-    <small key={1} className="col-span-3 flex justify-start text-center smaller tracking-wider uppercase">Message</small>,
+    <small key={1} className="flex justify-start text-center smaller tracking-wider uppercase">Message</small>,
     <small key={2} className="flex justify-start text-center smaller tracking-wider uppercase">Category</small>,
     <small key={3} className="flex justify-start text-center smaller tracking-wider uppercase">Last Updated</small>,
     <small key={4} className="flex justify-start text-center smaller tracking-wider uppercase">Created</small>,
