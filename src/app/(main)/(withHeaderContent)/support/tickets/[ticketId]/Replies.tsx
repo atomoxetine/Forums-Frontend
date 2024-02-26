@@ -3,7 +3,7 @@
 import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
 import { ClientMCHead } from "@/components/Minecraft/Client";
 import Reply from '@/libs/types/entities/Thread'
-import { getAuthorInfo } from "../Utils";
+import { getAuthorInfo } from "../../Utils";
 import HashLink from "@/components/HashLink";
 import { IoTrash } from "react-icons/io5";
 import { DeleteReply, GetThread } from "@/services/forum/thread/ThreadService";

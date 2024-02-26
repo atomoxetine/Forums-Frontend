@@ -4,7 +4,7 @@ import { GetThread } from '@/services/forum/thread/ThreadService';
 import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
 import HashLink from '@/components/HashLink';
 import getSession from '@/libs/session/getSession';
-import { getAuthorInfo } from '../Utils'
+import { getAuthorInfo } from '../../Utils'
 import ReplyForm from './ReplyForm';
 import Replies from './Replies';
 import React from "react";

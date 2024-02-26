@@ -1,24 +1,36 @@
-import {IoHome} from "react-icons/io5";
+import { IoHome } from "react-icons/io5";
 import HashLink from "@/components/HashLink";
-import {headers} from "next/headers";
+import { headers } from "next/headers";
 import CreateTicket from "./CreateTicket/component";
+import { GetTicket } from "@/services/forum/ticket/TicketService";
+import { isResultError } from "@/libs/Utils";
 
 interface Route { route: string, routeTitle: string, idx: number }
+
+function isInteger(str: string) {
+  return /^\d+$/.test(str);
+}
+
 const RouteSegmentNav = async () => {
   const currPath = new URL(headers().get('x-url')!).pathname;
   const [ticketId] = currPath?.split('/').slice(2);
-  const routes: (Route | null)[] = [{route: '/support', routeTitle: 'Tickets', idx: 0}, null];
+  const routes: (Route | null)[] = [{ route: '/support', routeTitle: 'Tickets', idx: 0 }, null];
 
-  if (!ticketId) {
+  if (!ticketId || isInteger(ticketId)) {
     routes[1] = null;
   } else {
-    const r = {
-      name: "Hi i need help :pensive:",
-    };
-    let message = r!.name;
+
+    const res = await GetTicket(ticketId);
+    const isError = isResultError(res);
+    if (isError)
+      console.error("Failed to fetch ticket: HTTP " + res[1]);
+
+    const ticket = res[0]!;
+
+    let message = ticket.message;
     if (message.length > 23)
       message = message.substring(0, 20) + "...";
-    routes[1] = {route: `/support/${ticketId}`, routeTitle: message, idx: 1};
+    routes[1] = { route: `/support/${ticketId}`, routeTitle: message, idx: 1 };
   }
 
   return <>
@@ -26,7 +38,7 @@ const RouteSegmentNav = async () => {
       <div className="flex-1 flex min-h-full text-base-200 font-semibold">
         <HashLink href="/" className="overflow-hidden ml-[-17px]">
           <div className="relative capitalize bg-neutral w-fit h-fit flex mr-[17px]">
-            <span className="z-[2] py-1 pl-6 w-full"><IoHome className="mr-1 h-[21px] w-[21px]"/></span>
+            <span className="z-[2] py-1 pl-6 w-full"><IoHome className="mr-1 h-[21px] w-[21px]" /></span>
             <div className="z-[1] h-[23px] w-[23px] rotate-45 bg-neutral
                 absolute top-[3px] right-[-12.5px] border-t-2 border-r-2 border-base-100"></div>
           </div>
@@ -42,7 +54,7 @@ const RouteSegmentNav = async () => {
           </HashLink>
         )}
       </div>
-      {!ticketId ?
+      {!ticketId || isInteger(ticketId) ?
         <div className="flex-none flex items-center">
           <CreateTicket />
         </div> : <></>
