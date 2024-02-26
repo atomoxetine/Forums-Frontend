@@ -12,6 +12,7 @@ interface Params {
   }
 }
 export default async function Page({ params: { page } }: Params) {
+  page = Math.floor(page);
 
   const res = await GetAllTickets(page);
   const isError = isResultError(res);

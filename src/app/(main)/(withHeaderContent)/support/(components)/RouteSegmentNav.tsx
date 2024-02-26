@@ -7,8 +7,9 @@ import { isResultError } from "@/libs/Utils";
 
 interface Route { route: string, routeTitle: string, idx: number }
 
-function isInteger(str: string) {
-  return /^\d+$/.test(str);
+function isNumber(str: string) {
+  // digits, maybe dot, maybe digits
+  return /^\d+\.?\d*$/.test(str);
 }
 
 const RouteSegmentNav = async () => {
@@ -16,21 +17,25 @@ const RouteSegmentNav = async () => {
   const [ticketId] = currPath?.split('/').slice(2);
   const routes: (Route | null)[] = [{ route: '/support', routeTitle: 'Tickets', idx: 0 }, null];
 
-  if (!ticketId || isInteger(ticketId)) {
+  let hasTicket = !ticketId || isNumber(ticketId)
+
+  if (hasTicket) {
     routes[1] = null;
   } else {
-
     const res = await GetTicket(ticketId);
     const isError = isResultError(res);
-    if (isError)
+    if (isError) {
       console.error("Failed to fetch ticket: HTTP " + res[1]);
+      hasTicket = false;
+    } else {
+      const ticket = res[0]!;
 
-    const ticket = res[0]!;
+      let message = ticket.message;
+      if (message.length > 23)
+        message = message.substring(0, 20) + "...";
+      routes[1] = { route: `/support/${ticketId}`, routeTitle: message, idx: 1 };
+    }
 
-    let message = ticket.message;
-    if (message.length > 23)
-      message = message.substring(0, 20) + "...";
-    routes[1] = { route: `/support/${ticketId}`, routeTitle: message, idx: 1 };
   }
 
   return <>
@@ -54,7 +59,7 @@ const RouteSegmentNav = async () => {
           </HashLink>
         )}
       </div>
-      {!ticketId || isInteger(ticketId) ?
+      {hasTicket ?
         <div className="flex-none flex items-center">
           <CreateTicket />
         </div> : <></>
