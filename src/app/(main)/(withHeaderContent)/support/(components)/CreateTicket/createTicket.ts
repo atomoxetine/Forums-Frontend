@@ -13,12 +13,14 @@ const schema = z.object({
   body: z.string()
     .min(15, { message: "Message must be at least 15 characters long" })
     .max(2000, { message: "Message must be at max 2000 characters long" }),
+  category: z.string({ required_error: "Category was not selected" })
 });
 
 export async function createTicket(formData: FormData) {
   const result = schema.safeParse({
     title: formData.get("title"),
     body: formData.get("body"),
+    category: formData.get("category"),
   });
 
   if (!result.success)
@@ -28,19 +30,22 @@ export async function createTicket(formData: FormData) {
 
   const title = result.data.title;
   const body = result.data.body;
-
+  const category = result.data.category;
   const crrDate = Date.now().toFixed();
-  const message = title + "\n\n" + body;
 
   const ticket: Ticket = {
     _id: randomUUID(),
     author: randomUUID(),
-    category: "null",
+    category: category,
     createdAt: crrDate,
     lastUpdatedAt: crrDate,
-    body: message,
+    title: title,
+    body: body,
+    parent: null,
     status: "new"
   }
+
+  console.log(ticket)
 
   const res = await CreateTicket(ticket);
 

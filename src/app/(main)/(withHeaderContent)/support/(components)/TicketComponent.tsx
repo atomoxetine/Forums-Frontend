@@ -9,7 +9,7 @@ export interface ThreadData {
   createdAt: string;
   lastUpdatedAt: string;
   category: string;
-  message: string;
+  title: string;
   status: string;
   classname?: string;
 }
@@ -20,7 +20,7 @@ const TicketComponent = async (props: ThreadData) => {
     createdAt,
     lastUpdatedAt,
     category,
-    message,
+    title,
     status,
     classname
   } = props;
@@ -36,7 +36,7 @@ const TicketComponent = async (props: ThreadData) => {
       <small className="w-[85%] text-center inline-flex items-center justify-center bg-secondary text-secondary-content p-0.5 rounded-xl border-2 border-primary whitespace-nowrap">{status}</small>
 
       <NavLink href={`/support/${id}`} className="col-span-1 h-fit w-fit">
-        <small>{message.substring(0, 15) + (message.length > 15 ? "..." : "")}</small>
+        <small>{title}</small>
       </NavLink>
 
       <small className="flex justify-start text-center">{category}</small>

@@ -1,4 +1,7 @@
 
+/**
+  * @deprecated use Ticket instead
+  */
 export default interface TicketReply {
   id: String,
   body: String,

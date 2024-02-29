@@ -5,6 +5,8 @@ import Navigation from ".././(components)/Navigation";
 import { GetAllTickets } from '@/services/forum/ticket/TicketService';
 import { isResultError } from '@/libs/Utils';
 import Ticket from '@/libs/types/entities/Ticket';
+import { GetAllTicketCategories } from '@/services/forum/ticket/TicketCategoryService';
+import TicketCategory from '@/libs/types/entities/TicketCategory';
 
 interface Params {
   params: {
@@ -19,11 +21,18 @@ export default async function Page({ params: { page } }: Params) {
   if (isError)
     console.error("Error fetching tickets: HTTP " + res[1]);
 
+  const res0 = await GetAllTicketCategories();
+  const isError0 = isResultError(res0);
+  if (isError)
+    console.error("Error fetching ticket categories: HTTP " + res0[1]);
+
   const tickets: Ticket[] = res[0]!;
+  const categories: TicketCategory[] = res0[0]!;
+  const categoryMap = categories.reduce((acc, crr) => acc.set(crr._id, crr.name), new Map())
 
   const header = [
     <small key={0} className="pl-4 flex justify-start text-start smaller tracking-wider uppercase">Status</small>,
-    <small key={1} className="col-span-1 flex justify-start text-center smaller tracking-wider uppercase">Message</small>,
+    <small key={1} className="col-span-1 flex justify-start text-center smaller tracking-wider uppercase">Title</small>,
     <small key={2} className="flex justify-start text-center smaller tracking-wider uppercase">Category</small>,
     <small key={3} className="flex justify-start text-center smaller tracking-wider uppercase">Last Updated</small>,
     <small key={4} className="flex justify-start text-center smaller tracking-wider uppercase">Created</small>,
@@ -40,9 +49,9 @@ export default async function Page({ params: { page } }: Params) {
               <small>0 tickets found.</small>}</span> :
             tickets.sort(threadSorter).map(t =>
               <TicketComponent key={t._id} id={getThreadShortId(t._id)!}
-                               authorId={t.author} createdAt={t.createdAt}
-                               lastUpdatedAt={t.lastUpdatedAt} category={t.category}
-                               message={t.body} status={t.status}/>
+                authorId={t.author} createdAt={t.createdAt}
+                lastUpdatedAt={t.lastUpdatedAt} category={categoryMap.get(t.category)}
+                title={t.title} status={t.status} />
             )}
         </Table>
       </div>
