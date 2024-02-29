@@ -2,11 +2,13 @@ import Table from '.././(components)/Table/Table';
 import TicketComponent from '.././(components)/TicketComponent';
 import { getThreadShortId, threadSorter } from '.././Utils';
 import Navigation from ".././(components)/Navigation";
-import { GetAllTickets } from '@/services/forum/ticket/TicketService';
+import { GetPlayerTickets } from '@/services/forum/ticket/TicketService';
 import { isResultError } from '@/libs/Utils';
 import Ticket from '@/libs/types/entities/Ticket';
 import { GetAllTicketCategories } from '@/services/forum/ticket/TicketCategoryService';
 import TicketCategory from '@/libs/types/entities/TicketCategory';
+import getSession from '@/libs/session/getSession';
+import { redirect } from 'next/navigation';
 
 interface Params {
   params: {
@@ -14,15 +16,20 @@ interface Params {
   }
 }
 export default async function Page({ params: { page } }: Params) {
+  const session = await getSession();
+
+  if (!session.isLoggedIn) {
+    return redirect("/auth/login");
+  }
+
   page = Math.floor(page);
 
-  const res = await GetAllTickets(page);
+  const res = await GetPlayerTickets(session.uuid, page);
   const isError = isResultError(res);
   if (isError)
     console.error("Error fetching tickets: HTTP " + res[1]);
 
   const res0 = await GetAllTicketCategories();
-  const isError0 = isResultError(res0);
   if (isError)
     console.error("Error fetching ticket categories: HTTP " + res0[1]);
 

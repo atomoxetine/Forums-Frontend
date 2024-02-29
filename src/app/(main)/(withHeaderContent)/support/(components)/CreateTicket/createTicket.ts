@@ -5,6 +5,7 @@ import z from "zod"
 import { CreateTicket } from "@/services/forum/ticket/TicketService";
 import { randomUUID } from "crypto";
 import { isResultError } from "@/libs/Utils";
+import getSession from "@/libs/session/getSession";
 
 const schema = z.object({
   title: z.string()
@@ -23,6 +24,8 @@ export async function createTicket(formData: FormData) {
     category: formData.get("category"),
   });
 
+  const session = await getSession();
+
   if (!result.success)
     return result.error.errors
       .map(err => err.message)
@@ -35,17 +38,15 @@ export async function createTicket(formData: FormData) {
 
   const ticket: Ticket = {
     _id: randomUUID(),
-    author: randomUUID(),
+    author: session.uuid,
     category: category,
     createdAt: crrDate,
     lastUpdatedAt: crrDate,
     title: title,
     body: body,
     parent: null,
-    status: "new"
+    status: "pending"
   }
-
-  console.log(ticket)
 
   const res = await CreateTicket(ticket);
 

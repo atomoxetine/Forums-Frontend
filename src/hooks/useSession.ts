@@ -41,7 +41,8 @@ function useSession(): SessionManager {
       .then((res) => res.json())
       .then((session) => {
         setSession(session);
-      });
+      })
+      .then(() => window.location.reload());
   }, [setSession]);
 
   return {
