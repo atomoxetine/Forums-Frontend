@@ -3,22 +3,22 @@
 import './styles.css'
 import Popup from "reactjs-popup";
 import {FormEvent, useState} from "react";
+import { createTicket } from './createTicket';
 
 export default function Component() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit(formData: FormData) {
     setIsLoading(true);
     setError(null);
 
-    try {
-    } catch (error: any) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
+    const result = await createTicket(formData);
+    if (typeof result == "string") {
+      setError(result);
     }
+
+    setIsLoading(false);
   }
 
   return <>
@@ -31,7 +31,7 @@ export default function Component() {
       <div className="flex flex-col bg-base-200 border-2 border-black px-4 py-2 gap-3 w-[700px] rounded-lg">
         <h4 className="mt-2 text-center w-full">Create a new Ticket</h4>
         <hr className="mt-2 mb-4"/>
-        <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+        <form className="flex flex-col gap-3" action={onSubmit}>
           <input className="py-2 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"
                  disabled={isLoading} type="text" name="title" placeholder="Title" required/>
           <textarea className="py-2 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"

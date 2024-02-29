@@ -1,10 +1,10 @@
 
 export default interface Ticket {
   _id: string,
-  authorId: string,
+  author: string,
   createdAt: string,
   lastUpdatedAt: string,
   category: string,
-  message: string,
+  body: string,
   status: string,
 }

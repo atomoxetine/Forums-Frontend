@@ -23,7 +23,7 @@ export default async function Page({ params: { page } }: Params) {
 
   const header = [
     <small key={0} className="pl-4 flex justify-start text-start smaller tracking-wider uppercase">Status</small>,
-    <small key={1} className="col-span-3 flex justify-start text-center smaller tracking-wider uppercase">Message</small>,
+    <small key={1} className="col-span-1 flex justify-start text-center smaller tracking-wider uppercase">Message</small>,
     <small key={2} className="flex justify-start text-center smaller tracking-wider uppercase">Category</small>,
     <small key={3} className="flex justify-start text-center smaller tracking-wider uppercase">Last Updated</small>,
     <small key={4} className="flex justify-start text-center smaller tracking-wider uppercase">Created</small>,
@@ -40,9 +40,9 @@ export default async function Page({ params: { page } }: Params) {
               <small>0 tickets found.</small>}</span> :
             tickets.sort(threadSorter).map(t =>
               <TicketComponent key={t._id} id={getThreadShortId(t._id)!}
-                               authorId={t.authorId} createdAt={t.createdAt}
+                               authorId={t.author} createdAt={t.createdAt}
                                lastUpdatedAt={t.lastUpdatedAt} category={t.category}
-                               message={t.message} status={t.status}/>
+                               message={t.body} status={t.status}/>
             )}
         </Table>
       </div>

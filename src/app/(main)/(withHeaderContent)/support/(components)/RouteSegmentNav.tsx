@@ -30,7 +30,7 @@ const RouteSegmentNav = async () => {
     } else {
       const ticket = res[0]!;
 
-      let message = ticket.message;
+      let message = ticket.body;
       if (message.length > 23)
         message = message.substring(0, 20) + "...";
       routes[1] = { route: `/support/${ticketId}`, routeTitle: message, idx: 1 };
