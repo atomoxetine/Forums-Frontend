@@ -7,7 +7,7 @@ import { SessionData } from "@/libs/session/iron";
 
 // Variables
 const baseEndpoint = "/forum/account";
-const interceptSession = 
+const interceptSession =
   (method: any): (body: any) => Promise<[SessionData | null, number, string | null]> =>
     async (body: any) => {
       const result = await method(body);
@@ -19,7 +19,7 @@ const interceptSession =
       session.email = result[0].email;
       session.isLoggedIn = true;
       await session.save();
-      
+
       return [{
         ...result[0],
         isLoggedIn: session.isLoggedIn
@@ -67,7 +67,7 @@ export const UpdateAccountSettings = async (
  * @return ResponseEntity containing the updated account information or an error message.
  */
 // In the API: @PostMapping(path = "/forum/account/forgotPassword/{email}")
-export const ForgotPassword = async (email: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => 
+export const ForgotPassword = async (email: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.PostAsync(`${baseEndpoint}/forgotPassword/${email}`);
 
 /**
@@ -122,3 +122,51 @@ export const Login = interceptSession(async (
 ): Promise<[SessionData | null, number, string | null]> =>
   await client.GetAsync(`${baseEndpoint}/login/${data.username}?` + new URLSearchParams({ password: data.password }))
 );
+
+
+/**
+  * Endpoint for retrieving a list of the user's friends
+  * @param uuid The user's UUID
+  * @return An array of the friends' accounts
+  */
+export const GetFriends = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Account[]>(`${baseEndpoint}/friends/${uuid}`);
+
+
+/**
+  * Gets player uuid from username from mojang api or playerdb api
+  * @param username The user name
+  * @return the uuid or null
+  */
+export const getUuid = async (username: string) => {
+  let uuid = null;
+
+  // Mojang API disabled because it was returing trimmed UUIDs
+
+  try {
+    uuid = await fetch(`https://playerdb.co/api/player/minecraft/${username}`)
+      .then(res => res?.json())
+      .then(res => res?.data?.player?.id);
+  } catch { /* Do nothing */ }
+
+  return uuid;
+}
+
+export const getUsernameFromUuid = async (uuid: string) => {
+  let username = null;
+  try {
+    username = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
+      .then(res => res?.json())
+      .then(res => res?.name);
+  } catch { /* Do nothing */ }
+
+  if (!username) {
+    try {
+      uuid = await fetch(`https://playerdb.co/api/player/minecraft/${uuid}`)
+        .then(res => res?.json())
+        .then(res => res?.data?.username);
+    } catch { /* Do nothing */ }
+  }
+
+  return username;
+}

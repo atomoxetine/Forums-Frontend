@@ -23,7 +23,7 @@ function useSession(): SessionManager {
   const getDefaultSession = useCallback(() => defaultSession, []);
   const [session, setSession] = useGlobal('session', getDefaultSession, runOnceGlobally);
 
-  const InterceptSession = 
+  const InterceptSession =
     (method: any): (body: any) => Promise<[SessionData | null, number, string | null]> =>
       useCallback(async (body: any) => {
         const result = await method(body);

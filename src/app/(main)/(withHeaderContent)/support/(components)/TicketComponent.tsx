@@ -1,7 +1,7 @@
 import TableEntry from './/Table/TableEntry';
 import NavLink from '@/components/NavLink/component';
 import { stringToDate, toLocaleString } from '@/libs/Utils';
-import {getAuthorInfo} from '../Utils';
+import { getAuthorInfo } from '../Utils';
 
 export interface ThreadData {
   id: string;
@@ -46,7 +46,7 @@ const TicketComponent = async (props: ThreadData) => {
 
       <small className="flex flex-col items-end text-end">
         <NavLink href={`/u/${author?.username}`}
-                 style={{color: getRankColor(author?.rank?.name)}}>{author?.username}</NavLink>
+          style={{ color: getRankColor(author?.rank?.name) }}>{author?.username}</NavLink>
       </small>
     </TableEntry>
   );
