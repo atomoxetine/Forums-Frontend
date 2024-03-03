@@ -14,7 +14,7 @@ function isNumber(str: string) {
 
 const RouteSegmentNav = async () => {
   const currPath = new URL(headers().get('x-url')!).pathname;
-  const [ticketId] = currPath?.split('/').slice(2);
+  const [ticketId] = currPath?.split('/').slice(-1);
   const routes: (Route | null)[] = [{ route: '/support', routeTitle: 'Tickets', idx: 0 }, null];
 
   let hasTicket = !ticketId || isNumber(ticketId)
@@ -33,7 +33,7 @@ const RouteSegmentNav = async () => {
       let message = ticket.body;
       if (message.length > 23)
         message = message.substring(0, 20) + "...";
-      routes[1] = { route: `/support/${ticketId}`, routeTitle: message, idx: 1 };
+      routes[1] = { route: `/support/${ticketId}`, routeTitle: ticket.title, idx: 1 };
     }
 
   }

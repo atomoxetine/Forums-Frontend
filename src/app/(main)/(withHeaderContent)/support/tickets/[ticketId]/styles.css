@@ -8,3 +8,20 @@
 .input:focus-within {
   z-index: 2;
 }
+
+textarea {
+  overflow: hidden; 
+  font-size: 1rem;
+}
+
+#replyhiddendiv {
+  display: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 1rem;
+}
+
+.ticket-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

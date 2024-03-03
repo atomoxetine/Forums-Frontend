@@ -35,7 +35,7 @@ const TicketComponent = async (props: ThreadData) => {
     <TableEntry className={classname}>
       <small className="w-[85%] text-center inline-flex items-center justify-center bg-secondary text-secondary-content p-0.5 rounded-xl border-2 border-primary whitespace-nowrap">{status}</small>
 
-      <NavLink href={`/support/${id}`} className="col-span-1 h-fit w-fit">
+      <NavLink href={`/support/tickets/${id}`} className="col-span-1 h-fit w-fit">
         <small>{title}</small>
       </NavLink>
 

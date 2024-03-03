@@ -1,6 +1,6 @@
 root = true
 
-[*.{js,ts,jsx,tsx}]
+[*.{js,ts,jsx,tsx,css}]
 insert_final_newline = true
 charset = utf-8
 indent_style = space

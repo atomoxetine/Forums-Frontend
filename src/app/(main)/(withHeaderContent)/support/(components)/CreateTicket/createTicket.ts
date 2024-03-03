@@ -45,7 +45,8 @@ export async function createTicket(formData: FormData) {
     title: title,
     body: body,
     parent: null,
-    status: "pending"
+    status: "pending",
+    replies: [],
   }
 
   const res = await CreateTicket(ticket);

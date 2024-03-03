@@ -1,5 +1,5 @@
 
-export default interface ticket {
+export default interface Ticket {
   _id: string,
   author: string,
   createdAt: string,
@@ -9,4 +9,5 @@ export default interface ticket {
   body: string,
   parent: string | null,
   status: string,
+  replies: string[],
 }

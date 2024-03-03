@@ -2,7 +2,7 @@
 
 import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
 import { ClientMCHead } from "@/components/Minecraft/Client";
-import Reply from '@/libs/types/entities/Thread'
+import Ticket from '@/libs/types/entities/Ticket'
 import { getAuthorInfo } from "../../Utils";
 import HashLink from "@/components/HashLink";
 import { IoTrash } from "react-icons/io5";
@@ -15,61 +15,25 @@ import { IoIosArrowDown } from "react-icons/io";
 import useSession from "@/hooks/useSession";
 
 export interface RepliesData {
-  replies: Reply[];
-  threadId: string;
+  replies: Ticket[];
 }
 const Replies = (props: RepliesData) => {
-  const { replies, threadId } = props
-  const [currReplies, setCurrReplies] = useState(replies)
-  const [latestReply, _] = useGlobal<{isAdd?: boolean, value: Thread}>("latestReply")
+  const { replies } = props
+  // const [currReplies, setCurrReplies] = useState(replies)
+  // const [latestReply, _] = useGlobal<{isAdd?: boolean, value: Thread}>("latestReply")
 
   const defaultN = 5;
   const [n, setN] = useState(defaultN)
 
-  const updateReplies = useCallback(async () => {
-    let res0 = await GetThread(threadId);
-
-    const isError = isResultError(res0);
-    if (isError) {
-      console.error("Error fetching thread: HTTP " + res0[1]);
-      return;
-    }
-    
-    setCurrReplies(res0[0]!.replies)
-  }, [threadId])
-
-  useEffect(() => {
-    const intervalId = setInterval(updateReplies, 5000);
-    return () => clearInterval(intervalId);
-  }, [updateReplies])
-
-  useEffect(() => {
-    if (!latestReply?.value) return;
-
-    setCurrReplies(c => {
-      const value = latestReply?.isAdd;
-      if (value) {
-        c.push(latestReply.value)
-        latestReply.isAdd = undefined;
-      }
-      else if (value == false) {
-        const idx = c.findIndex(e => e._id == latestReply.value._id)
-        if (idx > -1)
-          c.splice(idx, 1);
-      }
-
-      return [...c]
-    })
-  }, [latestReply])
   return (
-    <div className="flex flex-col min-h-full gap-4 bg-base-200 py-4 px-6 w-full rounded-b-xl justify-center">
+    <div className="flex flex-col min-h-full gap-4 bg-base-200 py-4 px-6 w-full rounded-xl justify-center">
       {(() => {
-        const len = currReplies.length;
+        const len = replies.length;
         return !len ?
           <small className="mx-auto">0 replies in this thread. Be the first!</small> :
           <>
-            {currReplies.slice(Math.max(len - n, 0), len).toReversed()
-              .map(r => <Reply key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} fullReplyId={r._id}/>)
+            {replies.slice(Math.max(len - n, 0), len)
+              .map(r => <Ticket key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} fullReplyId={r._id}/>)
             }
 
             {len > n ?
@@ -101,12 +65,11 @@ interface ReplyData {
   fullReplyId: string;
 }
 
-const Reply = (params: ReplyData) => {
+const Ticket = (params: ReplyData) => {
   const {authorId, createdAt, content, fullReplyId } = params;
   const createdAtDate = stringToDate(createdAt);
   const [author, setAuthor] = useState<{username: string, rank?: Rank | undefined}>()
   const {session} = useSession()
-  const [_, updateReplies] = useGlobal<{isAdd: boolean, value: Thread}>("latestReply")
 
   useEffect(() => {
     (async () => {
@@ -126,7 +89,7 @@ const Reply = (params: ReplyData) => {
       <div className="flex rounded-lg w-full">
         <div className="flex-1 bg-base-100 rounded-l-lg px-2 py-1">
           <span className="flex flex-col">
-            <p className="content-color">{content}</p>                  
+            <p className="content-color ticket-content">{content}</p>                  
             <small className="inline-flex gap-1 items-end">
               <HashLink href={`/u/${author?.username}`} style={{color: getRankColor(author?.rank?.name)}}>{author?.username}</HashLink>
               <small className="smaller">{toLocaleString(createdAtDate)}</small>
@@ -139,7 +102,6 @@ const Reply = (params: ReplyData) => {
               const split = fullReplyId.split('.')
               split.pop()
               DeleteReply(split.join('.'), fullReplyId).then(() => {
-                updateReplies({isAdd: false, value: {_id: fullReplyId}} as any)
               })
             }
           }><IoTrash className="h-5 w-5"/></div> : <></>

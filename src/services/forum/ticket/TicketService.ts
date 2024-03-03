@@ -14,6 +14,14 @@ import TicketReply from "@/libs/types/entities/TicketReply";
 export const CreateTicket = async (ticket: Ticket, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.PostAsync<Ticket>("/forum/ticket", ticket);
 
+/**
+* Create a new reply to a ticket
+* 
+* @param ticket The Ticket object.
+* @return The created ticket reply.
+*/
+export const CreateReplyTicket = async (ticket: Ticket, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.PostAsync<Ticket>(`/forum/ticket/${ticket.parentTicket}/reply`, ticket);
 
 /**
 * Edit an existing forum ticket.

@@ -8,18 +8,20 @@ import { getAuthorInfo } from '../../Utils'
 import ReplyForm from './ReplyForm';
 import Replies from './Replies';
 import React from "react";
-import Navigation from "@/app/(main)/(withHeaderContent)/forums/(components)/Navigation";
+import Navigation from "@/app/(main)/(withHeaderContent)/support/(components)/Navigation";
+import { GetTicket } from '@/services/forum/ticket/TicketService';
+import Ticket from '@/libs/types/entities/Ticket';
+import { GetAllTicketCategories } from '@/services/forum/ticket/TicketCategoryService';
+import TicketCategory from '@/libs/types/entities/TicketCategory';
 
 interface Params {
   params: {
-    forumId: string;
-    threadId: string;
+    ticketId: string;
   }
 }
-export default async function Page({ params: { forumId, threadId } }: Params) {
-  const thisThreadId = forumId + '.' + threadId;
+export default async function Page({ params: { ticketId } }: Params) {
+  let res0 = await GetTicket(ticketId);
 
-  let res0 = await GetThread(thisThreadId);
   const isError = isResultError(res0);
   if (isError)
     console.error("Error fetching thread: HTTP " + res0[1]);
@@ -31,6 +33,8 @@ export default async function Page({ params: { forumId, threadId } }: Params) {
     </div>
   </>;
 
+  const categories: TicketCategory[] = (await GetAllTicketCategories())[0]!;
+
   const authorPromise = getAuthorInfo(ticket.author);
   
   const session = await getSession();
@@ -38,9 +42,13 @@ export default async function Page({ params: { forumId, threadId } }: Params) {
 
   const author = await authorPromise;
   
-  const lastEdited = stringToDate(ticket.lastEditedAt);
+  const lastEdited = stringToDate(ticket.lastUpdatedAt);
   const createdAt = stringToDate(ticket.createdAt);
-  const replies = ticket.replies;
+  let replies: Ticket[] = [];
+
+  for (const replyId of ticket.replies) {
+    replies.push((await GetTicket(replyId))[0]!);
+  }
 
   const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
     Owner: "#9F000C",
@@ -73,21 +81,22 @@ export default async function Page({ params: { forumId, threadId } }: Params) {
         </div>
 
         <div className="flex flex-col items-center rounded-xl border-[1px] border-base-200">
-          <div className="flex items-center py-3 px-6 w-full gap-2">
+          <Replies replies={replies} />
+          <div className="flex py-3 px-2 w-full gap-2">
             {session?.isLoggedIn ?
               <>
-                <div className="w-[39px] h-[37px] relative">
+                <div className="w-[39px] h-[37px] relative inline-block">
                   <ServerMCHead shadowColor={getRankColor(currentUser?.rank?.name)}
-                                className="scale-[.5] absolute left-[-16px] top-[-18px]"
+                                className="scale-[.5]"
                                 username={currentUser?.username}/>
                 </div>
-                <ReplyForm forumId={forumId} threadId={threadId}/>
+                <div className="inline-block ms-3 w-full">
+                  <ReplyForm parentId={ticket._id} categories={categories} />
+                </div>
               </> :
               <h6 className="font-bold w-full">You are not logged in.</h6>
             }
           </div>
-
-          <Replies replies={replies} threadId={thisThreadId}/>
         </div>
       </div>
     </Navigation>
