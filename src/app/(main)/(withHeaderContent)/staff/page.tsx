@@ -1,24 +1,36 @@
 import HeaderContext from "@/components/HeaderContext";
 import { ServerMCHead } from "@/components/Minecraft/Server";
+import { getRankName, getStaffUsers, getUsernameFromUuid } from "@/services/forum/account/AccountService";
 import React from "react";
 
-export default function Staff() {
-  const staff = [
-    {username: "Oestradiol", rank: "developer"},
-    {username: "Oestradiol", rank: "developer"},
-    {username: "OhEmilyy", rank: "owner"},
-    {username: "OhEmilyy", rank: "owner"},
-    {username: "OhEmilyy", rank: "owner"}
-  ].sort((a, b) => {
-    const getVal = (a: string) => ({
-      "owner": 0,
-      "developer": 1,
-    }[a]);
-    return getVal(a.rank)! - getVal(b.rank)!;
-  });
+export default async function Staff() {
+  const staffUuids = (await getStaffUsers())[0]!;
+
+  let staff = [];
+
+  for (let entry of staffUuids) {
+    staff.push({
+      username: (await getUsernameFromUuid(entry.playerUuid)),
+      rank: (await getRankName(entry.rankUuid))[0] || "Unknown Rank"
+    })
+  }
+  
+  // const staff = [
+  //   {username: "Oestradiol", rank: "developer"},
+  //   {username: "Oestradiol", rank: "developer"},
+  //   {username: "OhEmilyy", rank: "owner"},
+  //   {username: "OhEmilyy", rank: "owner"},
+  //   {username: "OhEmilyy", rank: "owner"}
+  // ].sort((a, b) => {
+  //   const getVal = (a: string) => ({
+  //     "owner": 0,
+  //     "developer": 1,
+  //   }[a]);
+  //   return getVal(a.rank)! - getVal(b.rank)!;
+  // });
   const getRankColor = (rank: string) => ({
-    owner: "#9F000C",
-    developer: "#ff4141"
+    OWNER: "#9F000C",
+    DEVELOPER: "#ff4141"
   }[rank] ?? "#ffffff");
   
   const headerContent: [string, string] = ["Staff", `Running the show!`];

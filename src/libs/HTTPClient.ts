@@ -56,9 +56,13 @@ export default class HTTPClient {
 
   private async actAsync<T = any>(mode: string, route: string, body?: any): Promise<[T | null, number, string | null]> {
     const httpResponse = await this.actAsyncInternal(mode, route, body);
+    const resBody = await httpResponse.text();
+    if (process.env.NODE_ENV == "development") {
+      console.log("response body:\n" + resBody);
+    }
     let json;
     try {
-      json = await httpResponse.json();
+      json = JSON.parse(resBody);
     } catch (err) {
       const message = "Error parsing response json: " + err;
       console.log(message);

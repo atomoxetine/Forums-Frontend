@@ -134,6 +134,18 @@ export const GetFriends = async (uuid: string, client: HTTPClient = new HTTPClie
 
 
 /**
+  * Endpoint for retrieving all staff users
+  *
+  * @return An array of objects containing player and rank uuids
+  */
+export const getStaffUsers = async (client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<{playerUuid:string, rankUuid:string}[]>(`/staff/users`);
+
+
+export const getRankName = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<any>(`/rank/${uuid}`).then(res => {res[0] = res[0]?.name; return res})
+
+/**
   * Gets player uuid from username from mojang api or playerdb api
   * @param username The user name
   * @return the uuid or null

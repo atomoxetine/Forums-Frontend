@@ -7,7 +7,7 @@ export default interface Ticket {
   category: string,
   title: string,
   body: string,
-  parent: string | null,
+  parentTicket: string | null,
   status: string,
   replies: string[],
 }
