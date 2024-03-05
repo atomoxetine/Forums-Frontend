@@ -1,7 +1,7 @@
-import HashLink from "@/components/HashLink";
 import HeaderContext from "@/components/HeaderContext";
 import { ServerMCHead } from "@/components/Minecraft/Server";
-import { getRankColor, getRankName, getStaffUsers, getUsernameFromUuid } from "@/services/forum/account/AccountService";
+import { GetRank, getRankColor } from "@/services/controller/GrantService";
+import { getStaffUsers, getUsernameFromUuid } from "@/services/forum/account/AccountService";
 import Link from "next/link";
 import React from "react";
 
@@ -20,10 +20,12 @@ export default async function Staff() {
       crr = entry.rankUuid;
       aux = [];
     }
+
+    const rank = (await GetRank(entry.rankUuid))[0]!;
     aux.push({
       username: (await getUsernameFromUuid(entry.playerUuid)),
-      rank: (await getRankName(entry.rankUuid))[0] || "Unknown Rank",
-      color: (await getRankColor(entry.rankUuid))[0] || "#FFFFFF"
+      rank: rank.name,
+      color: await getRankColor(entry.rankUuid) || "#FFFFFF"
     })
   }
 

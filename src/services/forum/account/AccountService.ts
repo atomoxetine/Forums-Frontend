@@ -142,13 +142,6 @@ export const getStaffUsers = async (client: HTTPClient = new HTTPClient(process.
   await client.GetAsync<{playerUuid:string, rankUuid:string}[]>(`/staff/users`);
 
 
-export const getRankName = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.GetAsync<any>(`/rank/${uuid}`).then(res => {res[0] = res[0]?.name; return res});
-
-export const getRankColor = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.GetAsync<any>(`/rank/color/${uuid}`).then(res => {res[0] = res[0]?.color; return res});
-
-
 
 /**
   * Gets player uuid from username from mojang api or playerdb api

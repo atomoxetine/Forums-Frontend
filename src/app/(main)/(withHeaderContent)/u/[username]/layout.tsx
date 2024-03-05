@@ -9,6 +9,7 @@ import HeaderContext from '@/components/HeaderContext';
 import HashLink from '@/components/HashLink';
 import { GetFriends, getUsernameFromUuid, getUuid } from '@/services/forum/account/AccountService';
 import { isResultError } from '@/libs/Utils';
+import { GetActiveRanks, getRankColor } from '@/services/controller/GrantService';
 
 interface UserParams {
   children: React.ReactNode;
@@ -16,25 +17,23 @@ interface UserParams {
 export default async function Layout({ children: children }: UserParams) {
   const currPath = new URL(headers().get('x-url')!).pathname;
   const username = currPath?.split('/')[2];
+  const uuid = await getUuid(username);
 
-  const status = "online",
-    rank = "developer",
-    server = "hub-01",
-    dateJoined = "01/18/24",
-    timePlayed = "5d 8h";
+  const status = "online";
+  const rank = (await GetActiveRanks(uuid))[0]!
+    .reduce((r, h) => r.priority > h.priority ? r : h);
+  const rankColor = await getRankColor(rank._id) || "#FFFFFF";
 
-  const getRankColor: string = { // TODO: Properly get rank color
-    owner: "#9F000C",
-    developer: "#ff4141"
-  }[rank] ?? "#ffffff"
+  const server = "placeholder-server";
+  const dateJoined = "placeholder-date";
+  const timePlayed = "placeholder-time";
+
   const getStatusColor: string = { // TODO: Properly get status color
     online: "#22C55E"
   }[status] ?? "gray";
 
   let friends: { uuid: string, name: string }[] = [];
 
-  let uuid = await getUuid(username);
-  console.log(uuid);
   if (uuid) {
     const res0 = await GetFriends(uuid);
     const isError = isResultError(res0);
@@ -74,10 +73,10 @@ export default async function Layout({ children: children }: UserParams) {
               <small
                 className="uppercase text-center w-full text-gray-600 tracking-wider font-bold text-shadow">{status}</small>
             </div>
-            <ServerMCBust className="mx-12" username={username} />
+            <ServerMCBust className="mx-12" username={username} shadowColor={rankColor} />
             <span className="text-center inline-flex flex-col">
               <h5 className="font-bold">{username ?? "Unknown"}</h5>
-              <small style={{ color: getRankColor }} className="smaller font-bold uppercase tracking-wider">{rank}</small>
+              <small style={{ color: rankColor }} className="smaller font-bold uppercase tracking-wider">{rank.name}</small>
             </span>
             <div style={{ backgroundColor: getStatusColor }}
               className="flex w-full py-2 rounded-b-lg border-[1px] border-gray-400">

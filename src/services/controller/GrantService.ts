@@ -2,22 +2,21 @@
 
 import HTTPClient from "@/libs/HTTPClient";
 import Rank from "@/libs/types/entities/Rank";
-///**
-// * Asynchronous endpoint to retrieve a single grant by its UUID.
-// *
-// * @param id The UUID of the grant to be retrieved.
-// * @return ResponseEntity containing the Grant or not found status if not available.
-// */
-//// In the API: @GetMapping("/grants/id/{id}")
-//export const GetGrant = async (id: string, client?: HTTPClient) => {
-//    const uri = `/grants/id/${id}`;
-//
-//    client ??= new HTTPClient(process.env.API_URL!);
-//    const response = await (await client.GetAsync(uri)).json();
-//
-//    return response;
-//    }
-//
+/**
+* Asynchronous endpoint to retrieve a single rank by its UUID.
+*
+* @param id The UUID of the rank to be retrieved.
+* @return Rank or not found status if not available.
+*/
+// In the API: @GetMapping("/rank/{id}")
+export const GetRank = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Rank>(`/rank/${uuid}`);
+
+
+export const getRankColor = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<string> =>
+  (await client.GetAsync<any>(`/rank/color/${uuid}`))[0]?.color;
+
+
 ///**
 // * Endpoint to retrieve a single grant by its UUID and convert it to a simplified form for the site.
 // *
