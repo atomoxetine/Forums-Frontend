@@ -53,8 +53,8 @@ export default function Component() {
             disabled={isLoading} name="body" placeholder="Body" required />
           <select className="py-3 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"
             disabled={isLoading} name="category" required>
-            {categories.map(category =>
-              <option value={category._id}>{category.name}</option>
+            {categories.map((category, i) =>
+              <option key={i} value={category._id}>{category.name}</option>
             )}
           </select>
 

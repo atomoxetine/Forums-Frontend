@@ -49,8 +49,6 @@ export default async function Layout({ children: children }: UserParams) {
     }
   }
 
-  console.log(friends);
-
   const friendNum = friends.length;
 
   const socialUrls = {
