@@ -78,5 +78,13 @@ export const CreateReply = async (ticket: Ticket, parentId: String, client: HTTP
   await client.PostAsync<Ticket>(`/forum/ticket/${parentId}/reply`, ticket)
 
 
+export const ArchiveTicket = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.PostAsync<any>(`/forum/ticket/${id}/archive`);
+
+export const UnarchiveTicket = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.PostAsync<any>(`/forum/ticket/${id}/unarchive`);
+
 export const DeleteTicket = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.DeleteAsync<any>(`/forum/ticket/${id}`);
+
+

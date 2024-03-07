@@ -15,9 +15,9 @@ export default interface Rank {
   suffix: string;
   color: string;
   playerListPrefix: string;
-  visible: true;
-  staff: true;
+  visible: boolean;
+  staff: boolean;
   subscription: boolean;
-  grantable: true;
+  grantable: boolean;
   purchasable: boolean
 }

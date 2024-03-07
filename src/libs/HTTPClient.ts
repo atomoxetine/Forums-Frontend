@@ -1,7 +1,7 @@
 interface IMap {
   [key: string]: string;
 }
-type InternalClient = (method: string, route: string, body?: BodyInit) => Promise<Response>;
+type InternalClient = (method: string, route: string, body?: BodyInit) => Promise<Response | null>;
 export default class HTTPClient {
   private readonly uri: string;
 
@@ -29,22 +29,35 @@ export default class HTTPClient {
     }
 
     const client: InternalClient =
-      async (method: string, route: string, body?: BodyInit) => 
-        await fetch(
-          new Request(
-            new URL(route, this.uri),
-            { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined }
+      async (method: string, route: string, body?: BodyInit) => {
+        try {
+          return await fetch(
+            new Request(
+              new URL(route, this.uri),
+              {
+                method: method,
+                headers: headers,
+                body: body ? JSON.stringify(body) : undefined,
+                cache: 'no-store',
+              }
+            )
           )
-        );
+        } catch (err) {
+          console.error(`fetch failed: ${err}`);
+          return null;
+        }
+      };
 
     return client;
   }
 
-  private async actAsyncInternal(mode: string, route: string, body?: any): Promise<Response> {
+  private async actAsyncInternal(mode: string, route: string, body?: any): Promise<Response | null> {
     const action = async (client: InternalClient) => await client(mode, route, body);
 
     let client = await this.getClientAsync();
     const httpResponse = await action(client);
+
+    if (!httpResponse) return null;
 
     if (httpResponse.status === 401) { // Unauthorized
       client = await this.getClientAsync(true);
@@ -56,6 +69,9 @@ export default class HTTPClient {
 
   private async actAsync<T = any>(mode: string, route: string, body?: any): Promise<[T | null, number, string | null]> {
     const httpResponse = await this.actAsyncInternal(mode, route, body);
+    if (!httpResponse)
+      return [null, 404, "fetch failed"];
+
     const resBody = await httpResponse.text();
     if (process.env.NODE_ENV == "development") {
       console.log("response body:\n" + resBody);

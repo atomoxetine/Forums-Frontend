@@ -2,25 +2,21 @@
 
 import './styles.css'
 import useSession from "@/hooks/useSession";
-import { FormEvent, LegacyRef, MutableRefObject, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { isResultError, newUuid } from "@/libs/Utils";
-import { CreateReply } from '@/services/forum/thread/ThreadService';
-import useGlobal from "@/hooks/useGlobal";
-import Thread from "@/libs/types/entities/Thread";
 import Ticket from '@/libs/types/entities/Ticket';
-import { CreateReplyTicket, CreateTicket } from '@/services/forum/ticket/TicketService';
+import { CreateReplyTicket } from '@/services/forum/ticket/TicketService';
 import TicketCategory from '@/libs/types/entities/TicketCategory';
 
 export interface WriteReplyData {
-  parentId: string;
+  parentTicket: Ticket;
   categories: TicketCategory[]
 }
 const WriteReply = (props: WriteReplyData) => {
-  const { parentId, categories } = props
+  const { parentTicket, categories } = props
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { session } = useSession();
-  // const [latestReply, updateReplies] = useGlobal<{isAdd: boolean, value: Thread}>("latestReply")
   const input = useRef<HTMLTextAreaElement>(null);
   const hiddenDiv = useRef<HTMLDivElement>(null);
 
@@ -56,9 +52,9 @@ const WriteReply = (props: WriteReplyData) => {
         category: categories.find(c => c.name == "Reply")!._id,
         createdAt: Date.now().toFixed(),
         lastUpdatedAt: Date.now().toFixed(),
-        parentTicket: parentId,
+        parentTicket: parentTicket._id,
         status: "Sent",
-        title: `Reply to ${parentId}`,
+        title: `Reply to ${parentTicket._id}`,
         replies: [],
       }
 
@@ -94,15 +90,23 @@ const WriteReply = (props: WriteReplyData) => {
     }
   }, [])
 
+  const isDisabled = parentTicket.status != "open";
+
   return <>
     <form onSubmit={onSubmit} className="items-center w-full rounded-lg h-fit py-3">
       <div className="relative flex flex-col flex-1 mr-1 h-min">
         <span className="absolute mt-[-26px] bg-base-300 px-2">{error && <p className="text-error mb-1">{error}</p>}</span>
-        <textarea ref={input} name="reply" placeholder="Type a reply..." className="input w-full bg-base-100 content-color" required/>
+        <textarea disabled={isDisabled} ref={input} name="reply" placeholder="Type a reply..." className="input w-full bg-base-100 content-color" required/>
         <div id="replyhiddendiv" ref={hiddenDiv} className="py-2" />
       </div>
-      <button className="btn btn-primary flex mt-3 px-2 items-center font-semibold h-8 min-h-8" disabled={isLoading} type="submit">
-        {isLoading ? "On it…" : "Send"}
+      <button className="btn btn-primary bg-green-800 border-none hover:bg-green-900 flex mt-3 px-2 items-center font-semibold h-8 min-h-8" disabled={isLoading || isDisabled} type="submit">
+        {(() => {
+          if (isDisabled)
+            return "Ticket is closed";
+          if (isLoading)
+            return "On it...";
+          return "Send";
+        })()}
       </button>
     </form>
   </>;
