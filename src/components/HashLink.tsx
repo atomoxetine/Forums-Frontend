@@ -3,6 +3,9 @@ import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 import {CSSProperties} from "react";
 
+/**
+ * @deprecated Use Link instead
+ */
 const HashLink = (props: { href: Url; children: any; className?: string; style?: CSSProperties }) => (
   <Link tabIndex={0} href={props.href} className={props.className} style={props.style}
     onClick={() => {

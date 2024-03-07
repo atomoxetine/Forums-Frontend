@@ -10,6 +10,7 @@ import Thread from '@/libs/types/entities/Thread';
 import { GetThread } from '@/services/forum/thread/ThreadService';
 import HashLink from '@/components/HashLink';
 import Navigation from "@/app/(main)/(withHeaderContent)/forums/(components)/Navigation";
+import Link from 'next/link';
 
 interface UserParams {
 }
@@ -59,12 +60,12 @@ export default async function Page({ }: UserParams) {
             item: (
               <small key={reply._id} className="flex flex-col items-end text-end">
                 <span className="inline-flex gap-1 flex-nowrap whitespace-nowrap">
-                  <HashLink href={`/u/${authorName}`} style={{ color: getRankColor(author!.rank?.name) }}>{authorName}</HashLink> replied to
-                  <HashLink href={threadUrl} className="flex flex-col text-neutral">"{res.parent.title}"</HashLink>
+                  <Link href={`/u/${authorName}`} style={{ color: getRankColor(author!.rank?.name) }}>{authorName}</Link> replied to
+                  <Link href={threadUrl} className="flex flex-col text-neutral">"{res.parent.title}"</Link>
                 </span>
-                <HashLink href={threadUrl} className="flex flex-col">
+                <Link href={threadUrl} className="flex flex-col">
                   <small className="smaller">{toLocaleString(stringToDate(res.reply.createdAt))}</small>
-                </HashLink>
+                </Link>
               </small>
             ),
           };

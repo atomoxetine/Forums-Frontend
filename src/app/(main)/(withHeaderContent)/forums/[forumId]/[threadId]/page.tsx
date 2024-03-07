@@ -9,6 +9,7 @@ import ReplyForm from './ReplyForm';
 import Replies from './Replies';
 import React from "react";
 import Navigation from "@/app/(main)/(withHeaderContent)/forums/(components)/Navigation";
+import Link from 'next/link';
 
 interface Params {
   params: {
@@ -54,8 +55,8 @@ export default async function Page({ params: { forumId, threadId } }: Params) {
           <div className="flex flex-col items-center py-8">
             <ServerMCBust className="mx-8 mb-4" username={author?.username}/>
             <span className="text-center inline-flex flex-col">
-            <HashLink href={`/u/${author?.username}`}><h5
-              className="font-bold">{author?.username ?? "Unknown"}</h5></HashLink>
+            <Link href={`/u/${author?.username}`}><h5
+              className="font-bold">{author?.username ?? "Unknown"}</h5></Link>
             <small style={{color: getRankColor(author?.rank?.name)}}
                    className="smaller font-bold uppercase tracking-wider">{author?.rank?.name}</small>
           </span>

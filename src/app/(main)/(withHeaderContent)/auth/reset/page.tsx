@@ -7,6 +7,7 @@ import { FormEvent, useRef, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 import { isResultError } from "@/libs/Utils";
+import Link from "next/link";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -65,8 +66,8 @@ const RequestReset = ({ username: username }: { username?: string }) => {
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
     </form>
     <hr/>
-    <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
-    <small className="mb-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
+    <small className="my-1"><b>Don't have an account? <Link className="text-primary hover:text-primary-content" href="/auth/register">Register here!</Link></b></small>
+    <small className="mb-1"><b>Already remembered it? <Link className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</Link></b></small>
   </>;
 };
 
@@ -120,6 +121,6 @@ const ResetPassword = ({ token: token, username: username }: { token: string, us
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Reset password"}</button>
     </form>
     <hr/>
-    <small className="my-1"><b>Already remembered it? <HashLink className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</HashLink></b></small>
+    <small className="my-1"><b>Already remembered it? <Link className="text-accent hover:text-accent-content" href="/auth/login">Click here to go back.</Link></b></small>
   </>;
 };

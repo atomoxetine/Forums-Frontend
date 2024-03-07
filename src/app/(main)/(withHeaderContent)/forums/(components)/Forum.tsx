@@ -4,6 +4,7 @@ import HashLink from '@/components/HashLink';
 import Thread from '@/libs/types/entities/Thread';
 import Rank from '@/libs/types/entities/Rank';
 import ThreadInfo from './ThreadInfo';
+import Link from 'next/link';
 
 export interface ActivityData {
   thread: {
@@ -33,14 +34,14 @@ const Forum = async (props: ForumData) => {
 
   return (
     <TableEntry>
-      <HashLink href={`/forums/${id}`} className="h-fit w-fit">
+      <Link href={`/forums/${id}`} className="h-fit w-fit">
         <small className="flex flex-col items-start text-start text-neutral">
           {name}
           <small className="smaller">
             {description}
           </small>
         </small>
-      </HashLink>
+      </Link>
 
       <small className="flex justify-center text-center">{threadAmount}</small>
       

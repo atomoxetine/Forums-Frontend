@@ -12,6 +12,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import useSession from "@/hooks/useSession";
 import { DeleteTicket } from "@/services/forum/ticket/TicketService";
 import { getRankColor } from "@/services/controller/GrantService";
+import Link from "next/link";
 
 export interface RepliesData {
   replies: Ticket[];
@@ -94,7 +95,7 @@ const Ticket = (params: ReplyData) => {
           <span className="flex flex-col">
             <p className="content-color ticket-content">{content}</p>                  
             <small className="inline-flex gap-1 items-end">
-              <HashLink href={`/u/${author?.username}`} style={{color: rankColor}}>{author?.username}</HashLink>
+              <Link href={`/u/${author?.username}`} style={{color: rankColor}}>{author?.username}</Link>
               <small className="smaller">{toLocaleString(createdAtDate)}</small>
             </small>                  
           </span>

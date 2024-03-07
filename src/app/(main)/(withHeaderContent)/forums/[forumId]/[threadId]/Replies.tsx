@@ -13,6 +13,7 @@ import Thread from "@/libs/types/entities/Thread";
 import Rank from "@/libs/types/entities/Rank";
 import { IoIosArrowDown } from "react-icons/io";
 import useSession from "@/hooks/useSession";
+import Link from "next/link";
 
 export interface RepliesData {
   replies: Reply[];
@@ -128,7 +129,7 @@ const Reply = (params: ReplyData) => {
           <span className="flex flex-col">
             <p className="content-color">{content}</p>                  
             <small className="inline-flex gap-1 items-end">
-              <HashLink href={`/u/${author?.username}`} style={{color: getRankColor(author?.rank?.name)}}>{author?.username}</HashLink>
+              <Link href={`/u/${author?.username}`} style={{color: getRankColor(author?.rank?.name)}}>{author?.username}</Link>
               <small className="smaller">{toLocaleString(createdAtDate)}</small>
             </small>                  
           </span>

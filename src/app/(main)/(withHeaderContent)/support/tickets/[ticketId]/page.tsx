@@ -16,6 +16,7 @@ import { GetAllTicketCategories } from '@/services/forum/ticket/TicketCategorySe
 import TicketCategory from '@/libs/types/entities/TicketCategory';
 import { getRankColor } from '@/services/controller/GrantService';
 import TicketActions from './TicketActions';
+import Link from 'next/link';
 
 interface Params {
   params: {
@@ -63,8 +64,8 @@ export default async function Page({ params: { ticketId } }: Params) {
             <div className="flex flex-col items-center py-8">
               <ServerMCBust className="mx-8 mb-4" username={author?.username} shadowColor={rankColor} />
               <span className="text-center inline-flex flex-col">
-                <HashLink href={`/u/${author?.username}`}><h5
-                  className="font-bold">{author?.username ?? "Unknown"}</h5></HashLink>
+                <Link href={`/u/${author?.username}`}><h5
+                  className="font-bold">{author?.username ?? "Unknown"}</h5></Link>
                 <small style={{ color: rankColor }}
                   className="smaller font-bold uppercase tracking-wider">{author?.rank?.name}</small>
               </span>

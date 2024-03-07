@@ -100,11 +100,11 @@ export default async function Layout({ children: children }: UserParams) {
               className="uppercase font-bold smaller mb-2 mt-1">{friendNum} {"friend" + (friendNum === 1 ? '' : 's')}</small>
             <div className="flex flex-row flex-wrap gap-y-1 gap-x-2 justify-center">
               {friends.slice(0, 6).map((f, i) =>
-                <HashLink key={i} href={`/u/${f.name}`} className="w-[45px] h-[49px] relative">
+                <Link key={i} href={`/u/${f.name}`} className="w-[45px] h-[49px] relative">
                   <ServerMCHead shadowColor="green" className="scale-[.675] absolute left-[-11px] top-[-12px]"
                     uuid={f.uuid}
                     username={f.name} />
-                </HashLink>
+                </Link>
               )}
             </div>
           </div>

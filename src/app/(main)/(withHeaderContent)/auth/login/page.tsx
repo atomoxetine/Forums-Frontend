@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import HashLink from "@/components/HashLink";
 import { isResultError } from "@/libs/Utils";
+import Link from "next/link";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -49,7 +50,7 @@ export default function Page() {
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Sign in"}</button>
     </form>
     <hr/>
-    <small className="my-1"><b>Don't have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/register">Register here!</HashLink></b></small>
-    <small><b>Forgot your password? <HashLink className="text-secondary hover:text-secondary-content" href="/auth/reset">Click here to reset.</HashLink></b></small>
+    <small className="my-1"><b>Don't have an account? <Link className="text-primary hover:text-primary-content" href="/auth/register">Register here!</Link></b></small>
+    <small><b>Forgot your password? <Link className="text-secondary hover:text-secondary-content" href="/auth/reset">Click here to reset.</Link></b></small>
   </>;
 };

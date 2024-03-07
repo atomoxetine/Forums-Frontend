@@ -6,6 +6,7 @@ import { FormEvent, useState } from "react";
 import { AuthContext } from "../template"
 import HashLink from "@/components/HashLink";
 import { isResultError } from "@/libs/Utils";
+import Link from "next/link";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -91,6 +92,6 @@ const DoRegister = ({ token: token, username: username }: { token: string, usern
       <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Set password"}</button>
     </form>
     <hr/>
-    <small className="my-1"><b>Already have an account? <HashLink className="text-primary hover:text-primary-content" href="/auth/login">Sign in here!</HashLink></b></small>
+    <small className="my-1"><b>Already have an account? <Link className="text-primary hover:text-primary-content" href="/auth/login">Sign in here!</Link></b></small>
   </>;
 };
