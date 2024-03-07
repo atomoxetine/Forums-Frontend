@@ -1,18 +1,17 @@
 'use client';
 
-import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
+import { stringToDate, toLocaleString } from "@/libs/Utils";
 import { ClientMCHead } from "@/components/Minecraft/Client";
 import Ticket from '@/libs/types/entities/Ticket'
 import { getAuthorInfo } from "../../Utils";
 import HashLink from "@/components/HashLink";
 import { IoTrash } from "react-icons/io5";
-import { DeleteReply, GetThread } from "@/services/forum/thread/ThreadService";
-import { useCallback, useEffect, useState } from "react";
-import useGlobal from "@/hooks/useGlobal";
-import Thread from "@/libs/types/entities/Thread";
+import { useEffect, useState } from "react";
 import Rank from "@/libs/types/entities/Rank";
 import { IoIosArrowDown } from "react-icons/io";
 import useSession from "@/hooks/useSession";
+import { DeleteTicket } from "@/services/forum/ticket/TicketService";
+import { getRankColor } from "@/services/controller/GrantService";
 
 export interface RepliesData {
   replies: Ticket[];
@@ -33,7 +32,7 @@ const Replies = (props: RepliesData) => {
           <small className="mx-auto">0 replies in this thread. Be the first!</small> :
           <>
             {replies.slice(Math.max(len - n, 0), len)
-              .map(r => <Ticket key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} fullReplyId={r._id}/>)
+              .map(r => <Ticket key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} isDeleted={r.status=="deleted"} fullReplyId={r._id}/>)
             }
 
             {len > n ?
@@ -62,46 +61,49 @@ interface ReplyData {
   authorId: string;
   createdAt?: string;
   content: string;
+  isDeleted: boolean;
   fullReplyId: string;
 }
 
+
 const Ticket = (params: ReplyData) => {
-  const {authorId, createdAt, content, fullReplyId } = params;
+  let {authorId, createdAt, content, fullReplyId, isDeleted } = params;
   const createdAtDate = stringToDate(createdAt);
-  const [author, setAuthor] = useState<{username: string, rank?: Rank | undefined}>()
+  const [author, setAuthor] = useState<{username: string, rank?: Rank | undefined}>();
+  const [rankColor, setRankColor] = useState<string>("#FFFFFF");
   const {session} = useSession()
+
+  if (isDeleted)
+    content = "This message was deleted";
 
   useEffect(() => {
     (async () => {
-      setAuthor(await getAuthorInfo(authorId));
+      const newAuthor = await getAuthorInfo(authorId);
+      setAuthor(newAuthor);
+      setRankColor(await getRankColor(newAuthor?.rank?._id || "") || "#FFFFFF")
     })()
   }, [authorId])  
 
-  const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
-    Owner: "#9F000C",
-    Developer: "#ff4141"
-  }[r ?? '']) ?? "#ffffff"
   return (
     <div className="flex items-center w-full gap-2">
       <div className="w-[39px] h-[37px] relative">
-        <ClientMCHead shadowColor={getRankColor(author?.rank?.name)} className="scale-[.5] absolute left-[-16px] top-[-18px]" username={author?.username} />
+        <ClientMCHead shadowColor={rankColor} className="scale-[.5] absolute left-[-16px] top-[-18px]" username={author?.username} />
       </div>
       <div className="flex rounded-lg w-full">
         <div className="flex-1 bg-base-100 rounded-l-lg px-2 py-1">
           <span className="flex flex-col">
             <p className="content-color ticket-content">{content}</p>                  
             <small className="inline-flex gap-1 items-end">
-              <HashLink href={`/u/${author?.username}`} style={{color: getRankColor(author?.rank?.name)}}>{author?.username}</HashLink>
+              <HashLink href={`/u/${author?.username}`} style={{color: rankColor}}>{author?.username}</HashLink>
               <small className="smaller">{toLocaleString(createdAtDate)}</small>
             </small>                  
           </span>
         </div>
-        {session && author && session?.username == author?.username ?
+        {!isDeleted && session && author && session?.username == author?.username ?
           <div className="flex-none flex bg-base-300 rounded-r-lg items-center px-2 py-1 text-neutral cursor-pointer hover:text-primary" onClick={
             () => {
-              const split = fullReplyId.split('.')
-              split.pop()
-              DeleteReply(split.join('.'), fullReplyId).then(() => {
+              DeleteTicket(fullReplyId).then(() => {
+                window.location.reload();
               })
             }
           }><IoTrash className="h-5 w-5"/></div> : <></>

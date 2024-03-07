@@ -75,5 +75,8 @@ export const GetAllTickets = async (page: number = 1, client: HTTPClient = new H
 */
 // In the API: @PostMapping(path = "/forum/ticket/{parentId}/reply")
 export const CreateReply = async (ticket: Ticket, parentId: String, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => 
-  await client.PostAsync<TicketReply>(`/forum/ticket/${parentId}/reply`, ticket)
+  await client.PostAsync<Ticket>(`/forum/ticket/${parentId}/reply`, ticket)
 
+
+export const DeleteTicket = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.DeleteAsync<any>(`/forum/ticket/${id}`);

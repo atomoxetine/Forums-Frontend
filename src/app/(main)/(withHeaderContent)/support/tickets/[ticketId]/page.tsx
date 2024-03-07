@@ -1,6 +1,5 @@
 import './styles.css'
 import { ServerMCBust, ServerMCHead } from "@/components/Minecraft/Server";
-import { GetThread } from '@/services/forum/thread/ThreadService';
 import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
 import HashLink from '@/components/HashLink';
 import getSession from '@/libs/session/getSession';
@@ -13,6 +12,7 @@ import { GetTicket } from '@/services/forum/ticket/TicketService';
 import Ticket from '@/libs/types/entities/Ticket';
 import { GetAllTicketCategories } from '@/services/forum/ticket/TicketCategoryService';
 import TicketCategory from '@/libs/types/entities/TicketCategory';
+import { getRankColor } from '@/services/controller/GrantService';
 
 interface Params {
   params: {
@@ -50,21 +50,18 @@ export default async function Page({ params: { ticketId } }: Params) {
     replies.push((await GetTicket(replyId))[0]!);
   }
 
-  const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
-    Owner: "#9F000C",
-    Developer: "#ff4141"
-  }[r ?? '']) ?? "#ffffff";
+  const rankColor = await getRankColor(author?.rank?._id || "") || "#FFFFFF";
 
   return <>
     <Navigation>
       <div className="flex flex-col gap-4 p-2 rounded-lg h-fit w-screen max-w-[996px]">
         <div className="flex bg-base-200 rounded-xl">
           <div className="flex flex-col items-center py-8">
-            <ServerMCBust className="mx-8 mb-4" username={author?.username}/>
+            <ServerMCBust className="mx-8 mb-4" username={author?.username} shadowColor={rankColor} />
             <span className="text-center inline-flex flex-col">
             <HashLink href={`/u/${author?.username}`}><h5
               className="font-bold">{author?.username ?? "Unknown"}</h5></HashLink>
-            <small style={{color: getRankColor(author?.rank?.name)}}
+            <small style={{color: rankColor}}
                    className="smaller font-bold uppercase tracking-wider">{author?.rank?.name}</small>
           </span>
           </div>
@@ -86,7 +83,7 @@ export default async function Page({ params: { ticketId } }: Params) {
             {session?.isLoggedIn ?
               <>
                 <div className="w-[39px] h-[37px] relative inline-block">
-                  <ServerMCHead shadowColor={getRankColor(currentUser?.rank?.name)}
+                  <ServerMCHead shadowColor={rankColor}
                                 className="scale-[.5]"
                                 username={currentUser?.username}/>
                 </div>
