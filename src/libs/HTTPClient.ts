@@ -1,7 +1,8 @@
 interface IMap {
   [key: string]: string;
 }
-type InternalClient = (method: string, route: string, body?: BodyInit) => Promise<Response | null>;
+type CacheStrategy = "no-store" | "force-cache";
+type InternalClient = (method: string, route: string, cacheStrategy: CacheStrategy, body?: BodyInit) => Promise<Response | null>;
 export default class HTTPClient {
   private readonly uri: string;
 
@@ -10,13 +11,18 @@ export default class HTTPClient {
   public set NewHeaders(value: IMap) { this.cachedHeaders = {...this.cachedHeaders, ...value}; }
   public set Header(value: [string, string]) { this.cachedHeaders[value[0]] = value[1]; };
 
-  constructor(uri: string, headers?: IMap) {
+  private cacheStrategy: CacheStrategy;
+  private cacheLifetime: number; 
+
+  constructor(uri: string, headers?: IMap, cacheStrategy: CacheStrategy = "no-store", cacheLifetime = 0) {
     this.uri = uri;
     this.cachedHeaders = headers ?? {
       // Set default headers here if necessary
       "content-type": "application/json",
       "Authorization": process.env.API_KEY!,
     };
+    this.cacheStrategy = cacheStrategy;
+    this.cacheLifetime = cacheLifetime;
   }
 
   private async getClientAsync(reset?: boolean): Promise<InternalClient> {
@@ -38,7 +44,10 @@ export default class HTTPClient {
                 method: method,
                 headers: headers,
                 body: body ? JSON.stringify(body) : undefined,
-                cache: 'no-store',
+                cache: this.cacheStrategy,
+                next: {
+                  revalidate: this.cacheLifetime
+                }
               }
             )
           )
