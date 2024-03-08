@@ -8,9 +8,10 @@ import { headers } from 'next/headers';
 import HeaderContext from '@/components/HeaderContext';
 import { GetFriends, getCurrentServer, getUsernameFromUuid, getUuid } from '@/services/forum/account/AccountService';
 import { isResultError } from '@/libs/Utils';
-import { GetActiveRanks, getRankColor } from '@/services/controller/GrantService';
-import { GetProfileFromUuid } from '@/services/controller/ProfileService';
+import { GetActiveRanks, getRankColor, getRankFromName } from '@/services/controller/GrantService';
+import { GetProfileFromUuid, GetPublicConnections } from '@/services/controller/ProfileService';
 import { getPunishments } from '@/services/forum/punishment/PunishmentService';
+import SocialConnections from './SocialConnections';
 
 interface UserParams {
   children: React.ReactNode;
@@ -20,11 +21,20 @@ export default async function Layout({ children: children }: UserParams) {
   const username = currPath?.split('/')[2];
   const uuid = await getUuid(username);
 
+  const profile = (await GetProfileFromUuid(uuid))[0]!;
+
+  if (!profile) {
+    return <>
+      <HeaderContext setTo={["User", "User not found"]} />
+      <h1 className="mt-4 text-xxl font-bold text-white">User not found</h1>
+    </>
+  }
+
+  const noRank = (await getRankFromName("NoRank"))[0]!;
   const rank = (await GetActiveRanks(uuid))[0]!
-    .reduce((r, h) => r.priority > h.priority ? r : h);
+    .reduce((r, h) => r.priority > h.priority ? r : h, noRank);
   const rankColor = await getRankColor(rank._id) || "#FFFFFF";
 
-  const profile = (await GetProfileFromUuid(uuid))[0]!;
 
   const server = await getCurrentServer(uuid);
   let status = server ? "online" : "offline";
@@ -51,7 +61,7 @@ export default async function Layout({ children: children }: UserParams) {
   else if (punishments.find(p => p.punishmentType == "BAN" && p.active))
     status = "banned"
 
-  const statusColor: {f:string, b:string} = {
+  const statusColor: { f: string, b: string } = {
     online: {
       b: "#12651E",
       f: "#AFAFAF",
@@ -68,7 +78,7 @@ export default async function Layout({ children: children }: UserParams) {
       b: "#120000",
       f: "#FF4A4A",
     }
-  }[status] ?? {f:"#000000", b:"#696969"};
+  }[status] ?? { f: "#000000", b: "#696969" };
 
   let friends: { uuid: string, name: string }[] = [];
 
@@ -89,12 +99,11 @@ export default async function Layout({ children: children }: UserParams) {
 
   const friendNum = friends.length;
 
-  const socialUrls = {
-    instagram: "",
-    twitter: "",
-    discord: "",
-    youtube: ""
-  }
+  const socialUrls = (await GetPublicConnections(uuid))[0]!;
+  const twitter = socialUrls.twitter;
+  const instagram = socialUrls.instagram;
+  const youtube = socialUrls.youtube;
+  const discord = socialUrls.discord;
 
   const headerContent: [string, string] = ["User", `Checkout ${username}'s amazing profile!`];
   return <>
@@ -104,7 +113,7 @@ export default async function Layout({ children: children }: UserParams) {
         <div className="grid-container mb-auto h-min w-full gap-4">
           <div
             className="row-span-3 flex flex-col justify-between items-center gap-4 rounded-lg overflow-hidden bg-base-200">
-            <div style={{ backgroundColor: statusColor.b}}
+            <div style={{ backgroundColor: statusColor.b }}
               className="flex w-full py-2 rounded-t-lg border-[1px] border-gray-400">
               <small
                 style={{ color: statusColor.f }}
@@ -126,15 +135,9 @@ export default async function Layout({ children: children }: UserParams) {
             <small>First joined on <b>{dateJoined}</b></small>
             <small>Last seen on <b>{lastSeenOn}</b></small>
           </div>
-          <div className="flex flex-col text-center rounded-lg overflow-hidden bg-base-200 py-1 px-4 whitespace-nowrap">
-            <small className="uppercase font-bold smaller mb-1">Social Media</small>
-            <div className="flex flex-row flex-wrap justify-center gap-6">
-              <Link href={socialUrls.instagram}><FaInstagram className="w-5 h-5" /></Link>
-              <Link href={socialUrls.twitter}><FaTwitter className="w-5 h-5" /></Link>
-              <Link href={socialUrls.discord}><FaDiscord className="w-5 h-5" /></Link>
-              <Link href={socialUrls.youtube}><FaYoutube className="w-5 h-5" /></Link>
-            </div>
-          </div>
+          {Object.keys(socialUrls).length > 0
+            ? <SocialConnections discord={discord} twitter={twitter} instagram={instagram} youtube={youtube} />
+            : <></>}
           <div className="flex flex-col text-center rounded-lg overflow-hidden bg-base-200 p-2 py-1 whitespace-nowrap">
             <small
               className="uppercase font-bold smaller mb-2 mt-1">{friendNum} {"friend" + (friendNum === 1 ? '' : 's')}</small>

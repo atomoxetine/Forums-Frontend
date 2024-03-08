@@ -107,7 +107,10 @@ export const getRankColor = async (uuid: string, client: HTTPClient = new HTTPCl
 */
 // In the API: @GetMapping("/grants/active/ranks/{uuid}")
 export const GetActiveRanks = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-await client.GetAsync<Rank[]>(`/grants/active/ranks/${uuid}`);
+  await client.GetAsync<Rank[]>(`/grants/active/ranks/${uuid}`);
+
+export const getRankFromName = async (name: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Rank>(`/rank/name/${name}`);
 
 ///**
 // * Asynchronous endpoint to retrieve all grants issued by a player based on their UUID.

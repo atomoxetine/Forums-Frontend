@@ -2,6 +2,7 @@
 
 import HTTPClient from "@/libs/HTTPClient";
 import Profile from "@/libs/types/entities/Profile";
+import ProfileConnections from "@/libs/types/entities/ProfileConnections";
 
 /**
  * Endpoint to retrieve information about all user profiles.
@@ -44,3 +45,6 @@ export const GetServerData = async (uuid: string, client: HTTPClient = new HTTPC
 // In the API: @GetMapping("/profile/proxy/{uuid}")
 export const GetProxyData = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.GetAsync(`/profile/proxy/${uuid}`);
+
+export const GetPublicConnections = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<ProfileConnections>(`/profile/connections/${uuid}`);
