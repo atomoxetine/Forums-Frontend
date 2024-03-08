@@ -6,10 +6,11 @@ import React from "react";
 import NavLink from "@/components/NavLink/component";
 import { headers } from 'next/headers';
 import HeaderContext from '@/components/HeaderContext';
-import HashLink from '@/components/HashLink';
-import { GetFriends, getUsernameFromUuid, getUuid } from '@/services/forum/account/AccountService';
+import { GetFriends, getCurrentServer, getUsernameFromUuid, getUuid } from '@/services/forum/account/AccountService';
 import { isResultError } from '@/libs/Utils';
 import { GetActiveRanks, getRankColor } from '@/services/controller/GrantService';
+import { GetProfileFromUuid } from '@/services/controller/ProfileService';
+import { getPunishments } from '@/services/forum/punishment/PunishmentService';
 
 interface UserParams {
   children: React.ReactNode;
@@ -19,18 +20,55 @@ export default async function Layout({ children: children }: UserParams) {
   const username = currPath?.split('/')[2];
   const uuid = await getUuid(username);
 
-  const status = "online";
   const rank = (await GetActiveRanks(uuid))[0]!
     .reduce((r, h) => r.priority > h.priority ? r : h);
   const rankColor = await getRankColor(rank._id) || "#FFFFFF";
 
-  const server = "placeholder-server";
-  const dateJoined = "placeholder-date";
-  const timePlayed = "placeholder-time";
+  const profile = (await GetProfileFromUuid(uuid))[0]!;
 
-  const getStatusColor: string = { // TODO: Properly get status color
-    online: "#22C55E"
-  }[status] ?? "gray";
+  const server = await getCurrentServer(uuid);
+  let status = server ? "online" : "offline";
+  let dateJoined;
+  let lastSeenOn;
+
+  if (profile.logins.length == 0) {
+    dateJoined = "N/A";
+    lastSeenOn = "N/A";
+  } else {
+    const dateJoinedMillis = profile.logins.reduce((acc, crr) => crr.time < acc ? crr.time : acc, Date.now());
+    const lastSeenOnMillis = profile.logins.reduce((acc, crr) => crr.time > acc ? crr.time : acc, Date.now());
+
+    // i know its cursed but it doesnt work otherwise
+    dateJoined = new Date(dateJoinedMillis / 1000 * 1000).toDateString();
+    lastSeenOn = new Date(lastSeenOnMillis / 1000 * 1000).toDateString();
+  }
+
+  let punishments = (await getPunishments(uuid))[0] || [];
+  console.log(punishments);
+
+  if (punishments.find(p => p.punishmentType == "BLACKLIST" && p.active))
+    status = "blacklisted"
+  else if (punishments.find(p => p.punishmentType == "BAN" && p.active))
+    status = "banned"
+
+  const statusColor: {f:string, b:string} = {
+    online: {
+      b: "#12651E",
+      f: "#AFAFAF",
+    },
+    offline: {
+      b: "#AA222E",
+      f: "#AFAFAF",
+    },
+    banned: {
+      b: "#CA1212",
+      f: "#000000",
+    },
+    blacklisted: {
+      b: "#120000",
+      f: "#FF4A4A",
+    }
+  }[status] ?? {f:"#000000", b:"#696969"};
 
   let friends: { uuid: string, name: string }[] = [];
 
@@ -66,25 +104,27 @@ export default async function Layout({ children: children }: UserParams) {
         <div className="grid-container mb-auto h-min w-full gap-4">
           <div
             className="row-span-3 flex flex-col justify-between items-center gap-4 rounded-lg overflow-hidden bg-base-200">
-            <div style={{ backgroundColor: getStatusColor }}
+            <div style={{ backgroundColor: statusColor.b}}
               className="flex w-full py-2 rounded-t-lg border-[1px] border-gray-400">
               <small
-                className="uppercase text-center w-full text-gray-600 tracking-wider font-bold text-shadow">{status}</small>
+                style={{ color: statusColor.f }}
+                className="uppercase text-center w-full text-gray-100 tracking-wider font-extrabold">{status}</small>
             </div>
             <ServerMCBust className="mx-12" username={username} shadowColor={rankColor} />
             <span className="text-center inline-flex flex-col">
               <h5 className="font-bold">{username ?? "Unknown"}</h5>
               <small style={{ color: rankColor }} className="smaller font-bold uppercase tracking-wider">{rank.name}</small>
             </span>
-            <div style={{ backgroundColor: getStatusColor }}
+            <div style={{ backgroundColor: statusColor.b, color: statusColor.f }}
               className="flex w-full py-2 rounded-b-lg border-[1px] border-gray-400">
               <small
-                className="uppercase text-center w-full text-gray-600 tracking-wider font-bold text-shadow">{server}</small>
+                style={{ color: statusColor.f }}
+                className="uppercase text-center w-full tracking-wider font-bold">{server}</small>
             </div>
           </div>
           <div className="flex flex-col text-center rounded-lg overflow-hidden bg-base-200 py-2 px-4 whitespace-nowrap">
             <small>First joined on <b>{dateJoined}</b></small>
-            <small><b>{timePlayed}</b> played</small>
+            <small>Last seen on <b>{lastSeenOn}</b></small>
           </div>
           <div className="flex flex-col text-center rounded-lg overflow-hidden bg-base-200 py-1 px-4 whitespace-nowrap">
             <small className="uppercase font-bold smaller mb-1">Social Media</small>

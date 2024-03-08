@@ -180,3 +180,7 @@ export const getUsernameFromUuid = async (uuid: string) => {
 
   return username;
 }
+
+export const getCurrentServer = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<string | undefined> =>
+  await client.GetAsync<any>(`/profile/server/${uuid}`).then(res => res[0]?.displayName);
+
