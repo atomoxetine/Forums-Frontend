@@ -19,7 +19,7 @@ export default async function StatsWidget(props: Props) {
         <h4 className="font-extrabold text-2xl mx-5 text-white">{title}</h4>
         <div className="flex flex-wrap flex-row gap-2 mt-3 justify-center">
           {entries.map(entry =>
-            <span className="rounded-lg w-fit font-bold bg-gray-900/[85%] p-4">{entry}</span>
+            <span key={entry} className="rounded-lg w-fit font-bold bg-gray-900/[85%] p-4">{entry}</span>
           )}
         </div>
       </div>

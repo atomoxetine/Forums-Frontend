@@ -109,14 +109,3 @@ export default async function Page({ params: { ticketId } }: Params) {
   </>;
 }
 
-export async function closeTicket(ticket: Ticket) {
-  'use server'
-  ticket.status = "closed";
-  return await EditTicket(ticket);
-}
-
-export async function openTicket(ticket: Ticket) {
-  'use server'
-  ticket.status = "open";
-  return await EditTicket(ticket);
-}

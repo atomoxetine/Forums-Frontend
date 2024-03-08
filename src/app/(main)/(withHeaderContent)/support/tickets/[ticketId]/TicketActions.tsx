@@ -1,9 +1,9 @@
 'use client'
 
 import Ticket from "@/libs/types/entities/Ticket"
-import { ArchiveTicket as ArchiveTicket, EditTicket, UnarchiveTicket } from "@/services/forum/ticket/TicketService";
-import { closeTicket, openTicket } from "./page";
+import { ArchiveTicket, UnarchiveTicket } from "@/services/forum/ticket/TicketService";
 import Rank from "@/libs/types/entities/Rank";
+import { closeTicket, openTicket } from "./TicketServerActions";
 
 export interface TicketActionProps {
   ticket: Ticket,

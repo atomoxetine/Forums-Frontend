@@ -58,8 +58,6 @@ const WriteReply = (props: WriteReplyData) => {
         replies: [],
       }
 
-      console.log(reply);
-
       CreateReplyTicket(reply)
         .then(res => {
           if (isResultError(res)) {

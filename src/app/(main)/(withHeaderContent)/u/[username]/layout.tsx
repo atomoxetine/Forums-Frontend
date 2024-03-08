@@ -54,7 +54,6 @@ export default async function Layout({ children: children }: UserParams) {
   }
 
   let punishments = (await getPunishments(uuid))[0] || [];
-  console.log(punishments);
 
   if (punishments.find(p => p.punishmentType == "BLACKLIST" && p.active))
     status = "blacklisted"
