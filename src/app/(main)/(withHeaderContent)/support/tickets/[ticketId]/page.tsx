@@ -72,7 +72,7 @@ export default async function Page({ params: { ticketId } }: Params) {
             </div>
             <div className="flex flex-col min-h-full w-full bg-base-100 p-4 rounded-tr-lg">
               <h3 className="text-neutral"><b>{ticket.title}</b></h3>
-              <span className="flex-1">
+              <span className="flex-1 ticket-content">
                 {ticket.body}
               </span>
               <small className="smaller flex flex-col">

@@ -22,6 +22,6 @@ textarea {
 }
 
 .ticket-content {
-  white-space: pre-wrap;
+  white-space: pre-line;
   word-wrap: break-word;
 }
