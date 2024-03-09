@@ -117,6 +117,7 @@ export async function createTicket(formData: FormData) {
     body: body,
     parentTicket: null,
     status: "open",
+    result: "Pending",
     replies: [],
   }
 

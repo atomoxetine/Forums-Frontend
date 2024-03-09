@@ -53,6 +53,7 @@ export default class HTTPClient {
           )
         } catch (err) {
           console.error(`fetch failed: ${err}`);
+          console.error("route was: " + route);
           return null;
         }
       };
@@ -83,6 +84,7 @@ export default class HTTPClient {
 
     const resBody = await httpResponse.text();
     if (process.env.NODE_ENV == "development") {
+      console.log("request route: " + route);
       console.log("response body:\n" + resBody);
     }
     let json;

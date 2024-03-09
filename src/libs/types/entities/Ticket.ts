@@ -9,5 +9,6 @@ export default interface Ticket {
   body: string,
   parentTicket: string | null,
   status: string,
+  result: string,
   replies: string[],
 }

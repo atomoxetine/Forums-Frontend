@@ -20,7 +20,7 @@ export const QUESTIONS = [
       },
       {
         name: 'Escalated',
-        color: 'red'
+        color: '#bf2a2a'
       }
     ]
   },
@@ -114,7 +114,7 @@ export const QUESTIONS = [
       },
       {
         name: 'Denied',
-        color: 'red'
+        color: '#bf2a2a'
       }
     ]
   },
@@ -135,7 +135,7 @@ export const QUESTIONS = [
         displayName: "Punishment Reason",
         required: true,
         label: 'What were you punished for?',
-        type: 'ShortText',
+        type: 'TextArea',
         placeholder: 'Please include the exact punishment reason',
       },
       {
@@ -167,7 +167,7 @@ export const QUESTIONS = [
         displayName: "Reason to Revoke",
         required: true,
         label: 'Why should we revoke your punishment? ',
-        type: 'ShortText',
+        type: 'TextArea',
         placeholder: 'Please provide as much detail as possible.'
       },
       {
@@ -203,7 +203,7 @@ export const QUESTIONS = [
       },
       {
         name: 'Denied',
-        color: 'red'
+        color: '#bf2a2a'
       }
     ]
   },

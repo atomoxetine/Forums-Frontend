@@ -15,3 +15,9 @@ export async function openTicket(ticket: Ticket) {
   ticket.status = "open";
   return await EditTicket(ticket);
 }
+
+export async function setResult(ticket: Ticket, result: string) {
+  'use server'
+  ticket.result = result;
+  return await EditTicket(ticket);
+}

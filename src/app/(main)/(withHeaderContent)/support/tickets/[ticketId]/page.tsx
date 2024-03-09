@@ -17,12 +17,22 @@ import TicketCategory from '@/libs/types/entities/TicketCategory';
 import { getRankColor } from '@/services/controller/GrantService';
 import TicketActions from './TicketActions';
 import Link from 'next/link';
+import { QUESTIONS } from '../../(components)/Questions';
 
 interface Params {
   params: {
     ticketId: string;
   }
 }
+
+function notFound() {
+  return <>
+    <div className="flex flex-col gap-4 p-8 rounded-lg h-fit w-screen max-w-[996px] items-center">
+      <h4>"This ticket was not found. Perhaps it got deleted?"</h4>
+    </div>
+  </>
+}
+
 export default async function Page({ params: { ticketId } }: Params) {
   let res0 = await GetTicket(ticketId);
 
@@ -31,11 +41,7 @@ export default async function Page({ params: { ticketId } }: Params) {
     console.error("Error fetching thread: HTTP " + res0[1]);
   const ticket = res0[0];
 
-  if (!ticket) return <>
-    <div className="flex flex-col gap-4 p-8 rounded-lg h-fit w-screen max-w-[996px] items-center">
-      <h4>{isError && res0[1] !== 404 ? "An Error has occurred while fetching this thread." : "This ticket was not found. Perhaps it got deleted?"}</h4>
-    </div>
-  </>;
+  if (!ticket) return notFound();
 
   const categories: TicketCategory[] = (await GetAllTicketCategories())[0]!;
 
@@ -45,6 +51,9 @@ export default async function Page({ params: { ticketId } }: Params) {
   const currentUser = await getAuthorInfo(session?.uuid);
 
   const author = await authorPromise;
+
+  if (currentUser?.username != author?.username && !currentUser?.rank?.staff)
+    return notFound();
 
   const lastEdited = stringToDate(ticket.lastUpdatedAt);
   const createdAt = stringToDate(ticket.createdAt);
@@ -56,11 +65,20 @@ export default async function Page({ params: { ticketId } }: Params) {
 
   const rankColor = await getRankColor(author?.rank?._id || "") || "#FFFFFF";
 
+  const categoryName = categories.find(c => c._id == ticket.category)?.name || "undefined";
+  let results = QUESTIONS.find(q => q.name == categoryName)?.replies.concat({
+    name: "Pending",
+    color: "#ABAB23",
+  }) || [];
+
+  const crrResult = results.find(r => r.name == ticket.result);
+  results = results.filter(r => r.name != ticket.result);
+
   return <>
     <Navigation>
       <div className="flex flex-col gap-4 p-2 rounded-lg h-fit w-screen max-w-[996px]">
         <div className="flex flex-col">
-          <div className="flex bg-base-200 rounded-t-xl">
+          <div className="flex flex-row flex-wrap bg-base-200 rounded-t-xl justify-between">
             <div className="flex flex-col items-center py-8">
               <ServerMCBust className="mx-8 mb-4" username={author?.username} shadowColor={rankColor} />
               <span className="text-center inline-flex flex-col">
@@ -70,20 +88,37 @@ export default async function Page({ params: { ticketId } }: Params) {
                   className="smaller font-bold uppercase tracking-wider">{author?.rank?.name}</small>
               </span>
             </div>
-            <div className="flex flex-col min-h-full w-full bg-base-100 p-4 rounded-tr-lg">
+            <div className="flex flex-col min-h-full max-w-[800px] w-full bg-base-100 p-4 rounded-tr-lg">
               <h3 className="text-neutral"><b>{ticket.title}</b></h3>
+              <div className="flex flex-row flex-wrap gap-3 mt-3">
+                <span className="p-2 rounded-2xl font-bold text-gray-900" style={{ backgroundColor: crrResult?.color || "gray" }}>
+                  {crrResult?.name || "undefined"}
+                </span>
+                <span className="p-2 rounded-2xl font-bold text-gray-900" style={{ backgroundColor: "teal" }}>
+                  {categories.find(c => c._id == ticket.category)?.name || "undefined"}
+                </span>
+                <span className="p-2 rounded-2xl font-bold text-gray-900" style={{
+                  backgroundColor: ticket.status == "archived"
+                    ? "red"
+                    : ticket.status == "closed"
+                      ? "orange"
+                      : "forestgreen"
+                      || "white"
+                  }}>
+                  {ticket.status}
+                </span>
+              </div>
               <span className="flex-1 ticket-content">
                 {ticket.body}
               </span>
-              <small className="smaller flex flex-col">
+              <small className="small font-bold flex flex-col mt-8">
                 <span>Last edited: {toLocaleString(lastEdited)}</span>
                 <span>Posted: {toLocaleString(createdAt)}</span>
-                <span>Status: {ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1)}</span>
               </small>
             </div>
           </div>
           {session.uuid == ticket.author || currentUser?.rank?.staff
-            ? <TicketActions ticket={ticket} userRank={currentUser?.rank} />
+            ? <TicketActions ticket={ticket} results={results} userRank={currentUser?.rank} />
             : <></>}
         </div>
         <div className="flex flex-col items-center rounded-xl border-[1px] border-base-200">

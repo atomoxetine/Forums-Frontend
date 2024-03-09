@@ -49,11 +49,12 @@ const WriteReply = (props: WriteReplyData) => {
         _id: id,
         author: author,
         body: body,
-        category: categories.find(c => c.name == "Reply")!._id,
+        category: "",
         createdAt: Date.now().toFixed(),
         lastUpdatedAt: Date.now().toFixed(),
         parentTicket: parentTicket._id,
         status: "Sent",
+        result: "",
         title: `Reply to ${parentTicket._id}`,
         replies: [],
       }

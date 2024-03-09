@@ -83,12 +83,12 @@ export default function Component() {
             <div key={i}>
               {field.type != "Checkbox" ? <label htmlFor={field.name} className="mt-4">{field.label}</label> : <></>}
               {field.type == "ShortText"
-                ? <input id={field.name} name={field.name} type="text" className="mt-1 py-3 px-4 min-h h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" placeholder={field.placeholder} disabled={isLoading} required />
+                ? <input id={field.name} name={field.name} type="text" className="mt-1 py-3 px-4 min-h h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" placeholder={field.placeholder} disabled={isLoading} required={field.required} />
                 : field.type == "Number"
-                  ? <input id={field.name} name={field.name} type="number" className="mt-1 py-3 px-4 min-h h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" placeholder={field.placeholder} disabled={isLoading} required />
+                  ? <input id={field.name} name={field.name} type="number" className="mt-1 py-3 px-4 min-h h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" placeholder={field.placeholder} disabled={isLoading} required={field.required} />
                   : field.type == "Checkbox"
-                  ? <input id={field.name} name={field.name} type="checkbox" className="mt-1 mx-2 w-4 h-4 rounded-lg" />
-                  : <textarea id={field.name} name={field.name} className="mt-1 py-3 px-4 min-h-[150px] h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" disabled={isLoading} placeholder={field.placeholder} required />}
+                  ? <input id={field.name} name={field.name} type="checkbox" className="mt-1 mx-2 w-4 h-4 rounded-lg" required={field.required} />
+                  : <textarea id={field.name} name={field.name} className="mt-1 py-3 px-4 min-h-[150px] h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content" disabled={isLoading} placeholder={field.placeholder} required={field.required} />}
               {field.type == "Checkbox" ? <label htmlFor={field.name} className="mt-4">{field.label}</label> : <></>}
             </div>
           )}

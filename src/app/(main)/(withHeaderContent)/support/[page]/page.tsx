@@ -22,7 +22,7 @@ export default async function Page({ params: { page } }: Params) {
     return redirect("/auth/login");
   }
 
-  page = Math.floor(page);
+  page = Math.floor(page || 1);
 
   const res = await GetPlayerTickets(session.uuid, page);
   const isError = isResultError(res);
