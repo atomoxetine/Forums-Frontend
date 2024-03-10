@@ -1,5 +1,4 @@
 import './styles.css'
-import { FaDiscord, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa6';
 import { ServerMCBust, ServerMCHead } from '@/components/Minecraft/Server';
 import Link from 'next/link';
 import React from "react";
@@ -12,11 +11,15 @@ import { GetActiveRanks, getRankColor, getRankFromName } from '@/services/contro
 import { GetProfileFromUuid, GetPublicConnections } from '@/services/controller/ProfileService';
 import { getPunishments } from '@/services/forum/punishment/PunishmentService';
 import SocialConnections from './SocialConnections';
+import getSession from '@/libs/session/getSession';
 
 interface UserParams {
   children: React.ReactNode;
 }
 export default async function Layout({ children: children }: UserParams) {
+  const session = await getSession();
+  const sessionRanks = (await GetActiveRanks(session.uuid))[0]!;
+  const sessionIsStaff = sessionRanks.find(rank => rank.staff) != undefined;
   const currPath = new URL(headers().get('x-url')!).pathname;
   const username = currPath?.split('/')[2];
   const uuid = await getUuid(username);
@@ -165,6 +168,12 @@ export default async function Layout({ children: children }: UserParams) {
               href={`/u/${username ? username + '/forums' : ''}`}>
               Forums
             </NavLink>
+            {sessionIsStaff
+              ? <NavLink className="btn bg-base-200 hover:bg-base-100 py-2 px-4 min-h-fit h-fit flex-1"
+                href={`/u/${username ? username + '/staff' : ''}`}>
+                Staff View
+              </NavLink>
+              : <></>}
           </div>
           <div
             className="overflow-y-scroll overflow-x-hidden min-h-[492px] h-[492px] w-full max-w-full p-4 bg-base-200 rounded-lg inner-content">

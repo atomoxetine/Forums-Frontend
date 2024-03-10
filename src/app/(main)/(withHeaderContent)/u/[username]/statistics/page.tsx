@@ -4,5 +4,5 @@ interface Params {
   }
 }
 export default function Page({ params: { username } }: Params) {
-  return <>Statistics</>
+  return <>Punishments</>
 }

@@ -1,0 +1,9 @@
+
+.btn.active {
+  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
+  font-weight: bolder;
+}
+
+.btn:hover {
+  border-color: unset;
+}
