@@ -162,7 +162,7 @@ export const getUuid = async (username: string) => {
   return uuid;
 }
 
-export const getUsernameFromUuid = async (uuid: string) => {
+export const getUsernameFromUuid = async (uuid: string): Promise<string | null> => {
   let username = null;
   try {
     username = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)

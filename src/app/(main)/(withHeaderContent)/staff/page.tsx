@@ -23,7 +23,7 @@ export default async function Staff() {
 
     const rank = (await GetRank(entry.rankUuid))[0]!;
     aux.push({
-      username: (await getUsernameFromUuid(entry.playerUuid)),
+      username: (await getUsernameFromUuid(entry.playerUuid)!),
       rank: rank.name,
       color: await getRankColor(entry.rankUuid) || "#FFFFFF"
     })

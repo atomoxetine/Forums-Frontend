@@ -1,3 +1,5 @@
+'use server'
+
 import HTTPClient from "@/libs/HTTPClient";
 import Punishment from "@/libs/types/entities/Punishment";
 

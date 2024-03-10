@@ -18,8 +18,8 @@ interface UserParams {
 }
 export default async function Layout({ children: children }: UserParams) {
   const session = await getSession();
-  const sessionRanks = (await GetActiveRanks(session.uuid))[0]!;
-  const sessionIsStaff = sessionRanks.find(rank => rank.staff) != undefined;
+  const sessionRanks = (await GetActiveRanks(session.uuid))[0];
+  const sessionIsStaff = sessionRanks != undefined && sessionRanks.find(rank => rank.staff) != undefined;
   const currPath = new URL(headers().get('x-url')!).pathname;
   const username = currPath?.split('/')[2];
   const uuid = await getUuid(username);
@@ -93,7 +93,7 @@ export default async function Layout({ children: children }: UserParams) {
       for (const acc of res0[0]!) {
         friends.push({
           uuid: acc._id,
-          name: await getUsernameFromUuid(acc._id),
+          name: await getUsernameFromUuid(acc._id)!,
         });
       }
     }

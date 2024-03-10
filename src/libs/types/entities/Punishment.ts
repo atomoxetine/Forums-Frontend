@@ -1,10 +1,5 @@
-
-export interface ProofType {
-  niceName: string,
-}
-
 export interface Proof {
-  proofType: ProofType,
+  type: string,
   proof: string,
   addedBy: string,
 }
@@ -20,4 +15,15 @@ export default interface Punishment {
   address: string,
   proof: Proof[],
   active: boolean,
+  duration: number,
+  issuedAt: string,
+  issuedBy: string,
+  issuedOn: string,
+  permanent: boolean,
+  reason: string,
+  removedAt: string,
+  removedBy: string,
+  removedOn: string,
+  removedReason: string,
+  target: string,
 }
