@@ -93,7 +93,7 @@ export default async function Layout({ children: children }: UserParams) {
       for (const acc of res0[0]!) {
         friends.push({
           uuid: acc._id,
-          name: await getUsernameFromUuid(acc._id)!,
+          name: (await getUsernameFromUuid(acc._id))!,
         });
       }
     }

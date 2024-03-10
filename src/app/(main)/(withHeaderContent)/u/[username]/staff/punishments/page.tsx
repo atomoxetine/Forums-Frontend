@@ -12,38 +12,41 @@ interface Params {
   }
 }
 
-export default function Page({ params: { username } }: Params) {
+export default function Page(params: Params) {
+  const { username } = params.params;
+
   const [activeType, setActiveType] = useState<string>("ALL");
   const [punishments, setPunishments] = useState<Punishment[]>([]);
   const [uuid, setUuid] = useState<string>("");
   const [uuidToName, setUuidToName] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
-    uuidToName["00000000-0000-0000-0000-000000000000"] = "Server/Console"
+    const uuidToNameTmp: {[key:string]: string} = {};
+    uuidToNameTmp["00000000-0000-0000-0000-000000000000"] = "Server/Console"
     getUuid(username).then(uuid => {
       setUuid(uuid);
       getPunishments(uuid).then(pRes => {
         const ps = pRes[0] || [];
         ps.forEach(p => {
           p.proof.forEach(pr => {
-            if (!uuidToName[pr.addedBy])
+            if (!uuidToNameTmp[pr.addedBy])
               getUsernameFromUuid(pr.addedBy).then(name =>
-                uuidToName[pr.addedBy] = name!)
+                uuidToNameTmp[pr.addedBy] = name!)
           })
-          if (!uuidToName[p.issuedBy])
+          if (!uuidToNameTmp[p.issuedBy])
             getUsernameFromUuid(p.issuedBy).then(name =>
-              uuidToName[p.issuedBy] = name!)
-          if (!uuidToName[p.removedBy])
+              uuidToNameTmp[p.issuedBy] = name!)
+          if (!uuidToNameTmp[p.removedBy])
             getUsernameFromUuid(p.removedBy).then(name =>
-              uuidToName[p.removedBy] = name!)
+              uuidToNameTmp[p.removedBy] = name!)
         })
         setPunishments(ps || [])
         console.log(ps);
       })
     })
-    setUuidToName(uuidToName);
-    console.log(uuidToName);
-  }, []);
+    setUuidToName(uuidToNameTmp);
+    console.log(uuidToNameTmp);
+  }, [username]);
 
   const getFiltered = (type: string) => (
     type == "ALL"
@@ -79,12 +82,11 @@ export default function Page({ params: { username } }: Params) {
     </div>
     <div className="flex flex-col gap-2 overflow-y-scroll max-h-[400px] w-full lg:w-fit lg:min-w-[750px] px-2">
       {getFiltered(activeType).map((p, i) =>
-        <div className="p-3 rounded-lg bg-base-300 border-base-100 max-w-[720px]">
+        <div key={i} className="p-3 rounded-lg bg-base-300 border-base-100 max-w-[720px]">
           <span className={`font-bold text-xl`} style={{ color: TYPE_COLOR[p.punishmentType] }}>
             {p.punishmentType}
           </span>
           <div
-            key={i}
             className="flex flex-row flex-wrap gap-2 mb-4">
             <div>
               {bold("Active:")} {p.active
@@ -161,9 +163,6 @@ export default function Page({ params: { username } }: Params) {
             </div>
             <div className="mt-2">
               {bold("Punishment ID:")} {p.punishmentID}
-            </div>
-            <div>
-              {bold("Address:")} {p.address || no("null")}
             </div>
             <div>
               {bold("Duration:")} {
