@@ -142,6 +142,9 @@ export const getStaffUsers = async (client: HTTPClient = new HTTPClient(process.
   await client.GetAsync<{playerUuid:string, rankUuid:string}[]>(`/staff/users`);
 
 
+export const getAccountFromUuid = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Account>(`/forum/account/uuid/${uuid}`);
+
 
 /**
   * Gets player uuid from username from mojang api or playerdb api
