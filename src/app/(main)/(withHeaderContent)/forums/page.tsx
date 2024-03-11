@@ -8,7 +8,6 @@ import Category from './(components)/Category';
 import AsideInfo from './(components)/AsideInfo';
 import Thread from '@/libs/types/entities/Thread';
 import { GetThread } from '@/services/forum/thread/ThreadService';
-import HashLink from '@/components/HashLink';
 import Navigation from "@/app/(main)/(withHeaderContent)/forums/(components)/Navigation";
 import Link from 'next/link';
 

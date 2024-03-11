@@ -8,6 +8,7 @@ import { isResultError } from "@/libs/Utils";
 import getSession from "@/libs/session/getSession";
 import { QUESTIONS } from "../Questions";
 import { GetAllTicketCategories } from "@/services/forum/ticket/TicketCategoryService";
+import { getAllFilters } from "@/services/forum/filter/TextFilterService";
 
 const schema = z.object({
   title: z.string()
@@ -103,8 +104,17 @@ export async function createTicket(formData: FormData) {
     return "Error parsing body";
   }
 
+  const title = result.data.title as string;
+
+  const filters = (await getAllFilters())[0] || [];
+
+  for (let filter of filters) {
+    if (body.includes(filter.filter) || title.includes(filter.filter))
+      return "Message did not pass text filtering"
+
+  }
+
   const session = await getSession();
-  const title = result.data.title;
   const crrDate = Date.now().toFixed();
 
   const ticket: Ticket = {

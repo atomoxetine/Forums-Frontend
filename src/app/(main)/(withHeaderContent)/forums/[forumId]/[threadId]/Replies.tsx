@@ -4,7 +4,6 @@ import { isResultError, stringToDate, toLocaleString } from "@/libs/Utils";
 import { ClientMCHead } from "@/components/Minecraft/Client";
 import Reply from '@/libs/types/entities/Thread'
 import { getAuthorInfo } from "../../Utils";
-import HashLink from "@/components/HashLink";
 import { IoTrash } from "react-icons/io5";
 import { DeleteReply, GetThread } from "@/services/forum/thread/ThreadService";
 import { useCallback, useEffect, useState } from "react";
@@ -26,6 +25,8 @@ const Replies = (props: RepliesData) => {
 
   const defaultN = 5;
   const [n, setN] = useState(defaultN)
+
+  console.log(replies);
 
   const updateReplies = useCallback(async () => {
     let res0 = await GetThread(threadId);
@@ -70,7 +71,7 @@ const Replies = (props: RepliesData) => {
           <small className="mx-auto">0 replies in this thread. Be the first!</small> :
           <>
             {currReplies.slice(Math.max(len - n, 0), len).toReversed()
-              .map(r => <Reply key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} fullReplyId={r._id}/>)
+              .map(r => <Reply key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} parentId={r.parentThreadId} fullReplyId={r._id}/>)
             }
 
             {len > n ?
@@ -100,10 +101,11 @@ interface ReplyData {
   createdAt?: string;
   content: string;
   fullReplyId: string;
+  parentId: string;
 }
 
 const Reply = (params: ReplyData) => {
-  const {authorId, createdAt, content, fullReplyId } = params;
+  const {authorId, createdAt, content, fullReplyId, parentId } = params;
   const createdAtDate = stringToDate(createdAt);
   const [author, setAuthor] = useState<{username: string, rank?: Rank | undefined}>()
   const {session} = useSession()
@@ -137,9 +139,7 @@ const Reply = (params: ReplyData) => {
         {session && author && session?.username == author?.username ?
           <div className="flex-none flex bg-base-300 rounded-r-lg items-center px-2 py-1 text-neutral cursor-pointer hover:text-primary" onClick={
             () => {
-              const split = fullReplyId.split('.')
-              split.pop()
-              DeleteReply(split.join('.'), fullReplyId).then(() => {
+              DeleteReply(parentId, fullReplyId).then(() => {
                 updateReplies({isAdd: false, value: {_id: fullReplyId}} as any)
               })
             }

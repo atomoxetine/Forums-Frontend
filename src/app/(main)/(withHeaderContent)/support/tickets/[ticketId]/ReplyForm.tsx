@@ -7,6 +7,7 @@ import { isResultError, newUuid } from "@/libs/Utils";
 import Ticket from '@/libs/types/entities/Ticket';
 import { CreateReplyTicket } from '@/services/forum/ticket/TicketService';
 import TicketCategory from '@/libs/types/entities/TicketCategory';
+import { getAllFilters } from '@/services/forum/filter/TextFilterService';
 
 export interface WriteReplyData {
   parentTicket: Ticket;
@@ -33,6 +34,12 @@ const WriteReply = (props: WriteReplyData) => {
 
       const body = formData.get("reply")!.toString()
       if (!body) throw new Error("Please write a reply.")
+
+      const filters = (await getAllFilters())[0] || [];
+      for (let filter of filters) {
+        if (body.includes(filter.filter))
+          throw new Error("Message did not pass filter test");
+      }
 
       // const parentId = `${forumId}.${threadId}`
       // const id = `${parentId}.${newUuid().split('-')[0]}`

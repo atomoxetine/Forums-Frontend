@@ -160,14 +160,14 @@ export default async function Layout({ children: children }: UserParams) {
               href={`/u/${username ? username + '/general' : ''}`}>
               General
             </NavLink>
-            <NavLink className="btn bg-base-200 hover:bg-base-100 py-2 px-4 min-h-fit h-fit flex-1"
+            {/*<NavLink className="btn bg-base-200 hover:bg-base-100 py-2 px-4 min-h-fit h-fit flex-1"
               href={`/u/${username ? username + '/statistics' : ''}`}>
               Statistics
             </NavLink>
             <NavLink className="btn bg-base-200 hover:bg-base-100 py-2 px-4 min-h-fit h-fit flex-1"
               href={`/u/${username ? username + '/forums' : ''}`}>
               Forums
-            </NavLink>
+            </NavLink>*/}
             {sessionIsStaff
               ? <NavLink className="btn bg-base-200 hover:bg-base-100 py-2 px-4 min-h-fit h-fit flex-1"
                 href={`/u/${username ? username + '/staff' : ''}`}>

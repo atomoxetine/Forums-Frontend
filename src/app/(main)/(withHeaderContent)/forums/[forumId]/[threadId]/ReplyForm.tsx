@@ -7,6 +7,7 @@ import { isResultError, newUuid } from "@/libs/Utils";
 import { CreateReply } from '@/services/forum/thread/ThreadService';
 import useGlobal from "@/hooks/useGlobal";
 import Thread from "@/libs/types/entities/Thread";
+import { getAllFilters } from '@/services/forum/filter/TextFilterService';
 
 export interface WriteReplyData {
   forumId: string;
@@ -34,8 +35,15 @@ const WriteReply = (props: WriteReplyData) => {
       const body = formData.get("reply")!.toString()
       if (!body) throw new Error("Please write a reply.")
 
-      const parentId = `${forumId}.${threadId}`
-      const id = `${parentId}.${newUuid().split('-')[0]}`
+      const filters = (await getAllFilters())[0] || [];
+
+      for (let filter of filters) {
+        if (body.includes(filter.filter))
+          throw new Error("Body did not pass filter test");
+      }
+
+      const parentId = threadId
+      const id = newUuid()
 
       if (latestReply) {
         const thisPost = getReplyTemplate('', body, forumId, author, parentId, session.username)

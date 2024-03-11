@@ -64,7 +64,7 @@ const RouteSegmentNav = async () => {
       </div>
       {!!forumId && !threadId ?
         <div className="flex-none flex items-center">
-          <CreateThread />
+          <CreateThread forumId={forumId} />
         </div> : <></>
       }
     </div>

@@ -3,24 +3,58 @@
 import './styles.css'
 import Popup from "reactjs-popup";
 import {FormEvent, useState} from "react";
-import {isResultError} from "@/libs/Utils";
+import {isResultError, newUuid} from "@/libs/Utils";
+import Thread from '@/libs/types/entities/Thread';
+import getSession from '@/libs/session/getSession';
+import { GetActiveRanks, getRankColor } from '@/services/controller/GrantService';
+import Rank from '@/libs/types/entities/Rank';
+import { getAllFilters } from '@/services/forum/filter/TextFilterService';
+import { GetForum } from '@/services/forum/forum/ForumService';
+import { CreateThread } from '@/services/forum/thread/ThreadService';
+import useSession from '@/hooks/useSession';
 
-export default function Component() {
+interface Props {
+  forumId: string
+}
+
+export default function Component(props: Props) {
+  const { forumId } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { session } = useSession();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
 
+
     try {
+      if (!session)
+        throw new Error("Not logged in");
+      
+
       const formData = new FormData(event.currentTarget);
+
+      const body = formData.get("body")?.toString() || "";
+      const title = formData.get("title")?.toString() || "";
+      const filters = (await getAllFilters())[0] || [];
+
+      for (let filter of filters) {
+        if (body.includes(filter.filter))
+          throw new Error("Body did not pass filter test");
+
+        if (title.includes(filter.filter))
+          throw new Error("Title did not pass filter test");
+      }
+
+      const author = session.uuid;
+        
+      CreateThread(newUuid(), title, body, forumId, author)
+        .then(() => window.location.reload());
 
     } catch (error: any) {
       setError(error.message);
-    } finally {
-      setIsLoading(false);
     }
   }
 

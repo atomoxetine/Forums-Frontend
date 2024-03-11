@@ -18,7 +18,7 @@ interface Params {
   }
 }
 export default async function Page({ params: { forumId, threadId } }: Params) {
-  const thisThreadId = forumId + '.' + threadId;
+  const thisThreadId = threadId;
 
   let res0 = await GetThread(thisThreadId);
   const isError = isResultError(res0);
