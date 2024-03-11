@@ -1,10 +1,8 @@
 'use client'
 
-import { toLocaleString } from "@/libs/Utils";
 import Punishment from "@/libs/types/entities/Punishment";
-import { getUsernameFromUuid, getUuid } from "@/services/forum/account/AccountService";
-import { getPunishments } from "@/services/forum/punishment/PunishmentService";
 import { useEffect, useState } from "react";
+import { getPunishmentsInfo } from "./ServerActions";
 
 interface Params {
   params: {
@@ -17,35 +15,15 @@ export default function Page(params: Params) {
 
   const [activeType, setActiveType] = useState<string>("ALL");
   const [punishments, setPunishments] = useState<Punishment[]>([]);
-  const [uuid, setUuid] = useState<string>("");
   const [uuidToName, setUuidToName] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
-    const uuidToNameTmp: {[key:string]: string} = {};
-    uuidToNameTmp["00000000-0000-0000-0000-000000000000"] = "Server/Console"
-    getUuid(username).then(uuid => {
-      setUuid(uuid);
-      getPunishments(uuid).then(pRes => {
-        const ps = pRes[0] || [];
-        ps.forEach(p => {
-          p.proof.forEach(pr => {
-            if (!uuidToNameTmp[pr.addedBy])
-              getUsernameFromUuid(pr.addedBy).then(name =>
-                uuidToNameTmp[pr.addedBy] = name!)
-          })
-          if (!uuidToNameTmp[p.issuedBy])
-            getUsernameFromUuid(p.issuedBy).then(name =>
-              uuidToNameTmp[p.issuedBy] = name!)
-          if (!uuidToNameTmp[p.removedBy])
-            getUsernameFromUuid(p.removedBy).then(name =>
-              uuidToNameTmp[p.removedBy] = name!)
-        })
-        setPunishments(ps || [])
-        console.log(ps);
-      })
-    })
-    setUuidToName(uuidToNameTmp);
-    console.log(uuidToNameTmp);
+    getPunishmentsInfo(username).then(res => {
+      const { uuidToName, punishments } = res;
+
+      setUuidToName(uuidToName);
+      setPunishments(punishments);
+    });
   }, [username]);
 
   const getFiltered = (type: string) => (
@@ -114,79 +92,77 @@ export default function Page(params: Params) {
                 : no()}
             </div>
           </div>
-          <div className="flex flex-col mt-2">
-            <div className="flex flex-row flex-wrap gap-3">
-              <div className="">
-                <div>
-                  {bold("Issued Reason:")} {p.reason || no("null")}
-                </div>
-                <div>
-                  {bold("Issued By:")} {uuidToName[p.issuedBy] || no("Unknown")}
-                </div>
-                <div>
-                  {bold("Issued At:")} {
-                    p.issuedAt
-                      ? new Date(Number(p.issuedAt)).toLocaleString() || no("Unknown")
-                      : no("Unknown")}
-                </div>
-                <div>
-                  {bold("Issued On:")} {p.issuedOn || no("Unknown")}
-                </div>
-                <div>
-                  {bold("Issued Silent:")} {p.silent
-                    ? yes()
-                    : no()}
-                </div>
+          <div className="mt-2 flex flex-row flex-wrap gap-3">
+            <div className="">
+              <div>
+                {bold("Issued Reason:")} {p.reason || no("null")}
               </div>
-              <div className="">
-                <div>
-                  {bold("Removed Reason:")} {p.removedReason || no("Unknown")}
-                </div>
-                <div>
-                  {bold("Removed By:")} {uuidToName[p.removedBy] || no("Unknown")}
-                </div>
-                <div>
-                  {bold("Removed At:")} {
-                    p.removedAt
-                      ? new Date(Number(p.removedAt)).toLocaleString() || no("Unknown")
-                      : no("Unknown")}
-                </div>
-                <div>
-                  {bold("Removed On:")} {p.removedOn || no("Unknown")}
-                </div>
-                <div>
-                  {bold("Removed Silent:")} {p.removedSilent
-                    ? yes()
-                    : no()}
-                </div>
+              <div>
+                {bold("Issued By:")} {uuidToName[p.issuedBy] || no("Unknown")}
+              </div>
+              <div>
+                {bold("Issued At:")} {
+                  p.issuedAt != "0"
+                    ? new Date(Number(p.issuedAt)).toLocaleString() || no("Unknown")
+                    : no("Unknown")}
+              </div>
+              <div>
+                {bold("Issued On:")} {p.issuedOn || no("Unknown")}
+              </div>
+              <div>
+                {bold("Issued Silent:")} {p.silent
+                  ? yes()
+                  : no()}
               </div>
             </div>
-            <div className="mt-2">
-              {bold("Punishment ID:")} {p.punishmentID}
+            <div className="">
+              <div>
+                {bold("Removed Reason:")} {p.removedReason || no("Unknown")}
+              </div>
+              <div>
+                {bold("Removed By:")} {uuidToName[p.removedBy] || no("Unknown")}
+              </div>
+              <div>
+                {bold("Removed At:")} {
+                  p.removedAt != "0"
+                    ? new Date(Number(p.removedAt)).toLocaleString() || no("Unknown")
+                    : no("Unknown")}
+              </div>
+              <div>
+                {bold("Removed On:")} {p.removedOn || no("Unknown")}
+              </div>
+              <div>
+                {bold("Removed Silent:")} {p.removedSilent
+                  ? yes()
+                  : no()}
+              </div>
             </div>
-            <div>
-              {bold("Duration:")} {
-                p.permanent
-                  ? yes("Permanent")
-                  : (p.duration || no("null"))}
-            </div>
-            <div className="mt-2">
-              {bold("Proofs:")} {p.proof.length == 0 ? no("None") : ""}
-              <div className="flex flex-row flex-wrap gap-1 mt-1">
-                {p.proof.map((pr, i) =>
-                  <div key={i} className="p-2 bg-base-200 rounded-md">
-                    <div>
-                      {bold("Type:")} {pr.type || no("null")}
-                    </div>
-                    <div>
-                      {bold("Proof:")} {pr.proof || no("null")}
-                    </div>
-                    <div>
-                      {bold("Added By:")} {uuidToName[pr.addedBy] || no("Unknown")}
-                    </div>
+          </div>
+          <div className="mt-2">
+            {bold("Punishment ID:")} {p.punishmentID}
+          </div>
+          <div>
+            {bold("Duration:")} {
+              p.permanent
+                ? yes("Permanent")
+                : (p.duration || no("null"))}
+          </div>
+          <div className="mt-2">
+            {bold("Proofs:")} {p.proof.length == 0 ? no("None") : ""}
+            <div className="flex flex-row flex-wrap gap-1 mt-1">
+              {p.proof.map((pr, i) =>
+                <div key={i} className="p-2 bg-base-200 rounded-md">
+                  <div>
+                    {bold("Type:")} {pr.type || no("null")}
                   </div>
-                )}
-              </div>
+                  <div>
+                    {bold("Proof:")} {pr.proof || no("null")}
+                  </div>
+                  <div>
+                    {bold("Added By:")} {uuidToName[pr.addedBy] || no("Unknown")}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

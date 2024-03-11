@@ -18,7 +18,7 @@ export default async function Layout({ children: children }: UserParams) {
     return <>Forbidden</>;
   }
 
-  return <div className="flex flex-col gap-3">
+  return <div className="flex flex-col gap-3 w-full h-full">
     <div className="flex gap-2 flex-wrap text-center">
       <NavLink href={`/u/${username}/staff/punishments`} className="btn py-2 w-[150px] bg-base-300 hover:bg-base-200 border-2 border-base-100">
         Punishments
@@ -30,7 +30,7 @@ export default async function Layout({ children: children }: UserParams) {
         Identity
       </NavLink>
     </div>
-    <div className="w-full">
+    <div className="w-full h-full">
       {React.Children.map(children, child =>
         React.isValidElement(child) ? React.cloneElement(child, {} as any) : child
       )}

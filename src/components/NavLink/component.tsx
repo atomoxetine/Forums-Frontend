@@ -11,7 +11,7 @@ const NavLink = (props: { href: string; className?: string; children: any; style
   const currRoute = usePathname() + useHash();
 
   return (
-    <Link style={props.style} href={href} className={`navlink ${props.className || ''}` + (currRoute == href ? " active" : "")}>
+    <Link style={props.style} href={href} className={`navlink ${props.className || ''}` + (currRoute.startsWith(href) ? " active" : "")}>
       {children}
     </Link>
   );

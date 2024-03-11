@@ -1,6 +1,7 @@
 'use server';
 
 import HTTPClient from "@/libs/HTTPClient";
+import Grant from "@/libs/types/entities/Grant";
 import Rank from "@/libs/types/entities/Rank";
 /**
 * Asynchronous endpoint to retrieve a single rank by its UUID.
@@ -16,6 +17,9 @@ export const GetRank = async (uuid: string, client: HTTPClient = new HTTPClient(
 export const getRankColor = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<string> =>
   (await client.GetAsync<any>(`/rank/color/${uuid}`))[0]?.color;
 
+
+export const getGrants = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.GetAsync<Grant[]>(`/grants/${uuid}`);
 
 ///**
 // * Endpoint to retrieve a single grant by its UUID and convert it to a simplified form for the site.
