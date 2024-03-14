@@ -1,15 +1,29 @@
+import HTTPClient from '@/libs/HTTPClient';
 import './globals.css';
 import type { Metadata, /* ResolvingMetadata */ } from 'next';
 import { Dosis } from 'next/font/google'
 import React from "react";
+import { isResultError } from '@/libs/Utils';
 
 const dosis = Dosis({subsets: ["latin"], variable: "--font-dosis"});
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const res = await (new HTTPClient(process.env.API_URL!)
+    .GetAsync<any>("/istheapiworking"));
+
+  if (res == null || isResultError(res)) {
+    console.error("Error fetching API");
+    return <main className="p-5">
+      <h1>MCCade</h1>
+      <h2>Sorry, it seems we are running through some technical issues, please try again later</h2>
+    </main>
+  }
+
+
   return (
     <html lang="en">
       <body className={`${dosis.variable}`}>

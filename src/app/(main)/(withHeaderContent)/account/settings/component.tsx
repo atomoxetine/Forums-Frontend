@@ -1,23 +1,29 @@
 'use client'
 
 import Profile from "@/libs/types/entities/Profile";
-import { getUserData, updateConnectionsAction, updatePassAction } from "./ServerActions";
+import { getUserData, updateConnectionsAction, updateEmailAction, updatePassAction } from "./ServerActions";
 import { FaCogs, FaDiscord, FaInstagram, FaTwitter, FaUserShield, FaYoutube } from "react-icons/fa";
 import { FaKey, FaServer, FaUnlockKeyhole } from "react-icons/fa6";
 import { useState } from "react";
 import { UpdateAccountPassword } from "@/services/forum/account/AccountService";
 import Account from "@/libs/types/entities/Account";
+import Link from "next/link";
+import { MdEmail } from "react-icons/md";
 
 interface Props {
   profile: Profile,
+  account: Account,
 }
 
 export default function SettingsPage(props: Props) {
-  const { profile } = props;
+  const { profile, account } = props;
 
   const [passError, setPassError] = useState<string>("");
   const [passSuccess, setPassSuccess] = useState<string>("");
   const [passLoading, setPassLoading] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<string>("");
+  const [emailSuccess, setEmailSuccess] = useState<string>("");
+  const [emailLoading, setEmailLoading] = useState<boolean>(false);
 
   const twitter = profile.metadata["TWITTER"];
   const twitterPrivacy = profile.metadata["TWITTER-privacy"] == "Everyone";
@@ -43,6 +49,23 @@ export default function SettingsPage(props: Props) {
         setPassSuccess("Password was changed successfully");
       }
       setPassLoading(false);
+      window.location.reload();
+    });
+  }
+
+  function onSubmitEmail(formData: FormData) {
+    setEmailLoading(true);
+    updateEmailAction(formData).then(res => {
+      if (res) {
+        setEmailError(res);
+        setEmailSuccess("");
+      } else {
+        setEmailError("");
+        setEmailSuccess("Email was changed successfully");
+      }
+
+      setEmailLoading(false);
+      window.location.reload();
     });
   }
 
@@ -136,10 +159,10 @@ export default function SettingsPage(props: Props) {
               <FaKey className="h-6 w-6 mx-2 mt-[6px]" />
               <input type="password" className="text-lg w-full rounded-e-md" name="newPassConfirm" placeholder="Confirm new password" />
             </div>
-            <div hidden={passError==""} className="text-red-400 text-lg">
+            <div hidden={passError == ""} className="text-red-400 text-lg">
               {passError}
             </div>
-            <div hidden={passSuccess==""} className="text-emerald-800 text-lg">
+            <div hidden={passSuccess == ""} className="text-emerald-800 text-lg">
               {passSuccess}
             </div>
             <button
@@ -147,6 +170,30 @@ export default function SettingsPage(props: Props) {
               type="submit"
               disabled={passLoading}>
               {passLoading ? "On it.." : "SAVE"}
+            </button>
+          </form>
+          <hr className="mt-3" />
+          <h4>Change your email</h4>
+          <form action={onSubmitEmail} className="flex flex-col gap-3 min-w-[80vw] md:min-w-[400px] lg:min-w-[600px]">
+            <div className="rounded-md bg-base-100 flex flex-row">
+              <FaKey className="h-6 w-6 mx-2 mt-[6px]" />
+              <input type="password" className="text-lg w-full rounded-e-md" name="password" placeholder="Your password" />
+            </div>
+            <div className="rounded-md bg-base-100 flex flex-row">
+              <MdEmail className="h-6 w-6 mx-2 mt-[6px]" />
+              <input type="text" className="text-lg w-full rounded-e-md" name="email" placeholder="New email address" value={account.email} />
+            </div>
+            <div hidden={emailError == ""} className="text-red-400 text-lg">
+              {emailError}
+            </div>
+            <div hidden={emailSuccess == ""} className="text-emerald-800 text-lg">
+              {emailSuccess}
+            </div>
+            <button
+              className={`btn btn-primary px-5 w-fit text-xl font-bolder ${emailLoading ? "bg-blue-700" : "bg-emerald-600"} hover:bg-emerald-700 border-0 rounded-xl`}
+              type="submit"
+              disabled={emailLoading}>
+              {emailLoading ? "On it.." : "SAVE"}
             </button>
           </form>
         </div>
@@ -159,9 +206,11 @@ export default function SettingsPage(props: Props) {
             <button onClick={onRequestData} className="btn border-0 bg-blue-600 hover:bg-blue-700 px-2 text-white w-full">
               Request your data
             </button>
-            <button className="btn border-0 bg-red-800 hover:bg-red-900 px-2 text-white w-full">
-              Delete your account
-            </button>
+            <Link href="/account/settings/delete" className="w-full p-0">
+              <button className="btn border-0 bg-red-800 hover:bg-red-900 px-2 text-white w-full">
+                Delete your account
+              </button>
+            </Link>
           </div>
         </div>
       </div>

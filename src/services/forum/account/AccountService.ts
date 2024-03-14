@@ -83,6 +83,11 @@ export const UpdateAccountPassword = async (
   client: HTTPClient = new HTTPClient(process.env.API_URL!)
 ) => await client.PutAsync<Account>(`${baseEndpoint}/password/${data.uuid}`, data.body);
 
+export const UpdateAccountEmail = async (
+  data: { uuid?: string, body: { password: string, email: string } },
+  client: HTTPClient = new HTTPClient(process.env.API_URL!)
+) => await client.PutAsync<Account>(`${baseEndpoint}/email/${data.uuid}`, data.body);
+
 /**
  * Endpoint for completing the registration process by setting the account password.
  *
@@ -139,7 +144,7 @@ export const GetFriends = async (uuid: string, client: HTTPClient = new HTTPClie
   * @return An array of objects containing player and rank uuids
   */
 export const getStaffUsers = async (client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.GetAsync<{playerUuid:string, rankUuid:string}[]>(`/staff/users`);
+  await client.GetAsync<{ playerUuid: string, rankUuid: string }[]>(`/staff/users`);
 
 
 export const getAccountFromUuid = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>

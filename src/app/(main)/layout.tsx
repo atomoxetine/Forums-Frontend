@@ -10,17 +10,6 @@ export default async function Layout({
 }: {
   children: React.ReactNode
 }) {
-  const res = await (new HTTPClient(process.env.API_URL!)
-    .GetAsync<any>("/istheapiworking"));
-
-  if (res == null || isResultError(res)) {
-    console.error("Error fetching API");
-    return <main className="p-5">
-      <h1>MCCade</h1>
-      <h2>Sorry, it seems we are running through some technical issues, please try again later</h2>
-    </main>
-  }
-
   return <>
     <MobileNavbar
       className="flex flex-col items-center text-center p-6 w-3/5 h-full backdrop-filter backdrop-blur-sm"

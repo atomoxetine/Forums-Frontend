@@ -5,7 +5,7 @@ import getSession from "@/libs/session/getSession";
 import Account from "@/libs/types/entities/Account";
 import Profile from "@/libs/types/entities/Profile";
 import { GetProfileFromUuid, updateConnections } from "@/services/controller/ProfileService";
-import { UpdateAccountPassword, getAccountFromUuid } from "@/services/forum/account/AccountService";
+import { UpdateAccountEmail, UpdateAccountPassword, getAccountFromUuid } from "@/services/forum/account/AccountService";
 
 
 export const updateConnectionsAction = async (formData: FormData) => {
@@ -56,6 +56,43 @@ export const updatePassAction = async (formData: FormData) => {
 
   if (res[1] == 403)
     return "Current password is incorrect";
+
+  if (isResultError(res))
+    return "An error ocurred processing the request";
+}
+
+const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+export const updateEmailAction = async (formData: FormData) => {
+  'use server'
+
+  const session = await getSession();
+  if (!session) return "Not logged in";
+
+  const pass = formData.get("password")?.toString() || "";
+  const email = formData.get("email")?.toString() || "";
+
+  if (pass == "")
+    return "Password cannot be empty";
+
+  if (email == "")
+    return "Email cannot be empty";
+
+  if (!EMAIL_REGEX.test(email))
+    return "Email is invalid";
+
+  const data = {
+    uuid: session.uuid,
+    body: {
+      password: pass,
+      email: email,
+    }
+  }
+
+  const res = await UpdateAccountEmail(data);
+
+  if (res[1] == 403)
+    return "Password is incorrect";
 
   if (isResultError(res))
     return "An error ocurred processing the request";
