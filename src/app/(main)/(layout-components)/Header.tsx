@@ -7,7 +7,13 @@ import ShrinkableSearch from "@/components/ShrinkableSearch/component";
 import UserDropdown from "./UserDropdown"
 import { usePathname } from 'next/navigation';
 
-const Header = () => {
+export interface Props {
+  isStaff: boolean
+}
+
+const Header = (props: Props) => {
+  const { isStaff } = props;
+
   const path = usePathname();
   return (
     <header className="absolute inset-0 w-full h-fit">
@@ -17,7 +23,7 @@ const Header = () => {
           <MobileNavToggle />
 
           <div className="flex flex-row items-center gap-8">
-            <NavLinks />
+            <NavLinks isStaff={isStaff} />
           </div>
 
           <div className="flex flex-row items-center sm:gap-2">

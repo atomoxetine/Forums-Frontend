@@ -8,7 +8,13 @@ import NavLinks from '../(layout-components)/NavLinks';
 import UserDropdown from '../(layout-components)/UserDropdown';
 import Logo from '@/components/Logo';
 
-const Header = () => {
+export interface Props {
+  isStaff: boolean
+}
+
+const Header = (props: Props) => {
+  const { isStaff } = props;
+
   const defaultVal = useCallback(() => (['', ''] as [string, string]), []);
 
   return (
@@ -24,7 +30,7 @@ const Header = () => {
           <MobileNavToggle />
 
           <div className="flex flex-row items-center gap-8">
-            <NavLinks />
+            <NavLinks isStaff={isStaff} />
           </div>
 
           <div className="flex flex-row items-center sm:gap-2">

@@ -1,5 +1,6 @@
+import { redirect } from "next/navigation";
 
 
 export default async function Page() {
-  return <>Main</>
+  redirect("/admin/panel/general");
 }

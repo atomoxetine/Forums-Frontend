@@ -58,13 +58,12 @@ export const GetPlayerTickets = async (uuid: string, page: number = 1, client: H
 /**
 * Get all forum tickets (admin view).
 *
-* @param page The page number for paginated results.
 * @return An array of tickets.
 */
 // makes this /forum/tickets/all, clashing with /forum/ticket/{id} otherwise
 // In the API: @GetMapping(path = "/forum/ticket/admin")
-export const GetAllTickets = async (page: number = 1, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => 
-  await client.GetAsync<Ticket[]>(`/forum/ticket/admin?page=${page}`)
+export const GetAllTickets = async (client: HTTPClient = new HTTPClient(process.env.API_URL!)) => 
+  await client.GetAsync<Ticket[]>(`/forum/ticket/admin`)
 
 /**
 * Create a reply for a specific ticket.

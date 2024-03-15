@@ -113,6 +113,16 @@ export const getGrants = async (uuid: string, client: HTTPClient = new HTTPClien
 export const GetActiveRanks = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.GetAsync<Rank[]>(`/grants/active/ranks/${uuid}`);
 
+export const getHighestRank = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => {
+  const rank = ((await GetActiveRanks(uuid, client))[0] || [])
+    .reduce<Rank>((h, crr) => crr.priority > h.priority ? crr : h, { priority: -1 } as Rank)
+  
+  if (rank.priority == -1)
+    return undefined;
+
+  return rank;
+}
+
 export const getRankFromName = async (name: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
   await client.GetAsync<Rank>(`/rank/name/${name}`);
 

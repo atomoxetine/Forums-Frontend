@@ -2,11 +2,16 @@ import HomeHeader from './HomeHeader'
 import DiscordWidget from '@/components/DiscordWidget/component'
 import NewsWidget from '@/components/NewsWidget/component'
 import MCServerWidget from '@/components/Minecraft/MCServerWidget/component'
+import getSession from '@/libs/session/getSession';
+import { getHighestRank } from '@/services/controller/GrantService';
 
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+  const isStaff = (await getHighestRank(session.uuid))?.staff || false;
+
   return (
     <div className="home-h flex-none flex flex-col items-center">
-      <HomeHeader />
+      <HomeHeader isStaff={isStaff} />
 
       <div className="w-screen max-w-screen-xl px-4 sm:px-6 py-6 flex flex-col">
         <div className="flex flex-wrap md:flex-nowrap gap-6 mb-6">
