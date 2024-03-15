@@ -2,8 +2,6 @@ import './styles.css';
 import MobileNavbar from '@/components/MobileNavbar/component';
 import MobileNavbarContent from './(layout-components)/MobileNavbarContent';
 import Footer from './(layout-components)/Footer';
-import HTTPClient from '@/libs/HTTPClient';
-import { isResultError } from '@/libs/Utils';
 
 export default async function Layout({
   children,
@@ -19,5 +17,5 @@ export default async function Layout({
       {children}
       <Footer />
     </main>
-  </>;  
+  </>;
 }

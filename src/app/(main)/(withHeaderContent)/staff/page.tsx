@@ -37,7 +37,7 @@ export default async function Staff() {
     <HeaderContext setTo={headerContent}/>
 
     {staff.map((listPerRank, j) => (
-    <div key={j} className="window flex flex-row flex-wrap h-min w-screen max-w-full bg-base-300 rounded-xl p-2 gap-2">
+    <div key={j} className="mb-4 window flex flex-row flex-wrap h-min w-screen max-w-full bg-base-300 rounded-xl p-2 gap-2">
       {listPerRank.map((d, i) => (
         <div key={i} className="flex-[1_0_32%] flex flex-col justify-center items-center rounded-lg overflow-hidden bg-base-100 py-4">
           <Link href={`/u/${d.username}`}>

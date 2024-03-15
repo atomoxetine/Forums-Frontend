@@ -1,0 +1,34 @@
+
+.ticket>div {
+  word-wrap: break-word;
+}
+
+.ticket {
+  transition: transform 0.5s;
+}
+
+.ticket:hover {
+  transform: scale(1.01, 1.01);
+}
+
+.ticket-header>div {
+  font-weight: bold;
+}
+
+div.page-anchor {
+  text-align: center;
+  width: 15px;
+}
+
+svg.page-anchor {
+  width: 28px;
+  height: 28px;
+}
+
+.page-anchor:hover:not([disabled]) {
+  cursor: pointer;
+}
+
+.page-anchor[disabled] {
+  opacity: 0.4;
+}
