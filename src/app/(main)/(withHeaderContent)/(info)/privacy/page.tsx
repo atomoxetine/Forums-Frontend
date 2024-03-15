@@ -184,6 +184,148 @@ export default function Page() {
         </ul>
         <p></p>
         <p>For further information on Third Party Services, see the section entitled “Third Parties” below. </p>
+        <h4 className="font-bold text-neutral">4. Use of information.</h4>
+        <p>
+        We use information about you for our legitimate interests, including to:
+        </p>  
+        <ul className="list-disc list-inside">
+          <li>Manage our Service, including your registration and account.</li>
+          <li>Perform services requested by you, such as to respond to your comments, questions, and requests, and provide customer service.</li>
+          <li>Send you technical notices, updates, security alerts, information regarding changes to our policies, and support and administrative messages.</li>
+          <li>Prevent and address fraud, breach of policies or terms, and threats or harm. </li>
+          <li>Monitor and analyse trends, usage, and activities.</li>
+          <li>Conduct research, including focus groups and surveys.</li>
+          <li>Improve the Service or other MCCade websites, apps, marketing efforts, products and services.</li>
+        </ul>  
+        <p>
+          We also use information about you with your consent, including to:
+        </p>
+        <ul className="list-disc list-inside">
+           <li>Verify your eligibility and deliver prizes in connection with Promotions you have entered.</li>
+           <li>Send you communications regarding our and third party products, offers, promotions, rewards, events, and services that may be of interest to you. </li> 
+           <li>Develop and display content, features, and advertising tailored to your interests on our Service as well as on other platforms and services.</li>
+           <li>Fulfill any other purpose disclosed to you and with your consent. </li>  
+        </ul>
+        <p>
+        We may use information that does not identify you (including information that has been de-identified) without obligation to you except as prohibited 
+        by applicable law. For information on your rights and choices regarding how we use your information, please see the section entitled 
+        “Your Rights and Choices” below. 
+        </p>
+        <h4 className="font-bold text-neutral">5. Sharing of Information.</h4>
+        <p>We share information about you as follows:</p>
+        <ul className="list-disc list-inside">
+          <li><b>Service Providers.</b> We may share your information with our agents, vendors, and other service providers (collectively <b>“Service Providers”</b>)
+           in connection with their work on our behalf. Service Providers assist us with services such as payment processing, data analytics, 
+           marketing and promotional services, Promotions, website hosting, and technical support. Service Providers are prohibited from using your information 
+           for any purpose other than to provide this assistance, although we may permit them to use aggregate information which does not 
+           identify you or de-identified data for other purposes. </li>
+           <li>
+           <b>Addiliates.</b> We may share your information with our related entities including our parent and sister companies. For example, 
+           we may share your information with our affiliates for customer support, marketing, and technical operations.
+           </li>
+           <li><b>Business Partners.</b> We may share your information with our business partners in connection with offering you co-branded services, 
+           selling or distributing our products, or engaging in joint marketing activities. For example, we may share information about 
+           you with a retailer for purposes of providing you with product support.</li>
+           <li>
+            <b>Promotions</b> Our Promotions may be jointly sponsored or offered by third parties. If you voluntarily choose to enter a Promotion, we may share your 
+            information with third parties a set forth in the official rules that govern the Promotion as well as for administrative purposes and as 
+            required by law (e.g., on a winners list). By entering a Promotion, you agree to the official rules that govern that Promotion, and may, 
+            except where prohibited by applicable law, allow the sponsor and/or other parties to use your name, voice and/or likeness in advertising or 
+            marketing materials.
+           </li>
+           <li><b>Third Parties.</b> We may share your information with third parties for purposes of facilitating your requests 
+           (such as when you choose to share information with a social network about your activities on the Service) 
+           and in connection with tailoring advertisements, measuring and improving our Service and advertising effectiveness, and enabling other enhancements.</li>
+           <li>
+            <b>Merger or Acquisition.</b> We may share your information in connection with, or during negotiations of, any proposed or actual merger, 
+            purchase, sale or any other type of acquisition or business combination of all or any portion of our assets, or transfer of all or a portion of 
+            our business to another business. 
+           </li>
+           <li><b>Security and Compelled Disclosure.</b> We may share your information to comply with the law or other legal process, and 
+           where required, in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may 
+           also share your information to protect the rights, property, life, health, security and safety of us, the Service or any third party. 
+           </li>
+           <li><b>Consent.</b>We may share your information for any other purpose disclosed to you and with your consent.</li>
+        </ul>
+        <p>
+        </p>
+        <p>Without limiting the foregoing, in our sole discretion, we may share aggregated information which does not identify you or de-identified 
+          information about you with third parties or affiliates for any purpose except as prohibited by applicable law. For information on your rights and 
+          choices regarding how we share your information, please see the section entitled “Your Rights and Choices” below.</p>
+          <h4 className="font-bold text-neutral">6. Public Information.</h4>
+        <p>Certain areas of the Service, such as user profiles, forums, posts, comments, and blogs, are designed to help you share information with the 
+          world. If you make information public through our Service, other people will have access to it. Please think carefully before making information 
+          public as you are solely responsible for any information you make public. Once you have posted information, you may not be able to edit or delete 
+          such information; however, California residents have additional rights as set forth in “Your Rights and Choices” below.</p>
+          <h4 className="font-bold text-neutral">7. Third Parties</h4>
+          <h5 className="font-bold text-neutral">A. Third Party Services</h5>
+          <p>Our Service contains content from and hyperlinks to websites, locations, platforms, and services operated and owned by third 
+            parties (“Third Party Services”). These Third Party Services may use Tracking Technologies to independently collect information about you and may 
+            solicit information from you. The information collected and stored by third parties, whether through our Service, a Third Party Service, a Third 
+            Party Feature (defined below), or a third party device, remains subject to their own policies and practices, including what information they share 
+            with us, your rights and choices on their services and devices, and whether they store information in the U.S. or elsewhere. We encourage you to 
+            familiarize yourself with and consult their privacy policies and terms of use. </p>
+          <h5 className="font-bold text-neutral">B. Third Party Features.</h5>
+          <p>We may allow you to connect our Service to a Third Party Service or offer our Service through a Third Party Service (“Third Party Features”).
+             If you use a Third Party Feature, both we and the applicable third party may have access to and use information associated with your use of 
+             the Third Party Feature, and you should carefully review the third party’s privacy policy and terms of use. Some examples of Third Party Features 
+             include the following:</p>
+             <ul className="list-disc list-inside">
+            <li><b>Liking, Sharing, and Logging-In.</b> We may embed a pixel or SDK on our Service that allows you to “like” or “share” content on, or 
+            log-in to your MCCade account through, Third Party Services, including social networks such as Facebook and Twitter. If you choose to engage 
+            with such a Third Party Service through our Service, we may collect any information you have authorized the Third Party Service to share with us 
+            (such as your user ID, billing information, public profile information, e-mail address, birthday, friends list, and other account and profile data). 
+            Likewise, if you choose to engage with such a Third Party Service through our Service or visit our Service while logged in to that Third Party 
+            Service on your device, the Third Party Service may receive information about your activities on our Service and be able to associate that 
+            information with information the Third Party Service already has about you. </li>
+            <li><b>Brand Pages and Chatbots</b>We may offer our content on social networks such as a Facebook and Twitter. Any information you provide to us 
+            when you engage with our content (such as through our brand page or via our chatbot on Facebook Messenger) is treated in accordance with this 
+            Privacy Policy. Also, if you publicly reference our Service on a Third Party Service (e.g., by using a hashtag associated with MCCade in a tweet 
+            or post), we may use your reference on or in connection with our Service.</li>
+            </ul>
+            <h5 className="font-bold text-neutral">C. Analytics and Interest-Based Advertising</h5>
+            <p>
+            Our Service contains Tracking Technologies owned and operated by Third Parties. For example, we use Tracking Technologies from third party 
+            analytics provides, such as Google Analytics, to help us analyze your use of the Service, compile statistic reports on the Service’s activity, 
+            and provide us with other services relating to Service activity and internet usage. We also work with ad serving services, advertisers, and other 
+            third parties to serve advertisements on the Service and/or on Third Party Services. These third parties may use Tracking Technologies on our 
+            Service and Third Party Services (including in e-mails and advertisements) to track your activities across time and services for purposes of 
+            associating the different devices you use, and delivering relevant ads and/or other content to you on the Service and Third Party Services or 
+            third party devices after you have left the Service (<b>“Interest-based Advertising”</b>). 
+            </p>
+            <p></p>
+            <p>
+            We may serve ads on Third Party Services, such as Facebook and Google, that are targeted to reach people (or similar people) 
+            on those services that have visited our Service or that are also identified in one of more of our databases (“Matched Ads”). This is 
+            done by matching common factors between our data and the data of Third Party Services. If we use Facebook Custom Audiences to serve Matched 
+            Ads on Facebook services, you should be able to hover over the box in the right corner of such a Facebook ad and find out how to opt-out. 
+            We are not responsible for such Third Party Services’ failure to comply with your opt-out instructions. 
+            </p>
+            <p></p>
+            <p>
+            For further information on Tracking Technologies and your rights and choices regarding them, please see the sections entitled 
+            “Information Collected Automatically” above and “Your Rights and Choices” below.
+            </p>
+            <h4 className="font-bold text-neutral">8. Your Rights and Choices</h4>
+            <h5 className="font-bold text-neutral">A. Review and Update of Account Information</h5>
+            <p>You may access, update, or remove certain account information that you have voluntarily submitted to us through the Service by 
+              sending an e-mail to the e-mail address set forth in the section entitled “Contact Us” below. We may require additional information 
+              from you to allow us to confirm your identity. Please note that we will retain and use your information as necessary to comply with our 
+              legal obligations, resolve disputes, and enforce our agreements. California residents have additional rights as set forth in the section 
+              entitled “Your California Privacy Rights” below.</p>
+            <h5 className="font-bold text-neutral">B. Tracking Technology Choices.</h5>
+            <p>
+            <ul className="list-disc list-inside">
+              <li><b>Cookies and Pixels. </b>Most browsers accept cookies by default. You can instruct your browser, by changing its settings, 
+              to decline or delete cookies. If you use multiple browsers on your device, you will need to instruct each browser separately. Your 
+              ability to limit cookies is subject to your browser settings and limitations.
+               </li>
+               
+
+              </ul>
+            </p>
+
+
 
       </div>
     </div>

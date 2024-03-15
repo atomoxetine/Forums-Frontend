@@ -188,7 +188,7 @@ export default function Page() {
         </p>
         <p>
         By accessing MCCade services, you agree that you will not create content that contains hacking, slander, or malicious game disruption. Youtubers, Streamers, and 
-        Content Creators are encouraged to release videos for monetary purposes so long as it is within the conjunction of Mineplex's rules. Any egregious hacking, leaks, 
+        Content Creators are encouraged to release videos for monetary purposes so long as it is within the conjunction of MCCade's rules. Any egregious hacking, leaks, 
         slander, or abusive behavior will not be permitted to use in content recorded on servers and games owned by MCCade Games LLC. For content that violates said rules, you 
         irrevocably grant MCCade Games, LLC all rights related to any work created and waive all of your own rights, including moral rights, to content that contains cheating or 
         other malicious and disruptive activity and understand that all previous rights you have had in said content are forfeited.  
