@@ -2,12 +2,10 @@
 
 import './styles.css'
 import useSession from "@/hooks/useSession";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { isResultError, newUuid } from "@/libs/Utils";
+import { useEffect, useRef, useState } from "react";
 import Ticket from '@/libs/types/entities/Ticket';
-import { CreateReplyTicket } from '@/services/forum/ticket/TicketService';
 import TicketCategory from '@/libs/types/entities/TicketCategory';
-import { getAllFilters } from '@/services/forum/filter/TextFilterService';
+import { reply } from './TicketServerActions';
 
 export interface WriteReplyData {
   parentTicket: Ticket;
@@ -21,70 +19,18 @@ const WriteReply = (props: WriteReplyData) => {
   const input = useRef<HTMLTextAreaElement>(null);
   const hiddenDiv = useRef<HTMLDivElement>(null);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit(formData: FormData) {
     setIsLoading(true);
-    setError(null);
- 
-    try {
-      const formData = new FormData(event.currentTarget);
 
-      const author = session?.uuid
-      if (!author) throw new Error("You're not logged in.")
-
-      const body = formData.get("reply")!.toString()
-      if (!body) throw new Error("Please write a reply.")
-
-      const filters = (await getAllFilters())[0] || [];
-      for (let filter of filters) {
-        if (body.includes(filter.filter))
-          throw new Error("Message did not pass filter test");
+    reply(parentTicket, formData).then(res => {
+      if (res) {
+        setIsLoading(false)
+        setError(res)
+      } else {
+        setError("")
+        window.location.reload();
       }
-
-      console.log(filters);
-
-      // const parentId = `${forumId}.${threadId}`
-      // const id = `${parentId}.${newUuid().split('-')[0]}`
-      const id = newUuid();
-
-      // if (latestReply) {
-      //   const thisPost = getReplyTemplate('', body, forumId, author, parentId, session.username)
-      //   latestReply.value._id = ''
-      //   latestReply.value.createdAt = '';
-      //   if (JSON.stringify(thisPost) == JSON.stringify(latestReply.value)) throw new Error("You just posted that!")
-      // }
-
-      const reply: Ticket = {
-        _id: id,
-        author: author,
-        body: body,
-        category: "",
-        createdAt: Date.now().toFixed(),
-        lastUpdatedAt: Date.now().toFixed(),
-        parentTicket: parentTicket._id,
-        status: "Sent",
-        result: "",
-        title: `Reply to ${parentTicket._id}`,
-        replies: [],
-      }
-
-      CreateReplyTicket(reply)
-        .then(res => {
-          if (isResultError(res)) {
-            setError("HTTP " + res[1]);
-            setIsLoading(false);
-          } else window.location.reload();
-        });
-      
-      // input.current!.value = ""
-
-      // const newReply: any = getReplyTemplate(id, body, forumId, author, parentId, session.username)
-      // newReply.createdAt = new Date().getTime().toString();
-      // updateReplies({isAdd: true, value: newReply})
-    } catch (error: any) {
-      setError(error.message);
-      setIsLoading(false);
-    }
+    });
   }
 
   useEffect(() => {
@@ -101,7 +47,7 @@ const WriteReply = (props: WriteReplyData) => {
   const isDisabled = parentTicket.status != "open";
 
   return <>
-    <form onSubmit={onSubmit} className="items-center w-full rounded-lg h-fit py-3">
+    <form action={onSubmit} className="items-center w-full rounded-lg h-fit py-3">
       <div className="relative flex flex-col flex-1 mr-1 h-min">
         <span className="absolute mt-[-26px] bg-base-300 px-2">{error && <p className="text-error mb-1">{error}</p>}</span>
         <textarea disabled={isDisabled} ref={input} name="reply" placeholder="Type a reply..." className="input w-full bg-base-100 content-color" required/>
@@ -120,22 +66,3 @@ const WriteReply = (props: WriteReplyData) => {
   </>;
 }
 export default WriteReply;
-//
-// const getReplyTemplate = (id: string, body: string, forumId: string, author: string, parentId: string, username: string) => ({
-//   _id: id,
-//   title: "",
-//   body: body,
-//   forum: forumId,
-//   author: author,
-//   createdAt: '',
-//   lastEditedBy: null,
-//   lastEditedAt: "-1",
-//   lastReplyAt: "-1",
-//   pinned: false,
-//   locked: false,
-//   parentThreadId: parentId,
-//   authorName: username,
-//   authorWebColor: "",
-//   forumName: "",
-//   replies: []
-// })

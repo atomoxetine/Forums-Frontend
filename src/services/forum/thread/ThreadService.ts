@@ -3,6 +3,8 @@ import HTTPClient from "@/libs/HTTPClient";
 import { isResultError } from "@/libs/Utils";
 import getSession from "@/libs/session/getSession";
 import Thread from "@/libs/types/entities/Thread";
+import { existsSync } from "fs";
+import { rm } from "fs/promises";
 
 /**
 * Retrieve a list of forum threads within a specific forum.
@@ -33,7 +35,7 @@ export const GetThread = async (id: string, client: HTTPClient = new HTTPClient(
 */
 // In the API: @PostMapping(path = "/forum/thread")
 export const CreateThread = async (id: string, title: string, body: string, forum: string, author: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.PostAsync<Thread>(`/forum/thread`, {id, title, body, forum, author});
+  await client.PostAsync<Thread>(`/forum/thread`, { id, title, body, forum, author });
 
 /**
 * Edit an existing forum thread.
@@ -53,8 +55,13 @@ export const EditThread = async (thread: Thread, client: HTTPClient = new HTTPCl
 * @return ResponseEntity with the deleted thread details in JSON format.
 */
 // In the API: @DeleteMapping(path = "/forum/thread/{id}")
-export const DeleteThread = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.DeleteAsync<Thread>(`/forum/thread/${id}`);
+export const DeleteThread = async (id: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) => {
+  const res = await client.DeleteAsync<Thread>(`/forum/thread/${id}`);
+  const path = `${process.cwd()}/public/img/thread/${id}.jpeg`
+  if (existsSync(path))
+    await rm(path);
+  return res;
+}
 
 /**
 * Create a reply within an existing forum thread.
@@ -65,7 +72,7 @@ export const DeleteThread = async (id: string, client: HTTPClient = new HTTPClie
 */
 // In the API: @PostMapping(path = "/forum/thread/{parentId}/reply")
 export const CreateReply = async (id: string, title: string, body: string, forumId: string, author: string, parentId: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.PostAsync<Thread>(`/forum/thread/${parentId}/reply`, {id, title, body, forumId, author});
+  await client.PostAsync<Thread>(`/forum/thread/${parentId}/reply`, { id, title, body, forumId, author });
 
 /**
 * Delete a reply within a forum thread.

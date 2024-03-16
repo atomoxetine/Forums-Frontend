@@ -16,6 +16,9 @@ export interface Props {
 export default function SideOptions(props: Props) {
   const { options } = props;
 
+  if (options.length == 0)
+    return <></>
+
   return <div className="flex flex-col gap-2 p-2 rounded-lg bg-base-300 min-h-fit my-5">
     {options.map((opt, i) =>
       <Link key={i} href={opt.href}>

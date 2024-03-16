@@ -3,23 +3,22 @@
 import { isResultError } from "@/libs/Utils";
 import getSession from "@/libs/session/getSession";
 import { getHighestRank } from "@/services/controller/GrantService";
-import { canUseForum } from "@/services/forum/account/AccountService";
 import { DeleteThread, EditThread, GetThread } from "@/services/forum/thread/ThreadService";
 
-export async function deleteThreadSoft(threadId: string): Promise<string | undefined> {
+export async function unlockThread(threadId: string): Promise<string | undefined> {
   'use server'
-  
-  const thread = (await GetThread(threadId))[0];
-  if (!thread) return "Invalid Thread"
 
+  const thread = (await GetThread(threadId))[0]
+  if (!thread) return "Thread not found"
+  
   const session = await getSession();
   if (!session) return "Not logged in";
   const rank = await getHighestRank(session.uuid);
   const isStaff = rank?.staff || false;
 
-  if (!isStaff && (thread.author != session.uuid || !(await canUseForum(session.uuid)))) return "Permission denied";
+  if (!isStaff) return "Permission denied";
 
-  thread.body = "The original message was deleted"
+  thread.locked = false;
   const res = await EditThread(thread);
 
   if (isResultError(res))

@@ -4,6 +4,7 @@ import HTTPClient from "@/libs/HTTPClient";
 import getSession from "@/libs/session/getSession";
 import Account from "@/libs/types/entities/Account";
 import { SessionData } from "@/libs/session/iron";
+import { getPunishments } from "../punishment/PunishmentService";
 
 // Variables
 const baseEndpoint = "/forum/account";
@@ -192,3 +193,20 @@ export const getUsernameFromUuid = async (uuid: string): Promise<string | null> 
 export const getCurrentServer = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<string | undefined> =>
   await client.GetAsync<any>(`/profile/server/${uuid}`).then(res => res[0]?.displayName);
 
+
+export const canUseForum = async (uuid: string) => {
+  const account = (await getAccountFromUuid(uuid))[0];
+  if (!account)
+    return false;
+
+  const punishments = (await getPunishments(uuid))[0] || [];
+  if (punishments.find(p =>
+    p.punishmentType == "BLACKLIST"
+    || p.punishmentType == "MUTE"
+    || p.punishmentType == "BAN"))
+    return false;
+
+  console.log(punishments);
+
+  return true;
+}

@@ -32,8 +32,8 @@ export const CreateForum = async (forumData: Forum, client: HTTPClient = new HTT
 * @return ResponseEntity with the edited forum details or an error message.
 */
 // In the API: @PutMapping(path = "/forum/forum/{id}")
-export const EditForum = async (id: string, name?: string, description?: string, weight?: number, locked?: boolean, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-await client.PutAsync<Forum>(`/forum/forum/${id}`, {name, description, weight, locked});
+export const EditForum = async (forum: Forum, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+await client.PutAsync<Forum>(`/forum/forum/${forum._id}`, forum);
 
 /**
 * Delete a forum.

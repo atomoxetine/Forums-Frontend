@@ -13,6 +13,7 @@ export default function Layout({
         { text: "Global Guidelines", route: "/rules/global"},
         { text: "Forum Guidelines", route: "/rules/forum"},
         { text: "Network Guidelines", route: "/rules/network"},
+        
       ]
     },
     {

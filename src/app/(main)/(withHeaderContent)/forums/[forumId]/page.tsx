@@ -34,12 +34,15 @@ export default async function Page({ params: { forumId } }: Params) {
     <small key={1} className="flex justify-center text-center smaller tracking-wider uppercase">Replies</small>,
     <small key={2} className="flex justify-end text-end smaller tracking-wider uppercase">Latest reply</small>
   ];
+  const locked = res1[0]?.locked;
   return (
     <Navigation>
       <div
         className="flex flex-col overflow-y-scroll overflow-x-hidden gap-4 rounded-lg min-h-[579px] h-[579px] w-full categories">
         <Table headerContent={header}>
-
+          {locked
+            ? <span className="text-lg text-red-500 px-3">This Forum is Locked</span>
+            : <></>}
           {!threads || !threads.length ?
             <span className="col-span-full text-center my-4">{isError ?
               <h4>Error while fetching threads for forum.</h4> :

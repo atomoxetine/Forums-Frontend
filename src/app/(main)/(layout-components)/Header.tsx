@@ -27,7 +27,7 @@ const Header = (props: Props) => {
           </div>
 
           <div className="flex flex-row items-center sm:gap-2">
-            <ShrinkableSearch />
+            {/* <ShrinkableSearch /> */}
 
             <UserDropdown className="top-[50px]"/>
 

@@ -79,7 +79,7 @@ export const updatePassAction = async (formData: FormData) => {
     return "Current password is incorrect";
 
   if (isResultError(res))
-    return "An error ocurred processing the request";
+    return res[2] || res[1].toFixed();
 }
 
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -116,7 +116,7 @@ export const updateEmailAction = async (formData: FormData) => {
     return "Password is incorrect";
 
   if (isResultError(res))
-    return "An error ocurred processing the request";
+    return res[2] || res[1].toFixed();
 }
 
 

@@ -10,6 +10,7 @@ import ClipboardTooltip from '@/components/ClipboardTooltip/ClipboardTooltip';
 import { GetThread } from '@/services/forum/thread/ThreadService';
 import Thread from '@/libs/types/entities/Thread';
 import { min } from 'rxjs';
+import { existsSync } from 'fs';
 
 export default async function Page() {
   const session = await getSession();
@@ -56,7 +57,7 @@ export default async function Page() {
         <div className="flex flex-wrap gap-6">
           <div className="flex flex-col flex-[1_0_min-content] w-full news-container">
             {mainHighlight
-              ? <NewsWidget className="main" src={`/img/thread/${mainHighlight._id}.jpeg`} title={mainHighlight.title}
+              ? <NewsWidget className="main" src={`/img/thread/${mainHighlight._id}.jpeg`} useFallback={!existsSync(`${process.cwd()}/public/img/thread/${mainHighlight._id}.jpeg`)} title={mainHighlight.title} href={`/forums/${mainHighlight.forum}/${mainHighlight._id}`}
                 body={mainHighlight.body.length > 250
                   ? mainHighlight.body.substring(0, 250) + "..."
                   : mainHighlight.body} />
@@ -64,7 +65,7 @@ export default async function Page() {
             <hr className="my-6 mx-auto" />
             <div className="flex flex-row w-fit gap-4">
               {highlights.map((h, i) =>
-                <NewsWidget key={i} src={`/img/thread/${h._id}.jpeg`} title={h.title}
+                <NewsWidget key={i} src={`/img/thread/${h._id}.jpeg`} title={h.title} useFallback={!existsSync(`${process.cwd()}/public/img/thread/${h._id}.jpeg`)} href={`/forums/${h.forum}/${h._id}`}
                   body={h.body.length > 150
                     ? h.body.substring(0, 150) + "..."
                     : h.body} />

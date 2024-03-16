@@ -21,7 +21,8 @@ export default async function Page({ }: UserParams) {
   const isError = isResultError(res);
   if (isError)
     console.error("Error fetching categories: HTTP " + res[1]);
-  const categories: ForumCategory[] | null = res[0];
+  const categories: ForumCategory[] = res[0] || [];
+  categories.sort((a,b) => b.weight - a.weight)
 
   const session = await getSession();
   const rank = await getHighestRank(session.uuid)
@@ -39,10 +40,10 @@ export default async function Page({ }: UserParams) {
       .sort(threadSorter)
       .map(async t => ({
         thread: t!,
-        item: <ThreadInfo id={getThreadShortId(t!._id)} forumId={t!.forum} title={t!.title} threadAuthor={await getAuthorInfo(t!.author)} createdAt={t!.createdAt}/>,
+        item: <ThreadInfo id={getThreadShortId(t!._id)} forumId={t!.forum} title={t!.title} threadAuthor={await getAuthorInfo(t!.author)} createdAt={t!.createdAt} />,
       }))
   );
-  const latestReplies: {thread: Thread, item: JSX.Element}[] = (
+  const latestReplies: { thread: Thread, item: JSX.Element }[] = (
     await awaitAll(
       latestThreads
         .map(t => t.thread)
@@ -52,7 +53,7 @@ export default async function Page({ }: UserParams) {
             console.error("Error fetching thread: HTTP " + res0[1]);
             return undefined;
           }
-          return {reply: res0[0]!.replies.sort(threadSorter)[0], parent: t};
+          return { reply: res0[0]!.replies.sort(threadSorter)[0], parent: t };
         })
         .map(async (r) => {
           const res = await r;
@@ -76,7 +77,7 @@ export default async function Page({ }: UserParams) {
             ),
           };
         })
-  )).filter(t => !!t) as any;
+    )).filter(t => !!t) as any;
   const aside = [
     {
       title: 'Latest Threads',
@@ -118,6 +119,21 @@ export default async function Page({ }: UserParams) {
       disabled: false,
       href: "/forums/deleteForum"
     })
+
+    sideOptions.push({
+      name: "[ADM] Lock Forum",
+      color: "red",
+      disabled: false,
+      href: "/forums/lockForum"
+    })
+
+    sideOptions.push({
+      name: "[ADM] Unlock Forum",
+      color: "red",
+      disabled: false,
+      href: "/forums/unlockForum"
+    })
+
   }
 
   return <div className="flex flex-row flex-wrap justify-center w-[80%]">
@@ -128,11 +144,11 @@ export default async function Page({ }: UserParams) {
           {!categories || !categories.length ?
             <span className="col-span-full w-full max-w-[996px] text-center my-4">{isError ?
               <h4>Error while fetching categories.</h4> : <small>0 categories in this forum.</small>}</span> :
-            categories.map(c => <Category key={c._id} name={c.name} forums={c.forums}/>)
+            categories.map(c => <Category key={c._id} name={c.name} forums={c.forums} />)
           }
         </div>
         <aside className="aside-container gap-3 w-full self-end">
-          {aside.map((a, i) => <AsideInfo key={i} title={a.title} content={a.content}/>)}
+          {aside.map((a, i) => <AsideInfo key={i} title={a.title} content={a.content} />)}
         </aside>
       </div>
     </Navigation>

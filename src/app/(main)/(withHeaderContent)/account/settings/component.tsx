@@ -56,12 +56,12 @@ export default function SettingsPage(props: Props) {
       if (res) {
         setPassError(res);
         setPassSuccess("");
+        setPassLoading(false);
       } else {
         setPassError("");
         setPassSuccess("Password was changed successfully");
+        setTimeout(() => window.location.reload(), 1000);
       }
-      setPassLoading(false);
-      window.location.reload();
     });
   }
 
@@ -71,13 +71,12 @@ export default function SettingsPage(props: Props) {
       if (res) {
         setEmailError(res);
         setEmailSuccess("");
+        setEmailLoading(false);
       } else {
         setEmailError("");
         setEmailSuccess("Email was changed successfully");
+        setTimeout(() => window.location.reload(), 1000);
       }
-
-      setEmailLoading(false);
-      window.location.reload();
     });
   }
 
