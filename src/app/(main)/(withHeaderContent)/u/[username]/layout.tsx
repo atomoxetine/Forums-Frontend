@@ -12,6 +12,7 @@ import { GetProfileFromUuid, GetPublicConnections } from '@/services/controller/
 import { getPunishments } from '@/services/forum/punishment/PunishmentService';
 import SocialConnections from './SocialConnections';
 import getSession from '@/libs/session/getSession';
+import Rank from '@/libs/types/entities/Rank';
 
 interface UserParams {
   children: React.ReactNode;
@@ -33,10 +34,9 @@ export default async function Layout({ children: children }: UserParams) {
     </>
   }
 
-  const noRank = (await getRankFromName("NoRank"))[0]!;
   const rank = (await GetActiveRanks(uuid))[0]!
-    .reduce((r, h) => r.priority > h.priority ? r : h, noRank);
-  const rankColor = await getRankColor(rank._id) || "#FFFFFF";
+    .reduce((r, h) => r?.priority > h?.priority ? r : h, { priority: -1 } as Rank);
+  const rankColor = await getRankColor(rank?._id) || "#FFFFFF";
 
 
   const server = await getCurrentServer(uuid);

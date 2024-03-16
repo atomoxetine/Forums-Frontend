@@ -15,7 +15,7 @@ export const toLocaleString = (date?: Date | null) => {
   return date.toLocaleString();
 };
 
-export const isResultError = (res: any, isNullable: boolean = false) =>
+export const isResultError = (res: any, isNullable: boolean = true) =>
   !(res[1] >= 200 && res[1] <= 299) || (!isNullable && !res[0]);
 
 export const awaitAll = async <T>(promises?: Promise<T>[]): Promise<T[]> => {

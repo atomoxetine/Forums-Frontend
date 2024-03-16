@@ -30,7 +30,7 @@ const Replies = (props: RepliesData) => {
       {(() => {
         const len = replies.length;
         return !len ?
-          <small className="mx-auto">0 replies in this thread. Be the first!</small> :
+          <small className="mx-auto">0 replies in this ticket</small> :
           <>
             {replies.slice(Math.max(len - n, 0), len)
               .map(r => <Ticket key={r._id} id={r._id} authorId={r.author} createdAt={r.createdAt} content={r.body} isDeleted={r.status=="deleted"} fullReplyId={r._id}/>)

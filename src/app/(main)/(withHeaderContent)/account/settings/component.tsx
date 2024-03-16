@@ -18,6 +18,9 @@ interface Props {
 export default function SettingsPage(props: Props) {
   const { profile, account } = props;
 
+  const [connLoading, setConnLoading] = useState<boolean>(false);
+  const [connError, setConnError] = useState<string>("");
+
   const [passError, setPassError] = useState<string>("");
   const [passSuccess, setPassSuccess] = useState<string>("");
   const [passLoading, setPassLoading] = useState<boolean>(false);
@@ -35,7 +38,16 @@ export default function SettingsPage(props: Props) {
   const youtubePrivacy = profile.metadata["YOUTUBE-privacy"] == "Everyone";
 
   function onSubmitConnections(formData: FormData) {
-    updateConnectionsAction(formData).then(() => window.location.reload())
+    setConnLoading(true);
+    updateConnectionsAction(formData).then(res => {
+      if (res) {
+        setConnError(res);
+        setConnLoading(false);
+      } else {
+        setConnError("");
+        window.location.reload();
+      }
+    })
   }
 
   function onSubmitPass(formData: FormData) {
@@ -98,7 +110,7 @@ export default function SettingsPage(props: Props) {
         <form action={onSubmitConnections} className="flex flex-col gap-2 min-w-[80vw] md:min-w-[400px] lg:min-w-[600px]">
           <div className="rounded-md bg-base-100 flex flex-row">
             <FaTwitter className="h-6 w-6 mx-2 mt-[6px]" />
-            <input className="text-lg w-full rounded-e-md" name="twitter" placeholder="Twitter" value={twitter} />
+            <input className="text-lg w-full rounded-e-md" name="twitter" placeholder="Twitter" defaultValue={twitter} />
           </div>
           <div className="flex flex-row ms-3">
             <input className="rounded-lg text-lg" type="checkbox" id="twitterPrivacy" name="twitterPrivacy" defaultChecked={twitterPrivacy} />
@@ -107,7 +119,7 @@ export default function SettingsPage(props: Props) {
           <br />
           <div className="rounded-md bg-base-100 flex flex-row">
             <FaDiscord className="h-6 w-6 mx-2 mt-[6px]" />
-            <input className="text-lg w-full rounded-e-md" name="discord" placeholder="Discord" value={discord} />
+            <input className="text-lg w-full rounded-e-md" name="discord" placeholder="Discord" defaultValue={discord} />
           </div>
           <div className="flex flex-row ms-3">
             <input className="rounded-lg text-lg" type="checkbox" id="discordPrivacy" name="discordPrivacy" defaultChecked={discordPrivacy} />
@@ -116,7 +128,7 @@ export default function SettingsPage(props: Props) {
           <br />
           <div className="rounded-md bg-base-100 flex flex-row">
             <FaInstagram className="h-6 w-6 mx-2 mt-[6px]" />
-            <input className="text-lg w-full rounded-e-md" name="instagram" placeholder="Instagram" value={instagram} />
+            <input className="text-lg w-full rounded-e-md" name="instagram" placeholder="Instagram" defaultValue={instagram} />
           </div>
           <div className="flex flex-row ms-3">
             <input className="rounded-lg text-lg" type="checkbox" id="instagramPrivacy" name="instagramPrivacy" defaultChecked={instagramPrivacy} />
@@ -125,16 +137,20 @@ export default function SettingsPage(props: Props) {
           <br />
           <div className="rounded-md bg-base-100 flex flex-row">
             <FaYoutube className="h-6 w-6 mx-2 mt-[6px]" />
-            <input className="text-lg w-full rounded-e-md" name="youtube" placeholder="Youtube" value={youtube} />
+            <input className="text-lg w-full rounded-e-md" name="youtube" placeholder="Youtube" defaultValue={youtube} />
           </div>
           <div className="flex flex-row ms-3">
             <input className="rounded-lg text-lg" type="checkbox" id="youtubePrivacy" name="youtubePrivacy" defaultChecked={youtubePrivacy} />
             <label htmlFor="youtubePrivacy" className="text-lg">&nbsp;Public</label>
           </div>
+          {connError ? <div className="py-2 text-red-600 font-bold text-lg">
+            {connError}
+          </div> : <></>}
           <button
             className="btn btn-primary px-5 mt-4 w-fit text-xl font-bolder bg-emerald-600 hover:bg-emerald-700 border-0 rounded-xl"
-            type="submit">
-            SAVE
+            type="submit"
+            disabled={connLoading}>
+            {connLoading ? "Saving.." : "SAVE"}
           </button>
         </form>
       </div>
@@ -181,7 +197,7 @@ export default function SettingsPage(props: Props) {
             </div>
             <div className="rounded-md bg-base-100 flex flex-row">
               <MdEmail className="h-6 w-6 mx-2 mt-[6px]" />
-              <input type="text" className="text-lg w-full rounded-e-md" name="email" placeholder="New email address" value={account.email} />
+              <input type="text" className="text-lg w-full rounded-e-md" name="email" placeholder="New email address" defaultValue={account.email} />
             </div>
             <div hidden={emailError == ""} className="text-red-400 text-lg">
               {emailError}
@@ -206,11 +222,9 @@ export default function SettingsPage(props: Props) {
             <button onClick={onRequestData} className="btn border-0 bg-blue-600 hover:bg-blue-700 px-2 text-white w-full">
               Request your data
             </button>
-            <Link href="/account/settings/delete" className="w-full p-0">
-              <button className="btn border-0 bg-red-800 hover:bg-red-900 px-2 text-white w-full">
-                Delete your account
-              </button>
-            </Link>
+            <button disabled className="btn border-0 bg-red-800 hover:bg-red-900 px-2 text-white w-full">
+              Delete your account
+            </button>
           </div>
         </div>
       </div>

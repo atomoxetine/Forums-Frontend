@@ -14,8 +14,6 @@ export interface TicketActionProps {
 export default function TicketActions(props: TicketActionProps) {
   let { ticket, userRank, results } = props;
 
-  console.log(results);
-
   return <div className="p-2 rounded-b-xl bg-base-200 flex flex-wrap gap-2">
     {ticket.status != "archived"
       ? <>

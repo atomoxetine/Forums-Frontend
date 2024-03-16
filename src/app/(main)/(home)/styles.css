@@ -97,7 +97,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: oklch(var(--su));
+  /* background: oklch(var(--su)); */
   border-radius: 50%;
 }
 .bullet::before {

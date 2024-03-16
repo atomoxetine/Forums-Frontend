@@ -146,14 +146,7 @@ export default function TicketSearch(props: Props) {
 
   return <div className="flex flex-col gap-3 bg-base-200 p-2">
     <div className="flex flex-col gap-2 bg-base-300 p-2">
-      <div className="rounded-md bg-base-100 flex flex-row">
-        <FaSearch className="h-6 w-6 mx-2 mt-[6px]" />
-        <input
-          className="text-lg w-full rounded-e-md"
-          placeholder="Search"
-          onInput={e => setQuery(e.currentTarget.value)} />
-      </div>
-      <div className="flex flex-row flex-wrap gap-3">
+      <div className="flex flex-row flex-wrap gap-2 justify-around">
         <select
           className="p-2 bg-blue-600 rounded-lg text-white"
           onChange={e => e.currentTarget.value == "*"
@@ -189,6 +182,13 @@ export default function TicketSearch(props: Props) {
           <option value="closed">Status: Closed</option>
           <option value="archived">Status: Archived</option>
         </select>
+        <div className="rounded-md bg-base-100 flex flex-row flex-1 min-w-[250px]">
+          <FaSearch className="h-6 w-6 mx-2 mt-[6px]" />
+          <input
+            className="text-lg w-full rounded-e-md"
+            placeholder="Search"
+            onInput={e => setQuery(e.currentTarget.value)} />
+        </div>
       </div>
     </div>
     <div className="rounded-md bg-base-100 px-5 py-2 flex flex-row justify-between w-fit mx-auto">
@@ -200,14 +200,16 @@ export default function TicketSearch(props: Props) {
         onClick={() => setPage(max(page - 1, 0))} />
       {Array.apply(null, Array(5))
         .map((_, i) => page + (i - 2))
-        .map(k =>
-          <div
+        .map(k => {
+          const visible = k >= 0 && k <= lastPage;
+          const current = k == page;
+          return <div
             key={k}
-            className="page-anchor text-lg mx-2"
-            style={{ fontWeight: k == page ? "bolder" : "normal" }}
-            onClick={() => setPage(k)}>
-            {k >= 0 && k <= lastPage ? k + 1 : ""}
-          </div>
+            className={`page-anchor ${visible ? "visible" : ""} text-lg mx-2`}
+            style={{ fontWeight: current ? "bolder" : "normal" }}
+            onClick={() => visible ? setPage(k) : {}}>
+            {visible ? k + 1 : ""}
+          </div>}
         )}
       <MdKeyboardArrowRight
         className="page-anchor" disabled={page == lastPage}

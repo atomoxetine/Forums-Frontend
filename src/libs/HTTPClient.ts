@@ -77,23 +77,27 @@ export default class HTTPClient {
     }
   }
 
-  private async actAsync<T = any>(mode: string, route: string, body?: any): Promise<[T | null, number, string | null]> {
+  private async actAsync<T = any>(mode: string, route: string, body?: any, isVoid: boolean = false): Promise<[T | null, number, string | null]> {
     const httpResponse = await this.actAsyncInternal(mode, route, body);
     if (!httpResponse)
       return [null, 404, "fetch failed"];
 
     const resBody = await httpResponse.text();
-    if (process.env.NODE_ENV == "development") {
-      console.log("request route: " + route);
-      console.log("response body:\n" + resBody);
-    }
+    // if (process.env.NODE_ENV == "development") {
+    //   console.log("request route: " + route);
+    //   console.log("response body:\n" + resBody);
+    // }
+
+    if (isVoid)
+      return [null, httpResponse.status, null];
+
     let json;
     try {
       json = JSON.parse(resBody);
     } catch (err) {
-      const message = "Error parsing response json: " + err;
+      const message = `Error processing request ${route} -> ${err}`;
       console.log(message);
-      return [null, 500, message];
+      return [null, httpResponse.status || 500, message];
     }
     if (!httpResponse.ok)
       return [null, httpResponse.status, json.message];
@@ -104,12 +108,12 @@ export default class HTTPClient {
   public GetAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
     await this.actAsync<T>("get", route, body);
 
-  public PostAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
-    await this.actAsync<T>("post", route, body);
+  public PostAsync = async <T = any>(route: string, body?: any, isVoid: boolean = false): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("post", route, body, isVoid);
 
-  public PutAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
-    await this.actAsync<T>("put", route, body);
+  public PutAsync = async <T = any>(route: string, body?: any, isVoid: boolean = false): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("put", route, body, isVoid);
 
-  public DeleteAsync = async <T = any>(route: string, body?: any): Promise<[T | null, number, string | null]> =>
-    await this.actAsync<T>("delete", route, body);
+  public DeleteAsync = async <T = any>(route: string, body?: any, isVoid: boolean = false): Promise<[T | null, number, string | null]> =>
+    await this.actAsync<T>("delete", route, body, isVoid);
 }

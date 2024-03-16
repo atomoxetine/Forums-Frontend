@@ -13,7 +13,7 @@ export default async function Page(params: Params) {
 
   const uuid = await getUuid(username);
   const profile = (await GetProfileFromUuid(uuid))[0]!;
-  const account = (await getAccountFromUuid(uuid))[0]!;
+  const account = (await getAccountFromUuid(uuid))[0];
 
   const altName: { [key: string]: string } = {};
 
@@ -30,7 +30,7 @@ export default async function Page(params: Params) {
         Forum Account Email
       </div>
       <div className="p-5 text-center">
-        {account.email}
+        {account?.email || "Not registered"}
       </div>
     </div>
     <div className="rounded-xl bg-base-300 text-xl min-w-[300px] max-w-[600px]">

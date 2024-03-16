@@ -41,6 +41,8 @@ const WriteReply = (props: WriteReplyData) => {
           throw new Error("Message did not pass filter test");
       }
 
+      console.log(filters);
+
       // const parentId = `${forumId}.${threadId}`
       // const id = `${parentId}.${newUuid().split('-')[0]}`
       const id = newUuid();

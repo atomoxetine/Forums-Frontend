@@ -13,9 +13,9 @@ const Footer = () => (
         <div className="flex flex-col flex-wrap w-fit items-start gap-1">
           <span>
             &copy; Copyright {`${new Date().getFullYear()}`}
-            , <span className="inline-flex items-center text-pink-500">
-              PinkCl<FaCloud className="mt-0.5"/>ud
-            </span> Studios.
+            , Lunar<span className="inline-flex items-center text-yellow-500">
+              Labs
+            </span>.
           </span>
           <small>Not affiliated with Mojang Studios.</small>
         </div>

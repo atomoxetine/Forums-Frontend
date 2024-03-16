@@ -13,7 +13,28 @@ export const updateConnectionsAction = async (formData: FormData) => {
 
     const session = await getSession();
     if (!session) return "Not logged in"
- 
+
+    const twitter = formData.get("twitter")?.toString();
+    const instagram = formData.get("instagram")?.toString();
+    const youtube = formData.get("youtube")?.toString();
+    const discord = formData.get("discord")?.toString();
+
+    if (twitter && !twitter.startsWith("https://twitter.com/"))
+      return "Invalid twitter domain"
+    if (instagram && instagram.startsWith("https://instagram.com/"))
+      return "Invalid instagram domain"
+    if (youtube && youtube.startsWith("https://youtube.com/"))
+      return "Invalid youtube domain"
+
+    if ((twitter?.length || 0) > 40)
+      return "Twitter link cannot exceed 40 characters"
+    if ((instagram?.length || 0) > 50)
+      return "Instagram link cannot exceed 50 characters"
+    if ((youtube?.length || 0) > 100)
+      return "Youtube link cannot exceed 100 characters"
+    if ((discord?.length || 0) > 20)
+      return "Discord handle cannot exceed 20 characters"
+
     const req = {
       twitter: formData.get("twitter"),
       twitterPrivacy: formData.get("twitterPrivacy") === "on" ? "Everyone" : "",

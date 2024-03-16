@@ -25,10 +25,14 @@ svg.page-anchor {
   height: 28px;
 }
 
-.page-anchor:hover:not([disabled]) {
+svg.page-anchor:hover:not([disabled]) {
   cursor: pointer;
 }
 
-.page-anchor[disabled] {
+div.page-anchor.visible:hover {
+  cursor: pointer;
+}
+
+svg.page-anchor[disabled] {
   opacity: 0.4;
 }
