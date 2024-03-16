@@ -6,7 +6,7 @@ export default interface Forum {
   description: string,
   weight: number,
   locked: boolean,
-  category: number,
+  category: string,
   categoryName: string,
   categoryWeight: number,
   threadAmount: number

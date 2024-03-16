@@ -2,16 +2,9 @@
 
 import './styles.css'
 import Popup from "reactjs-popup";
-import {FormEvent, useState} from "react";
-import {isResultError, newUuid} from "@/libs/Utils";
-import Thread from '@/libs/types/entities/Thread';
-import getSession from '@/libs/session/getSession';
-import { GetActiveRanks, getRankColor } from '@/services/controller/GrantService';
-import Rank from '@/libs/types/entities/Rank';
-import { getAllFilters } from '@/services/forum/filter/TextFilterService';
-import { GetForum } from '@/services/forum/forum/ForumService';
-import { CreateThread } from '@/services/forum/thread/ThreadService';
+import { useState } from "react";
 import useSession from '@/hooks/useSession';
+import { createThread } from './ServerActions';
 
 interface Props {
   forumId: string
@@ -23,39 +16,20 @@ export default function Component(props: Props) {
   const [error, setError] = useState<string | null>(null);
   const { session } = useSession();
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function onSubmit(formData: FormData) {
     setIsLoading(true);
     setError(null);
 
-
-    try {
-      if (!session)
-        throw new Error("Not logged in");
-      
-
-      const formData = new FormData(event.currentTarget);
-
-      const body = formData.get("body")?.toString() || "";
-      const title = formData.get("title")?.toString() || "";
-      const filters = (await getAllFilters())[0] || [];
-
-      for (let filter of filters) {
-        if (body.includes(filter.filter))
-          throw new Error("Body did not pass filter test");
-
-        if (title.includes(filter.filter))
-          throw new Error("Title did not pass filter test");
+    createThread(formData, forumId).then(res => {
+      if (res) {
+        setError(res);
+        setIsLoading(false);
+      } else {
+        setError(null);
+        window.location.reload();
       }
+    });
 
-      const author = session.uuid;
-        
-      CreateThread(newUuid(), title, body, forumId, author)
-        .then(() => window.location.reload());
-
-    } catch (error: any) {
-      setError(error.message);
-    }
   }
 
   return <>
@@ -67,17 +41,21 @@ export default function Component(props: Props) {
     } modal>
       <div className="flex flex-col bg-base-200 border-2 border-black px-4 py-2 gap-3 w-[700px] rounded-lg">
         <h4 className="mt-2 text-center w-full">Create a new Thread</h4>
-        <hr className="mt-2 mb-4"/>
-        <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+        <hr className="mt-2 mb-4" />
+        <form className="flex flex-col gap-3" action={onSubmit}>
           <input className="py-2 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"
-                 disabled={isLoading} type="text" name="title" placeholder="Title" required/>
+            disabled={isLoading} type="text" name="title" placeholder="Title" required />
           <textarea className="py-2 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"
-                 disabled={isLoading} name="body" placeholder="Body" required/>
-
+            disabled={isLoading} name="body" placeholder="Body" required />
+          <div>
+            <label>Thumbnail, Accepts jpeg images of up to 3MB</label>
+            <input className="mt-1 py-2 px-4 min-h-fit h-fit w-full rounded-lg bg-base-100 placeholder:text-base placeholder:text-base-content"
+              disabled={isLoading} type="file" name="thumbnail" placeholder="Thumbnail" />
+          </div>
           {error && <p className="text-error mb-[-8px]">{error}</p>}
           <button className="btn btn-secondary py-2 px-4 min-h-fit h-fit w-full mb-2" disabled={isLoading} type="submit">{isLoading ? "On it…" : "Create"}</button>
         </form>
       </div>
     </Popup>
-  </>;  
+  </>;
 }

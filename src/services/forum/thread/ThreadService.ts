@@ -43,8 +43,8 @@ export const CreateThread = async (id: string, title: string, body: string, foru
 * @return ResponseEntity with the edited thread details in JSON format.
 */
 // In the API: @PutMapping(path = "/forum/thread/{id}")
-export const EditThread = async (id: string, title?: string, body?: string, pinned?: boolean, locked?: boolean, lastEditedBy?: string, lastEditedAt?: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.PutAsync<Thread>(`/forum/thread/${id}`, {title, body, pinned, locked, lastEditedBy, lastEditedAt});
+export const EditThread = async (thread: Thread, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
+  await client.PutAsync<Thread>(`/forum/thread/${thread._id}`, thread);
 
 /**
 * Delete an existing forum thread.

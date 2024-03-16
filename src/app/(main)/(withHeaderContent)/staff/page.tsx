@@ -31,29 +31,32 @@ export default async function Staff() {
 
   if (aux.length > 0)
     staff.push(aux);
-  
+
   const headerContent: [string, string] = ["Staff", `Running the show!`];
   return <>
-    <HeaderContext setTo={headerContent}/>
+    <HeaderContext setTo={headerContent} />
 
     {staff.map((listPerRank, j) => (
-    <div key={j} className="mb-4 window flex flex-row flex-wrap h-min w-screen max-w-full bg-base-300 rounded-xl p-2 gap-2">
-      {listPerRank.map((d, i) => (
-        <div key={i} className="flex-[1_0_32%] flex flex-col justify-center items-center rounded-lg overflow-hidden bg-base-100 py-4">
-          <Link href={`/u/${d.username}`}>
-            <div className="w-[45px] h-[49px] relative">
-              <ServerMCHead shadowColor={d.color} className="scale-[.675] absolute left-[-11px] top-[-12px]" username={d.username} />
+      <div key={j} className="flex flex-col">
+        <h2 style={{color: listPerRank[0].color}} className="text-center">{listPerRank[0].rank}</h2>
+        <div className="mb-6 window flex flex-row flex-wrap h-min w-screen max-w-full bg-base-300 rounded-xl p-2 gap-2">
+          {listPerRank.map((d, i) => (
+            <div key={i} className="flex-[1_0_32%] flex flex-col justify-center items-center rounded-lg overflow-hidden bg-base-100 py-4">
+              <Link href={`/u/${d.username}`}>
+                <div className="w-[45px] h-[49px] relative">
+                  <ServerMCHead shadowColor={d.color} className="scale-[.675] absolute left-[-11px] top-[-12px]" username={d.username} />
+                </div>
+              </Link>
+              <Link href={`/u/${d.username}`}>
+                <span className="text-center inline-flex flex-col">
+                  <h5 className="font-bold">{d.username}</h5>
+                  <small style={{ color: d.color }} className="smaller font-bold uppercase tracking-wider">{d.rank}</small>
+                </span>
+              </Link>
             </div>
-          </Link>
-          <Link href={`/u/${d.username}`}>
-            <span className="text-center inline-flex flex-col">
-              <h5 className="font-bold">{d.username}</h5>
-              <small style={{color: d.color}} className="smaller font-bold uppercase tracking-wider">{d.rank}</small>
-            </span>
-          </Link>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
     ))}
   </>;
 }

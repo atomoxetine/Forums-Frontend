@@ -79,6 +79,10 @@
 
 }
 
+.news-container p {
+  word-wrap:break-word;
+}
+
 @media (max-width: 1278px) {
   .news-container > div{
     flex-wrap: wrap;

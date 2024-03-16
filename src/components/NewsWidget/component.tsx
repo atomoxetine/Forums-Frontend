@@ -19,7 +19,7 @@ const NewsWidget = (props: NewsWidgetProps) => {
           <Image width={1200} height={800} src={src || "/img/placeholder.png"} alt="" />
         </div>
 
-        <div className="content flex flex-col gap-2">
+        <div className="content flex flex-col gap-2 max-w-[600px] max-h-[400px]">
           <h3 className="font-bold title">{title}</h3>
           <p className="body">{body}</p>
         </div>

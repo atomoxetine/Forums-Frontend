@@ -10,6 +10,9 @@ import Thread from '@/libs/types/entities/Thread';
 import { GetThread } from '@/services/forum/thread/ThreadService';
 import Navigation from "@/app/(main)/(withHeaderContent)/forums/(components)/Navigation";
 import Link from 'next/link';
+import SideOptions, { SideOption } from './(components)/SideOptions';
+import getSession from '@/libs/session/getSession';
+import { getHighestRank } from '@/services/controller/GrantService';
 
 interface UserParams {
 }
@@ -19,6 +22,10 @@ export default async function Page({ }: UserParams) {
   if (isError)
     console.error("Error fetching categories: HTTP " + res[1]);
   const categories: ForumCategory[] | null = res[0];
+
+  const session = await getSession();
+  const rank = await getHighestRank(session.uuid)
+  const isStaff = rank?.staff || false;
 
   const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
     Owner: "#9F000C",
@@ -80,7 +87,40 @@ export default async function Page({ }: UserParams) {
       content: latestReplies,
     },
   ]
-  return <>
+
+  let sideOptions: SideOption[] = [];
+
+  if (isStaff) {
+    sideOptions.push({
+      name: "[ADM] Create Category",
+      color: "green",
+      disabled: false,
+      href: "/forums/createCategory"
+    })
+
+    sideOptions.push({
+      name: "[ADM] Delete Category",
+      color: "red",
+      disabled: false,
+      href: "/forums/deleteCategory"
+    })
+
+    sideOptions.push({
+      name: "[ADM] Create Forum",
+      color: "green",
+      disabled: false,
+      href: "/forums/createForum"
+    })
+
+    sideOptions.push({
+      name: "[ADM] Delete Forum",
+      color: "red",
+      disabled: false,
+      href: "/forums/deleteForum"
+    })
+  }
+
+  return <div className="flex flex-row flex-wrap justify-center w-[80%]">
     <Navigation>
       <div className="flex flex-wrap-reverse h-full w-full gap-4">
         <div
@@ -96,5 +136,6 @@ export default async function Page({ }: UserParams) {
         </aside>
       </div>
     </Navigation>
-  </>;
+    <SideOptions options={sideOptions} />
+  </div>;
 }

@@ -22,7 +22,7 @@ export interface ForumData {
   id: string;
   name: string;
   description: string;
-  category: number;
+  category: string;
   categoryName: string;
   threadAmount: number;
   lastThread?: Thread;
