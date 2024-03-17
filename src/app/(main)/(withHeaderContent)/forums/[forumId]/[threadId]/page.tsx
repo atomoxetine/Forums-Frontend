@@ -15,6 +15,8 @@ import { getHighestRank } from '@/services/controller/GrantService';
 import { GetForum } from '@/services/forum/forum/ForumService';
 import { redirect } from 'next/navigation';
 import { canUseForum } from '@/services/forum/account/AccountService';
+import { marked } from "marked"
+import DOMPurify from 'isomorphic-dompurify';
 
 interface Props {
   params: {
@@ -50,14 +52,17 @@ export default async function Page(props: Props) {
   const createdAt = stringToDate(thread.createdAt);
   const replies = thread.replies;
 
-
   const getRankColor = (r?: string) => ({ // TODO: Properly get rank color
-    Owner: "#9F000C",
-    Developer: "#ff4141"
+    OWNER: "#9F000C",
+    DEVELOPER: "#ff4141"
   }[r ?? '']) ?? "#ffffff";
 
   const forum = (await GetForum(forumId))[0]
   if (!forum) redirect("/forums");
+
+  const bodyMarkdownUNSAFE = marked.parse(thread.body) as string;
+  const bodyMarkdown = DOMPurify.sanitize(bodyMarkdownUNSAFE);
+  
 
   const locked = thread.locked || forum?.locked
   const blocked = !(await canUseForum(session.uuid))
@@ -118,9 +123,9 @@ export default async function Page(props: Props) {
           </div>
           <div className="flex flex-col min-h-full w-full bg-base-100 p-4 rounded-r-lg">
             <h3 className="text-neutral"><b>{thread.title}</b></h3>
-            <span className="flex-1">
-              {thread.body}
-            </span>
+            <div className="flex-1 whitespace-pre-line break-normal markdown"
+              dangerouslySetInnerHTML={{__html: bodyMarkdown}}>
+            </div>
             <small className="smaller flex flex-col">
               <span>Last edited: {toLocaleString(lastEdited)}</span>
               <span>Posted: {toLocaleString(createdAt)}</span>

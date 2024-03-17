@@ -8,69 +8,63 @@ export default function Page() {
         Effective Date:  March 16th, 2024 | Last Updated:  March 16th, 2024
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Expectations of Behaviour</h4>
+      <h4 className="font-bold text-neutral">Be kind to everyone</h4>
       <p>
-      At MCCade Games, we foster a community where collaboration and healthy competition thrive. We emphasize the importance of positive interactions, 
-      urging players to engage in cooperative and competitive endeavors without disrespecting or abusing others. In essence, our golden rule is simple: 
-      respect every player. These guidelines are diligently enforced to uphold a welcoming and secure environment for all participants, ensuring that everyone 
-      can enjoy their experience on the server free from any form of disrespect or harassment. Your adherence to these principles contributes to the creation 
-      of a positive and inclusive atmosphere that enriches the gaming experience for all.
+      Do not call people names or try to bring someone down. If you think someone has done something wrong, you are allowed to say what they did and why you 
+      think it's wrong in a positive and kind manner. Be the type of person you would want to encounter here. If you wouldn't want to be on the receiving-end 
+      of a comment, then don't say it.
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Reporting Rule Breakers</h4>
+      <h4 className="font-bold text-neutral">Do not make pointless threads/posts</h4>
       <p>
-      Contributing to the enhancement of our reporting system is a valuable way to ensure a superior gaming experience for all players. If you 
-      come across any issues or observe behavior that violates our guidelines, we encourage you to report it promptly. Utilize the /report command in-game to 
-      submit your report. If you have evidence of your report, submit a player-report on the forums. Your active participation in reporting helps us maintain 
-      a fair and enjoyable environment, fostering a community where everyone can engage in quality gameplay without disruptions. Thank you for your commitment 
-      to maintaining the integrity of our gaming experience through responsible reporting.       
+      If the post/thread that you are about to write won't contribute in a positive way to the community but would only bring hate, then don't waste your 
+      time on it. Instead, try to contribute to the positive changes which you'd like to see happen.          
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Reporting Server Bugs</h4>
+      <h4 className="font-bold text-neutral">Title threads appropriately</h4>
       <p>
-      Your assistance in reporting bugs is crucial for us to enhance and refine the overall gameplay experience across the network. When reporting bugs, we 
-      kindly request that you provide comprehensive information and details. The more specifics you include, the better equipped our team will be to comprehend 
-      and address the issue effectively. Your dedication to furnishing thorough bug reports ensures that we can swiftly identify and rectify any issues, 
-      ultimately contributing to a smoother and more enjoyable gaming experience for all players. You can submit a bug report on our forums.
+      The title of your thread should be a summary of the content of it. Any thread that has a misleading title will result in a thread lock. If 
+      you have feedback on something you don't like, don't bring hate to the title. Instead of "The New Update Sucks!!", title it something like 
+      "Feedback on recent changes".
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Player Safety & Account Security</h4>
+      <h4 className="font-bold text-neutral">Do not generalize</h4>
       <p>
-      Every MCCade player holds sole responsibility for the security of their accounts and personal information. It is crucial for players to be vigilant 
-      and take full ownership of any activities that transpire on their accounts. As a precautionary measure, we strongly advise against sharing any account 
-      or personal details with others. By adhering to this practice, players contribute to maintaining the integrity and security of their gaming experience. 
-      We emphasize the significance of safeguarding your account, ensuring a safe and enjoyable environment for all MCCade participants. Your commitment to 
-      responsible account management is key to a positive gaming community.
+      If a Helper does something bad and you want to report it, say "a Helper named John54 is abusing their power". Do not say "MCCade staff are 
+      abusing their power". This is extremely offensive to the hard working staff that follow the rules. If you encounter abusive staff members, 
+      submit proof through a Support Ticket so that we can make sure the situation is dealt with. This applies to all negative generalization.
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Rules Categories, Behaviour we DON'T TOLERATE.</h4>
+      <h4 className="font-bold text-neutral">Be constructive and positive</h4>
       <p>
-      <ul className="list-disc list-inside">
-      <li><b>Chat Abuse</b> Abusive language, inappropriate topics or jokes, misleading information, or any kind of spam (including switching instances). </li>  
-      <li><b>Advertisements:</b> Advertising third-party websites, servers, discord names/tags, social media. </li>
-      <li><b>Threats:</b> Threatening to or actively doxing, DDOSing, harassing or blackmailing others, sharing personal information, or sending malicious links. </li>  
-      <li><b>Unfair Advantages:</b> Disallowed modifications, macros, bug abuse, exploiting, boosting, scripting, or punishment evading. </li>
-      <li><b>Account Abuse:</b> Selling, trading, giving away any accounts, or sharing accounts between players.  </li>
-      <li><b>Game Abuse:</b> Cross-teaming, team-griefing, encouraging rule-breaking, inappropriate builds or drawings.   </li>
-      <li><b>Inappropriate Content and Cosmetics:</b> Capes, skins, usernames, item names, signs, pet names and any in-game content.  </li>
-      <li><b>Game Trading:</b> Exchange of game content, items, currency, services, or accounts through external third-party platforms or unauthorized external game trading platforms. This extends to, but is not limited to, activities like organizing or participating in games of chance, including gambling or the establishment of casinos on the server. </li>
-      <li><b>Game Abuse:</b> Cross-teaming, team-griefing, encouraging rule-breaking, inappropriate builds or drawings.   </li>
-      </ul>
+      Your goal should always be to make MCCade a better place. If you have some feedback/criticism, you MUST think about how the problem could be 
+      solved, and post some suggestions on what you think we could do. <b>All criticism MUST be accompanied by constructive suggestions on how it could be 
+      fixed/improved.</b> Keep in mind that criticizing an idea is not the same as attacking someone's person. You can be honest and say you don't agree with 
+      someone's idea, but just make sure that you're actually offering criticism and not falling into "ad hominem".
       </p>
       <br></br>
-      <h4 className="font-bold text-neutral">Consequences</h4>
       <p>
-      Players found breaking these rules can expect a suspension of chat privileges or access to the MCCade Live Server and Discord. 
-      Our rules are here to maintain a welcoming and safe environment for all players. 
+        Constructive criticism is the process of offering valid and well-reasoned opinions about the work of others, usually involving both 
+        positive and negative comments, in a friendly manner rather than an oppositional one. Constructive criticism should not defame anyone or 
+        hurt anyone's feelings.
       </p>
       <br></br>
-      <p>Further expectations after breaking our rules:</p>
-      <ul className="list-disc list-inside">
-      <li>Receiving multiple punishments will block an account from participating in competitive gameplay. </li>
-      <li>A player’s behavior and their previous mutes or bans will impact the length of future punishments.  </li>
-      <li>Over time good behavior can reduce the length of future punishments.   </li>
-      <li>Players are able to appeal punishments through our appeals on our website.  </li>
-      </ul>
+      <h4 className="font-bold text-neutral">Do not spread hate</h4>
+      <p>
+      If you don't like something that has happened, please post it in a mature fashion. Do not make threads trying to convince other people of 
+      how terrible something/someone is. Do not write long paragraphs about how much you hate something/someone. Your goal should be getting 
+      problems solved in a fashion which is as efficient as possible. It shouldn't be to see how much attention you can get, or how many people you can 
+      get to rally behind your cause. Please help us in creating an atmosphere where problems can be dealt with quickly, efficiently, and without added 
+      drama or hostility.
+      </p>
+      <br></br>
+      <h4 className="font-bold text-neutral">Do not be involved in drama</h4>
+      <p>
+      Drama will likely happen every once in a while. And when that happens, people tend to join in on the discussion and give their opinions on 
+      the subject. Don't! It's simply none of your business to be involved in those dramas and it is likely to bring you punishments too. When you 
+      notice something is not right, simply send a Private Message to one of the forums staff or admins. Let the staff resolve the issue.
+      </p>
+      <br></br>
       </div>
   );
 }  

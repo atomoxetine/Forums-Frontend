@@ -11,6 +11,8 @@ import { GetThread } from '@/services/forum/thread/ThreadService';
 import Thread from '@/libs/types/entities/Thread';
 import { min } from 'rxjs';
 import { existsSync } from 'fs';
+import { marked } from "marked"
+import DOMPurify from 'isomorphic-dompurify';
 
 export default async function Page() {
   const session = await getSession();
@@ -25,6 +27,11 @@ export default async function Page() {
     mainHighlight = undefined;
   } else {
     mainHighlight = (await GetThread(mainHightlightId))[0];
+    if (mainHighlight) {
+      const bodyMarkdownUNSAFE = marked.parse(mainHighlight?.body || "") as string;
+      const bodyMarkdown = DOMPurify.sanitize(bodyMarkdownUNSAFE);
+      mainHighlight.body = bodyMarkdown;
+    }
   }
 
   const highlights: Thread[] = [];
@@ -35,8 +42,12 @@ export default async function Page() {
     if (id == "None") continue;
 
     const thread = (await GetThread(id))[0];
-    if (thread)
+    if (thread) {
+      const bodyMarkdownUNSAFE = marked.parse(thread.body) as string;
+      const bodyMarkdown = DOMPurify.sanitize(bodyMarkdownUNSAFE);
+      thread.body = bodyMarkdown;
       highlights.push(thread);
+    }
   }
 
   return (
@@ -58,16 +69,16 @@ export default async function Page() {
           <div className="flex flex-col flex-[1_0_min-content] w-full news-container">
             {mainHighlight
               ? <NewsWidget className="main" src={`/img/thread/${mainHighlight._id}.jpeg`} useFallback={!existsSync(`${process.cwd()}/public/img/thread/${mainHighlight._id}.jpeg`)} title={mainHighlight.title} href={`/forums/${mainHighlight.forum}/${mainHighlight._id}`}
-                body={mainHighlight.body.length > 250
-                  ? mainHighlight.body.substring(0, 250) + "..."
+                body={mainHighlight.body.length > 100
+                  ? mainHighlight.body.substring(0, 100) + "..."
                   : mainHighlight.body} />
               : <></>}
             <hr className="my-6 mx-auto" />
             <div className="flex flex-row w-fit gap-4">
               {highlights.map((h, i) =>
                 <NewsWidget key={i} src={`/img/thread/${h._id}.jpeg`} title={h.title} useFallback={!existsSync(`${process.cwd()}/public/img/thread/${h._id}.jpeg`)} href={`/forums/${h.forum}/${h._id}`}
-                  body={h.body.length > 150
-                    ? h.body.substring(0, 150) + "..."
+                  body={h.body.length > 100
+                    ? h.body.substring(0, 100) + "..."
                     : h.body} />
               )}
             </div>

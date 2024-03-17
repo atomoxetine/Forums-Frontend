@@ -29,7 +29,7 @@ const NewsWidget = (props: NewsWidgetProps) => {
 
           <div className="content flex flex-col gap-2 max-w-[600px] max-h-[400px]">
             <h3 className="font-bold title">{title}</h3>
-            <p className="body">{body}</p>
+            <p className="body" dangerouslySetInnerHTML={{__html: body}}></p>
           </div>
         </div>
       </div>
