@@ -200,7 +200,7 @@ export const canUseForum = async (uuid: string) => {
     return false;
 
   const punishments = (await getPunishments(uuid))[0] || [];
-  if (punishments.find(p =>
+  if (punishments.filter(p => p.active).find(p =>
     p.punishmentType == "BLACKLIST"
     || p.punishmentType == "MUTE"
     || p.punishmentType == "BAN"))
