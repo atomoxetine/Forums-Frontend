@@ -15,8 +15,8 @@ export default async function Page() {
 
     userCache[ticket.author] = {
       uuid: ticket.author,
-      name: (await getUsernameFromUuid(ticket.author))!,
-      color: (await getRankColor((await getHighestRank(ticket.author))!._id)),
+      name: (await getUsernameFromUuid(ticket.author)) || "Unknown",
+      color: (await getRankColor((await getHighestRank(ticket.author))?._id || "")),
     }
   }
 

@@ -15,7 +15,7 @@ export const GetRank = async (uuid: string, client: HTTPClient = new HTTPClient(
 
 
 export const getRankColor = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)): Promise<string> =>
-  (await client.GetAsync<any>(`/rank/color/${uuid}`))[0]?.color;
+  (await client.GetAsync<any>(`/rank/color/${uuid}`))[0]?.color || "#FFFFFF";
 
 
 export const getGrants = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
