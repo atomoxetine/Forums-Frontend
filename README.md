@@ -6,11 +6,26 @@ Welcome to the LunarLabs's Forums repository! This project is an open-sourced fr
 
 This is a frontend application built with Next.js. It offers a modern and sleek user interface and can be used as a foundation for various web applications. The project is designed to be easily customizable and extendable.
 
-![Screenshot 1](img/image-1.png)
-*Screenshot of the forum interface*
+![Default Homepage with no posts](imgs/image-1.png)
+*Screenshot of the forum interface without news/announcements posted*
 
-![Screenshot 2](img/image-2.png)
-*Another view of the forum*
+![A view of the Forums](imgs/image.png)
+*Another view of the forums*
+
+![A view of User Profiles](imgs/image-3.png)
+*A view of user profiles*
+
+![A view of the Posts](imgs/image-4.png)
+*Another view of the posts*
+
+![A view of the home page with announcements](imgs/image-5.png)
+*Screenshot of the forum interface with news/announcements posted*
+
+![A view of the Staff page](imgs/image-6.png)
+*Screenshot of the Staff Page*
+
+![A view of the Settings page](imgs/image-7.png)
+*Screenshot of the Staff Page*
 
 ## Features
 
