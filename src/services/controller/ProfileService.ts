@@ -22,7 +22,7 @@ export const GetAllProfiles = async (client: HTTPClient = new HTTPClient(process
  */
 // In the API: @GetMapping("/profile/{uuid}")
 export const GetProfileFromUuid = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.GetAsync<Profile>(`/profile/${uuid}`);
+  await client.GetAsync<Profile>(`/profiles/complete/${uuid}`);
 
 /**
  * Endpoint to retrieve the server data for a user based on their UUID.

@@ -136,7 +136,7 @@ export const Login = interceptSession(async (
   * @return An array of the friends' accounts
   */
 export const GetFriends = async (uuid: string, client: HTTPClient = new HTTPClient(process.env.API_URL!)) =>
-  await client.GetAsync<Account[]>(`${baseEndpoint}/friends/${uuid}`);
+  await client.GetAsync<Account[]>(`${baseEndpoint}/profiles/friendships/list/${uuid}`);
 
 
 /**

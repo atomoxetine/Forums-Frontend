@@ -18,7 +18,7 @@ export default async function RootLayout({
   if (res == null || isResultError(res)) {
     console.error("Error fetching API");
     return <main className="p-5">
-      <h1>MCCade</h1>
+      <h1>Solara</h1>
       <h2>Sorry, it seems we are running through some technical issues, please try again later</h2>
     </main>
   }
@@ -35,7 +35,7 @@ export default async function RootLayout({
 
 //#region Metadata
 const url = new URL(process.env.NEXT_PUBLIC_CURR_DOMAIN || '');
-const title = 'MCCade Games';
+const title = 'Solara';
 const description = 'A minigame server with a great variety of gamemodes. Made with ❣ and dedication, from us to you. Enjoy!';
 const images: string[] = [
   url.toString() + 'img/banner.png'

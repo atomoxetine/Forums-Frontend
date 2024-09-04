@@ -10,7 +10,7 @@ export default function Page() {
       <br></br>
       <h4 className="font-bold text-neutral">Expectations of Behaviour</h4>
       <p>
-      At MCCade Games, we foster a community where collaboration and healthy competition thrive. We emphasize the importance of positive interactions, 
+      At Solara, we foster a community where collaboration and healthy competition thrive. We emphasize the importance of positive interactions, 
       urging players to engage in cooperative and competitive endeavors without disrespecting or abusing others. In essence, our golden rule is simple: 
       respect every player. These guidelines are diligently enforced to uphold a welcoming and secure environment for all participants, ensuring that everyone 
       can enjoy their experience on the server free from any form of disrespect or harassment. Your adherence to these principles contributes to the creation 

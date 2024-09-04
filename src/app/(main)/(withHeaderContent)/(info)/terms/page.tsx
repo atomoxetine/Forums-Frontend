@@ -9,14 +9,14 @@ export default function Page() {
       </p>
       <div className="flex flex-col md:gap-y-4 mt-10">
         <p>
-        These Terms of Service ("Terms") govern your use of the services provided by MCCade Games (the "Server", the "Company") through our services. By accessing and/or using our software
+        These Terms of Service ("Terms") govern your use of the services provided by Solara (the "Server", the "Company") through our services. By accessing and/or using our software
          and/or website and the services provided through it (collectively, the "server"), you agree to comply with and be bound by the following terms and conditions of use ("Terms of Service").
            If you do not or have failed to comply with any of our terms and conditions you are prohibited from using or accessing this site and/or the entirety of our services.
         </p>
         <h4 className="font-bold text-neutral">Trademarks and Copyright</h4>
         <p>
         Minecraft content and materials are trademarks and copyrights of Mojang AB or its licensors. All rights reserved. This site is made by PinkCloud Studios and is licensed
-         to MCCade Games and is not affiliated with Mojang AB. Emoji icons provided free by EmojiOne
+         to Solara and is not affiliated with Mojang AB. Emoji icons provided free by EmojiOne
         </p>
         <h4 className="font-bold text-neutral">Registering</h4>
         <p>By registering to any MCCade services you agree to these terms and conditions:</p>
@@ -40,7 +40,7 @@ export default function Page() {
           <li>
             <h5 className="font-bold text-neutral">Disclaimer</h5>
             <p>
-            The materials on MCCade's web site are provided "as is". MCCade Games makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, 
+            The materials on MCCade's web site are provided "as is". Solara makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, 
             including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other 
             violation of rights. Furthermore, MCCade does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials 
             on its Internet web site or otherwise relating to such materials or on any sites linked to this site.  
@@ -189,8 +189,8 @@ export default function Page() {
         <p>
         By accessing MCCade services, you agree that you will not create content that contains hacking, slander, or malicious game disruption. Youtubers, Streamers, and 
         Content Creators are encouraged to release videos for monetary purposes so long as it is within the conjunction of MCCade's rules. Any egregious hacking, leaks, 
-        slander, or abusive behavior will not be permitted to use in content recorded on servers and games owned by MCCade Games LLC. For content that violates said rules, you 
-        irrevocably grant MCCade Games, LLC all rights related to any work created and waive all of your own rights, including moral rights, to content that contains cheating or 
+        slander, or abusive behavior will not be permitted to use in content recorded on servers and games owned by Solara LLC. For content that violates said rules, you 
+        irrevocably grant Solara, LLC all rights related to any work created and waive all of your own rights, including moral rights, to content that contains cheating or 
         other malicious and disruptive activity and understand that all previous rights you have had in said content are forfeited.  
         </p>
         <h4 className="font-bold text-neutral">Refund Policy</h4>

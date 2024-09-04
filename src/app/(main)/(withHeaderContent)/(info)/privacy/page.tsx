@@ -9,7 +9,7 @@ export default function Page() {
       </p>
       <div className="flex flex-col md:gap-y-4 mt-10">
         <p>
-          This Privacy Policy describes how MCCade Games and LunarLabs (“<b>MCCade</b>,” “<b>we</b>,” “<b>our</b>,” or “<b>us</b>”) collects, uses, and shares information about you as well as your rights and choices about
+          This Privacy Policy describes how Solara and LunarLabs (“<b>MCCade</b>,” “<b>we</b>,” “<b>our</b>,” or “<b>us</b>”) collects, uses, and shares information about you as well as your rights and choices about
           such use and sharing, and applies to your use of the MCCade Java Edition as well as any online service location that posts a link to this
           Privacy Policy, including our website and forum, and all features, content, and other services that we own, control, and make available through such online service location
           (collectively, the “<b>Service</b>”). This Privacy Policy does not apply to our information collection activities outside of the Service (unless otherwise stated below or at the time of collection).
