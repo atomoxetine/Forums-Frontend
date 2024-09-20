@@ -84,7 +84,7 @@ export default async function Page() {
             </div>
           </div>
 
-          <DiscordWidget className="flex flex-col flex-[1_0_min-content]" guildId="1196302844316364860" />
+          <DiscordWidget className="flex flex-col flex-[1_0_min-content]" guildId="1265729442551169094" />
         </div>
       </div>
     </div>
